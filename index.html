@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VBR Bot</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --blue: #007AFF;
+  --blue-bg: #EBF4FF;
+  --text: #1C1C1E;
+  --text-2: #6C6C70;
+  --text-3: #AEAEB2;
+  --border: #E5E5EA;
+  --bg: #F2F2F7;
+  --card: #FFFFFF;
+  --green: #34C759;
+  --green-bg: #E8F8EC;
+  --green-text: #1A7A37;
+  --amber: #FF9500;
+  --amber-bg: #FFF3E0;
+  --amber-text: #A85E00;
+  --red-bg: #FFE8E8;
+  --red-text: #B42020;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ─────────────────────────────────────── */
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  background: var(--card);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+}
+
+.header-left { display: flex; align-items: center; gap: 12px; }
+
+.hd-logo {
+  width: 42px; height: 42px;
+  background: #1C1C1E;
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.hd-logo svg { width: 24px; height: 24px; fill: white; }
+
+.hd-name { font-size: 15px; font-weight: 700; line-height: 1.25; letter-spacing: -0.2px; }
+.hd-name .hd-brand { font-size: 11px; font-weight: 500; color: var(--text-2); letter-spacing: 0; }
+.hd-sub  { font-size: 11px; color: var(--text-2); margin-top: 1px; }
+
+.hd-counter { font-size: 14px; font-weight: 500; color: var(--text-2); }
+
+.progress-bar { height: 3px; background: var(--border); }
+.progress-fill {
+  height: 3px;
+  background: var(--blue);
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── SCREENS ─────────────────────────────────────── */
+.screen { display: none; }
+.screen.on { display: block; }
+
+/* ── INTRO ────────────────────────────────────────── */
+#s-intro {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+}
+
+#s-intro.on { display: flex; }
+
+.intro-inner {
+  text-align: center;
+  padding: 40px 28px;
+  max-width: 340px;
+  width: 100%;
+}
+
+.intro-icon {
+  width: 88px; height: 88px;
+  background: #1C1C1E;
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+}
+
+.intro-icon svg { width: 48px; height: 48px; fill: white; }
+
+.intro-title { font-size: 30px; font-weight: 700; margin-bottom: 12px; }
+
+.intro-desc {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 40px;
+}
+
+.intro-pills {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.ipill { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.ipill-circle {
+  width: 72px; height: 72px;
+  background: var(--blue-bg);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ipill-circle svg {
+  width: 30px; height: 30px;
+  stroke: var(--blue); fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.ipill-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.btn-start {
+  width: 100%;
+  height: 56px;
+  background: #1C1C1E;
+  border: none;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  letter-spacing: -0.2px;
+  transition: opacity .15s;
+}
+.btn-start:active { opacity: .8; }
+
+/* ── QUESTION SCREEN ─────────────────────────────── */
+#s-question {
+  padding-top: 88px;
+  padding-bottom: 110px;
+}
+
+.q-body { padding: 22px 18px 0; }
+
+.q-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.q-title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.q-subtitle {
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+/* Options */
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.opt {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color .15s, background .15s, transform .1s;
+  user-select: none;
+}
+
+.opt:active { transform: scale(.985); }
+
+.opt.sel {
+  border-color: var(--blue);
+  background: var(--blue-bg);
+}
+
+.opt-text { flex: 1; min-width: 0; }
+.opt-title { font-size: 16px; font-weight: 600; color: var(--blue); margin-bottom: 2px; }
+.opt-desc  { font-size: 13px; color: var(--text-2); line-height: 1.4; }
+
+.opt-radio {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .15s;
+}
+
+.opt.sel .opt-radio { border-color: var(--blue); }
+
+.opt-radio-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .15s, transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+
+.opt.sel .opt-radio-dot { opacity: 1; transform: scale(1); }
+
+/* ── BOTTOM NAV ──────────────────────────────────── */
+#bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 20;
+  background: var(--card);
+  border-top: 0.5px solid var(--border);
+  padding: 12px 18px 28px;
+}
+
+.nav-row { display: flex; gap: 10px; margin-bottom: 8px; }
+
+.btn-back {
+  flex: 1;
+  height: 52px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-back:active { background: var(--bg); }
+.btn-back:disabled { opacity: .3; cursor: default; }
+
+.btn-next {
+  flex: 2;
+  height: 52px;
+  background: #1C1C1E;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.btn-next:disabled { opacity: .25; cursor: default; }
+.btn-next:active:not(:disabled) { opacity: .8; }
+
+.nav-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* ── RESULTS SCREEN ──────────────────────────────── */
+#s-results {
+  padding-top: 88px;
+  padding-bottom: 40px;
+}
+
+.res-header { padding: 22px 18px 16px; }
+
+.res-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.res-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.res-sub { font-size: 14px; color: var(--text-2); line-height: 1.5; }
+
+.results-list { padding: 0 18px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Device card */
+.dev-card {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+}
+
+.dev-img {
+  background: #1C1C1E;
+  height: 186px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+.dev-img-brand {
+  position: absolute;
+  top: 14px; left: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .02em;
+}
+
+.dev-img-name {
+  position: absolute;
+  bottom: 14px; left: 16px; right: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  line-height: 1.3;
+}
+
+.dev-img-icon svg {
+  width: 90px; height: 90px;
+  fill: rgba(255,255,255,.1);
+}
+
+.dev-body { padding: 14px 16px 18px; }
+
+.dev-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.rank-pill {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--text-2);
+}
+
+.match-pill {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 20px;
+}
+.match-pill.hi  { background: var(--green-bg); color: var(--green-text); }
+.match-pill.mid { background: var(--amber-bg); color: var(--amber-text); }
+.match-pill.lo  { background: var(--red-bg);   color: var(--red-text);   }
+
+.brand-pill {
+  display: inline-block;
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-size: 12px; font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.dev-name { font-size: 18px; font-weight: 700; margin-bottom: 6px; line-height: 1.25; }
+.dev-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; margin-bottom: 14px; }
+
+/* Match bar */
+.match-bar-wrap { margin-bottom: 14px; }
+.match-bar-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.match-bar-label { font-size: 12px; color: var(--text-2); }
+.match-bar-pct   { font-size: 13px; font-weight: 600; color: var(--text); }
+.match-bar-track {
+  height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden;
+}
+.match-bar-fill {
+  height: 6px; border-radius: 3px; background: var(--blue);
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+.match-bar-fill.hi  { background: var(--green); }
+.match-bar-fill.mid { background: var(--amber); }
+.match-bar-fill.lo  { background: #FF3B30; }
+
+/* Collapse */
+.collapse-btn {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px; font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.collapse-label { flex: 1; }
+.collapse-arrow {
+  font-size: 16px; color: var(--text-3);
+  transition: transform .2s;
+  display: inline-block;
+}
+.collapse-btn.open .collapse-arrow { transform: rotate(90deg); }
+
+.collapse-body { display: none; padding: 2px 4px 8px; }
+.collapse-body.open { display: block; }
+
+.mm-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-2);
+  padding: 4px 2px;
+}
+.mm-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); flex-shrink: 0;
+}
+
+/* Specs row */
+.specs-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 10px;
+}
+.spec-tag {
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px; font-weight: 500; color: var(--text-2);
+  padding: 4px 10px;
+}
+.spec-tag.has { background: var(--green-bg); border-color: transparent; color: var(--green-text); }
+
+/* Extended specs grid */
+.dev-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.spec-cell {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.spec-cell-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 2px;
+}
+.spec-cell-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+/* Device photo */
+.dev-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0; left: 0;
+  border-radius: 20px 20px 0 0;
+}
+
+.dev-img-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Manufacturer button */
+.btn-site {
+  display: block;
+  width: 100%;
+  height: 46px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 13px;
+  font-size: 14px; font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px;
+  transition: background .15s, border-color .15s;
+  margin-top: 12px;
+}
+.btn-site:active { background: var(--border); }
+.btn-site svg { width: 16px; height: 16px; stroke: var(--text-2); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Restart */
+.restart-wrap { padding: 18px 18px 0; }
+.btn-restart {
+  width: 100%;
+  height: 54px;
+  background: #1C1C1E;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px; font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.btn-restart:active { opacity: .8; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER (hidden on intro) ───────────────────── -->
+<div id="header" style="display:none">
+  <div class="header-main">
+    <div class="header-left">
+      <div class="hd-logo">
+        <!-- dashcam icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+          <!-- body -->
+          <rect x="1" y="7" width="16" height="11" rx="2.5"/>
+          <!-- lens outer (darker overlay) -->
+          <circle cx="8.5" cy="12.5" r="3.4" fill="rgba(0,0,0,0.35)"/>
+          <!-- lens inner -->
+          <circle cx="8.5" cy="12.5" r="2" fill="white"/>
+          <!-- screen panel right -->
+          <rect x="13.5" y="9.5" width="2" height="5" rx="0.8" fill="rgba(0,0,0,0.3)"/>
+          <!-- mount arm -->
+          <rect x="7" y="4" width="3" height="3.5" rx="1" fill="white"/>
+          <!-- power wire -->
+          <path d="M17 12.5h4" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <circle cx="22" cy="12.5" r="1" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="hd-name">VBR Bot<span class="hd-brand"> · Проект PRO ГАДЖЕТЫ</span></div>
+        <div class="hd-sub">Ваш путеводитель в мире регистраторов!</div>
+      </div>
+    </div>
+    <div class="hd-counter" id="hd-counter">1 / 10</div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+  </div>
+</div>
+
+<!-- ── INTRO ───────────────────────────────────────── -->
+<div id="s-intro" class="screen on">
+  <div class="intro-inner">
+    <div class="intro-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+      </svg>
+    </div>
+    <div class="intro-title">VBR Bot</div>
+    <div class="intro-desc">Подберём видеорегистратор под ваши задачи за 10 вопросов</div>
+    <div class="intro-pills">
+      <div class="ipill">
+        <div class="ipill-circle">
+          <svg viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><polygon points="22 12 12 2 2 12 2 22 22 22"/><line x1="12" y1="22" x2="12" y2="15"/></svg>
+        </div>
+        <span class="ipill-label">Быстро</span>
+      </div>
+      <div class="ipill">
+        <div class="ipill-circle">
+          <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+        </div>
+        <span class="ipill-label">Удобно</span>
+      </div>
+      <div class="ipill">
+        <div class="ipill-circle">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <span class="ipill-label">Бесплатно</span>
+      </div>
+    </div>
+    <button class="btn-start" id="btn-start">Начать подбор →</button>
+  </div>
+</div>
+
+<!-- ── QUESTIONS ──────────────────────────────────── -->
+<div id="s-question" class="screen">
+  <div class="q-body">
+    <div class="q-label"  id="q-label">Вопрос 1 из 10</div>
+    <div class="q-title"  id="q-title"></div>
+    <div class="q-subtitle" id="q-sub"></div>
+    <div class="options"  id="options"></div>
+  </div>
+</div>
+
+<!-- ── RESULTS ────────────────────────────────────── -->
+<div id="s-results" class="screen">
+  <div class="res-header">
+    <div class="res-label">Результат</div>
+    <div class="res-title">Подходящие устройства</div>
+    <div class="res-sub" id="res-sub"></div>
+  </div>
+  <div class="results-list" id="results-list"></div>
+  <div class="restart-wrap">
+    <button class="btn-restart" onclick="restartQuiz()">↺ Подобрать снова</button>
+  </div>
+</div>
+
+<!-- ── BOTTOM NAV ─────────────────────────────────── -->
+<div id="bottom-nav" style="display:none">
+  <div class="nav-row">
+    <button class="btn-back" id="btn-back" onclick="goBack()">← Назад</button>
+    <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Далее →</button>
+  </div>
+  <div class="nav-hint">Нажмите на вариант, потом переходите дальше</div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════════════
+
+const QS = [
+  {
+    key:"type", title:"Какой продукт?",
+    sub:"Выберите основной тип устройства",
+    opts:[
+      {l:"Видеорегистратор",   d:"Только запись дорожной обстановки",               v:"видеорегистратор"},
+      {l:"GPS-информер",       d:"Видеорегистратор + база камер",                   v:"gps-информер"},
+      {l:"Комбо 3 в 1",        d:"Видеорегистратор + база камер + радар-детектор",  v:"комбо 3 в 1"},
+    ]
+  },
+  {
+    key:"form", title:"Какой форм-фактор?",
+    sub:"Выберите предпочтительный вариант исполнения",
+    opts:[
+      {l:"Компактный без экрана", d:"Минимальный размер, управление через смартфон", v:"компактный без экрана"},
+      {l:"Компактный с экраном",  d:"Небольшой размер с дисплеем на борту",          v:"компактный с экраном"},
+      {l:"Стандартный с экраном", d:"Классический регистратор с экраном",            v:"стандартный с экраном"},
+      {l:"Регистратор-зеркало",   d:"Заменяет штатное зеркало заднего вида",         v:"регистратор-зеркало"},
+      {l:"Неважно",               d:"Форм-фактор не является критерием",             v:"неважно"},
+    ]
+  },
+  {
+    key:"quality", title:"Какое качество съёмки необходимо?",
+    sub:"Выберите нужный уровень детализации",
+    opts:[
+      {l:"Хорошее",    d:"Базовый уровень для повседневной записи",    v:"хорошее"},
+      {l:"Отличное",   d:"Хорошая детализация и уверенная картинка",   v:"отличное"},
+      {l:"Превосходное",d:"Максимальный уровень качества съёмки",      v:"превосходное"},
+      {l:"Неважно",    d:"Качество не главный критерий",               v:"неважно"},
+    ]
+  },
+  {
+    key:"smartphone", title:"Нужно управление со смартфона?",
+    sub:"Настройка и просмотр записей через мобильное приложение",
+    opts:[
+      {l:"Да",      d:"Хочу управлять и настраивать через телефон",  v:"да"},
+      {l:"Нет",     d:"Обойдусь без мобильного приложения",          v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                            v:"неважно"},
+    ]
+  },
+  {
+    key:"magnetic", title:"Нужно магнитное крепление?",
+    sub:"Быстросъёмная система для удобной установки и снятия",
+    opts:[
+      {l:"Да",      d:"Хочу снимать и устанавливать одним движением", v:"да"},
+      {l:"Нет",     d:"Стандартное крепление устроит",                v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                             v:"неважно"},
+    ]
+  },
+  {
+    key:"rear_cam", title:"Нужна камера заднего вида?",
+    sub:"Поддержка подключения дополнительной внешней камеры",
+    opts:[
+      {l:"Да",      d:"Хочу контролировать обстановку сзади", v:"да"},
+      {l:"Нет",     d:"Достаточно записи только спереди",     v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                     v:"неважно"},
+    ]
+  },
+  {
+    key:"touch", title:"Нужно сенсорное управление?",
+    sub:"Экран, реагирующий на прикосновения",
+    opts:[
+      {l:"Да",      d:"Хочу удобное управление касанием экрана", v:"да"},
+      {l:"Нет",     d:"Физические кнопки меня устроят",          v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                        v:"неважно"},
+    ]
+  },
+  {
+    key:"rotation", title:"Нужно вращение камеры?",
+    sub:"Возможность менять направление и угол съёмки",
+    opts:[
+      {l:"Да",      d:"Хочу гибко менять угол и направление", v:"да"},
+      {l:"Нет",     d:"Фиксированное положение устраивает",   v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                     v:"неважно"},
+    ]
+  },
+  {
+    key:"ir_cam", title:"Нужна ИК-камера салона?",
+    sub:"Встроенная инфракрасная камера для съёмки внутри авто",
+    opts:[
+      {l:"Да",      d:"Хочу вести запись салона, в том числе ночью", v:"да"},
+      {l:"Нет",     d:"Запись салона не нужна",                      v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                            v:"неважно"},
+    ]
+  },
+  {
+    key:"remote", title:"Нужно удалённое управление?",
+    sub:"Просмотр того, что происходит вокруг авто из любой точки мира",
+    opts:[
+      {l:"Да",      d:"Хочу следить за автомобилем удалённо", v:"да"},
+      {l:"Нет",     d:"Постоянный удалённый доступ не нужен", v:"нет"},
+      {l:"Неважно", d:"Не принципиально",                     v:"неважно"},
+    ]
+  },
+];
+
+const QLABELS = {
+  type:"Тип устройства", form:"Форм-фактор", quality:"Качество съёмки",
+  smartphone:"Управление со смартфона", magnetic:"Магнитное крепление",
+  rear_cam:"Камера заднего вида", touch:"Сенсорное управление",
+  rotation:"Вращение камеры", ir_cam:"ИК-камера салона", remote:"Удалённое управление"
+};
+
+const DEVICES = [
+  {name:"TrendVision TDR-725 Real 4K 2CH", brand:"TrendVision",
+   type:"gps-информер",     form:"стандартный с экраном",  q:2,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:true,  rotation:true,  ir_cam:false, remote:false,
+   desc:"GPS-информер с поддержкой двух камер и превосходным 4K-качеством. Сенсорный экран и поворотный механизм для максимального удобства.",
+   resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
+   price:"~25 000 ₽",
+   url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k/",
+   photo:"https://trendvision.ru/uploads/c1646d4c7727fd4562f5e62b09145451_png_1_Wihk_BL_jpg_4109b6b436.jpeg"},
+  {name:"Neoline X-COP CITYSMART",         brand:"Neoline",
+   type:"комбо 3 в 1",      form:"стандартный с экраном",  q:2,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Сигнатурный комбо 3 в 1 от Neoline. Матрица Sony Exmor, автоматические пресеты по регионам и полная библиотека сигнатур. Сделано в Корее.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"135°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
+   price:"~18 000 ₽",
+   url:"https://neoline.ru/shop/gibrid-videoregistratora-s-radar-detektorom-neoline-x-cop-citysmart/",
+   photo:"https://car-radar.ru/wa-data/public/shop/products/88/37/3788/images/16853/16853.750.jpg"},
+  {name:"70Mai Dash Cam 4K A810S",          brand:"70Mai",
+   type:"видеорегистратор", form:"стандартный с экраном",  q:3,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагман от 70mai с сенсором Sony STARVIS 2, технологией MaiColor Vivid+, Wi-Fi 6 и поддержкой 4G удалённого мониторинга.",
+   resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS", gps:"встроенный GPS",
+   price:"~14 000 ₽",
+   url:"https://new-cdn-res.70mai.com/ru/a810s/",
+   photo:"https://cdn-www.70mai.com/locales/en/a810s/A810S.png"},
+  {name:"iBox Rover WiFi GPS Dual",         brand:"iBox",
+   type:"gps-информер",     form:"регистратор-зеркало",    q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер в формате зеркала на базе Sony Starvis IMX307. 7\" IPS дисплей, двухканальная запись. Вписывается в интерьер и не мешает обзору.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"7\" IPS зеркало", gps:"GPS + ГЛОНАСС",
+   price:"~12 000 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-zerkalo-s-gps-glonass-bazoy-kamer-ibox-rover-wifi-gps-dual/",
+   photo:"https://img.ixbt.site/live/topics/preview/00/03/04/50/b6ca243506.jpg"},
+  {name:"iBox Range 2 LaserVision WiFi",    brand:"iBox",
+   type:"комбо 3 в 1",      form:"регистратор-зеркало",    q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:true,  rotation:false, ir_cam:false, remote:false,
+   desc:"Сигнатурный комбо 3 в 1 в формате зеркала с 11.26\" сенсорным экраном. Управление жестами, LaserVision, режим парковки.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.26\" сенсор", gps:"GPS + ГЛОНАСС",
+   price:"~21 000 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-zerkalo-s-signaturnym-radar-detektorom-ibox-range-2-laservision-wifi-signature-dual/",
+   photo:"https://car-radar.ru/wa-data/public/shop/products/26/38/3826/images/17409/17409.750.jpg"},
+  {name:"TrendVision Online Air 4G",        brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном",  q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
+   desc:"Видеорегистратор со встроенным 4G SIM-модулем. Онлайн-трансляция, удалённый просмотр из любой точки мира и оповещения о событиях.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"IPS экран", gps:"GPS + 4G",
+   price:"~15 000 ₽",
+   url:"https://trendvision.ru/products/trendvision-online-air-4g/",
+   photo:null},
+  {name:"Mio MiVue J20",                    brand:"Mio",
+   type:"видеорегистратор", form:"компактный без экрана",  q:1,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный регистратор без экрана. Суперконденсатор, защищённый Wi-Fi, управление через приложение MiVue Pro.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"без экрана", gps:"нет",
+   price:"~7 000 ₽",
+   url:"https://www.mio.com/ru/mivue-j20-ru",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_j20_camera-l45-1_4.png"},
+  {name:"iBox Flip 2K WiFi Dual",           brand:"iBox",
+   type:"видеорегистратор", form:"компактный с экраном",   q:2,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
+   desc:"Компактный регистратор 2K с поворотной ИК-камерой для записи салона. Поддержка камеры заднего вида и подключения третьей камеры.",
+   resolution:"2K 2560×1440 @30fps", angle:"130°", screen:"1.5\" экран", gps:"нет",
+   price:"~8 500 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-flip-2k-wifi-dual-dvukhkanalnyy-s-vozmozhnostyu-podklyucheniya-tretey/",
+   photo:null},
+  {name:"iBox Flip GPS Dual",               brand:"iBox",
+   type:"видеорегистратор", form:"компактный с экраном",   q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
+   desc:"Компактный регистратор с поворотной ИК-камерой салона, GPS и двухканальной записью. Работает автономно без мобильного приложения.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"130°", screen:"1.5\" экран", gps:"GPS встроенный",
+   price:"~6 500 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/dvukhkanalnyy-videoregistrator-ibox-flip-gps-dual/",
+   photo:null},
+  {name:"SilverStone F1 HYBRID S-BOT PRO",  brand:"SilverStone F1",
+   type:"комбо 3 в 1",      form:"стандартный с экраном",  q:2,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Флагманское комбо 3 в 1 корейского производства. Рупорная антенна с усилителем LNA, Z-сигнатуры, Wi-Fi обновления через приложение VideoMix.",
+   resolution:"SuperHD 2304×1296 @30fps", angle:"145°", screen:"3\" IPS LCD", gps:"GPS + ГЛОНАСС",
+   price:"~16 000 ₽",
+   url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-s-bot-pro-wifi/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/10/ren_sbot_pro_wifi_01.jpg"},
+
+  /* ── TrendVision Классические ───────────────────── */
+  {name:"TrendVision Nano 2K Wi-Fi CPL", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный регистратор 2K со скрытой установкой. Крепится на магните, управляется через Wi-Fi приложение, CPL-фильтр в комплекте.",
+   resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"нет",
+   price:"~5 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-nano-2k-wi-fi-cpl/",
+   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_29e6866887.jpg"},
+
+  {name:"TrendVision Nano 2K Wi-Fi CPL GPS", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Версия Nano 2K с GPS-модулем: скорость и координаты записываются в видео. Скрытая установка, магнит, Wi-Fi, CPL-фильтр.",
+   resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"координаты/скорость",
+   price:"~6 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-nano-2k-wi-fi-cpl-gps/",
+   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_f615cae76f.jpg"},
+
+  {name:"TrendVision Phantom 3CH GPS", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
+   desc:"3-канальный регистратор: 4K фронт + 2K салон с ИК-подсветкой (130°) + Full HD сзади. Wi-Fi, GPS-штамп координат и скорости.",
+   resolution:"2K нативное / 4K интерп.", angle:"170°+170°+120°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
+   price:"~11 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-phantom-3ch-gps/",
+   photo:"https://trendvision.ru/uploads/xlarge_03_f889d2e006.jpg"},
+
+  {name:"TrendVision DriveCam Real 4K GPS 2CH", brand:"TrendVision",
+   type:"gps-информер", form:"стандартный с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Реальный 4K + GPS-информер SpeedCam в одном устройстве. Sony IMX415, задняя Full HD камера в комплекте, сенсор жестов, магнитное крепление.",
+   resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~16 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-drivecam-real-4k-gps-2ch/",
+   photo:"https://trendvision.ru/uploads/xlarge_6_klass_a92d6f18ab.jpg"},
+
+  {name:"TrendVision TDR-725 Real 4K Max", brand:"TrendVision",
+   type:"gps-информер", form:"стандартный с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагман с реальным 4K, сенсорным экраном и HardWare Kit (парковочный режим) в комплекте. GPS-информер SpeedCam, сенсор жестов, Sony IMX415.",
+   resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
+   price:"~26 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k-max/",
+   photo:"https://trendvision.ru/uploads/6_1_029f8048bf.jpg"},
+
+  {name:"TrendVision Victory", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Бюджетный компактный регистратор с 3\" IPS-экраном и магнитным креплением. Простая установка и съём, Full HD съёмка 170°.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
+   price:"~5 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-victory/",
+   photo:"https://trendvision.ru/uploads/viktori_2_2_0fbe0f848e.jpg"},
+
+  {name:"TrendVision Victory Dual", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Victory с задней камерой в комплекте. Одновременная запись спереди и сзади, 3\" IPS, магнитное крепление, Full HD.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
+   price:"~7 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-victory-dual/",
+   photo:null},
+
+  {name:"TrendVision Proof Ultra", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
+   desc:"Мощный 4K регистратор с 3-канальной записью: фронт + поворотная ИК-камера салона + задняя камера. Wi-Fi, GPS, широкий угол.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
+   price:"~12 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-proof-ultra/",
+   photo:null},
+
+  {name:"TrendVision TDR-721S EVO", brand:"TrendVision",
+   type:"gps-информер", form:"стандартный с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 2K с магнитным креплением и Wi-Fi. Sony Starvis IMX335, SpeedCam, CPL-фильтр в комплекте, суперконденсатор.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~12 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-tdr-721s-evo/",
+   photo:"https://trendvision.ru/uploads/trendvision_tdr_721s_11_fa25240127.jpg"},
+
+  {name:"TrendVision TDR-721S EVO Pro", brand:"TrendVision",
+   type:"gps-информер", form:"стандартный с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 2K с задней камерой в комплекте. Все преимущества EVO + двухканальная запись спереди и сзади.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~16 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-tdr-721s-evo-pro/",
+   photo:null},
+
+  {name:"TrendVision Bullet", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный цилиндрический регистратор 2K без экрана. Скрытая установка, магнитное крепление, управление через Wi-Fi приложение.",
+   resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~8 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-bullet/",
+   photo:null},
+
+  {name:"TrendVision Proof PRO", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Бюджетный двухканальный регистратор с поворотной камерой и задней камерой в комплекте. Full HD, 3\" IPS, широкий угол 170°.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
+   price:"~8 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-proof-pro/",
+   photo:null},
+
+  {name:"TrendVision Proof PRO GPS", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Proof PRO с GPS-модулем: скорость и координаты в записи. Задняя камера, поворотный механизм, Full HD 170°.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
+   price:"~9 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-proof-pro-gps/",
+   photo:null},
+
+  {name:"TrendVision Proof 360 GPS", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Регистратор 2K с поворотной камерой на 360°, задней камерой, GPS и Wi-Fi. Запись дороги и салона одновременно.",
+   resolution:"2K 2304×1296 @30fps", angle:"360°/170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
+   price:"~13 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-proof-360-gps/",
+   photo:null},
+
+  {name:"TrendVision Winner", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Минималистичный компактный регистратор с экраном и магнитным креплением. Лёгкая установка/съём, Full HD 170°.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"нет",
+   price:"~6 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-winner/",
+   photo:null},
+
+  {name:"TrendVision Winner PRO Plus", brand:"TrendVision",
+   type:"gps-информер", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный GPS-информер с магнитным креплением и Wi-Fi. SpeedCam предупреждения о камерах, Full HD 170°.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
+   price:"~9 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-winner-pro-plus/",
+   photo:null},
+
+  {name:"TrendVision X1 (ver.2)", brand:"TrendVision",
+   type:"gps-информер", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный GPS-информер с магнитным креплением и Wi-Fi. Уведомления о камерах SpeedCam, Full HD.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
+   price:"~8 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-x1-(ver.-2)/",
+   photo:null},
+
+  {name:"TrendVision X1 Max (ver.2)", brand:"TrendVision",
+   type:"gps-информер", form:"компактный с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"X1 с задней камерой в комплекте. Компактный GPS-информер: двухканальная запись + SpeedCam, магнит, Wi-Fi.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
+   price:"~9 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-x1-max-(ver.-2)/",
+   photo:null},
+
+  {name:"TrendVision X2 Dual", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   magnetic:true, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный двухканальный регистратор без экрана. Задняя камера в комплекте, магнитное крепление, Full HD.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~6 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-x2-dual/",
+   photo:null},
+
+  {name:"TrendVision TENET", brand:"TrendVision",
+   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Базовый регистратор с 3\" экраном и Full HD записью. Простое управление, стандартная установка, надёжная работа.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" экран", gps:"нет",
+   price:"~10 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-tenet/",
+   photo:null},
+
+  {name:"TrendVision Prime", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
+   desc:"Компактный регистратор без экрана с ИК-ночной камерой. Скрытая установка, Full HD, работает без смартфона.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~6 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-prime/",
+   photo:null},
+
+  {name:"TrendVision Prime (ver.2)", brand:"TrendVision",
+   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
+   desc:"Обновлённая версия Prime: компактный регистратор без экрана с ИК-камерой. Улучшенная электроника, то же удобство скрытой установки.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~6 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-prime-(ver.2)/",
+   photo:null},
+];
+
+const QRANK = {хорошее:1, отличное:2, превосходное:3};
+const QLABELS_Q = ["хорошее","отличное","превосходное"];
+const BOOLS = ["smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
+
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+
+let qIdx = 0;
+let answers = {};
+
+// ════════════════════════════════════════════════════════
+//  SCORING
+// ════════════════════════════════════════════════════════
+
+function scoreDevice(dev) {
+  let s = 0, m = 0, mm = [];
+  QS.forEach(q => {
+    const a = (answers[q.key] || "неважно").toLowerCase();
+    if (a === "неважно") return;
+    m++;
+    let ok = false;
+    if (q.key === "type")    ok = dev.type === a;
+    else if (q.key === "form")    ok = dev.form === a;
+    else if (q.key === "quality") ok = dev.q >= (QRANK[a] || 0);
+    else ok = a === "да" ? dev[q.key] : !dev[q.key];
+    if (ok) s++; else mm.push(QLABELS[q.key]);
+  });
+  return { pct: m === 0 ? 100 : Math.round(s/m*100), s, m, mm };
+}
+
+function getTop(n=3) {
+  return DEVICES
+    .map(d => ({ d, ...scoreDevice(d) }))
+    .sort((a,b) => b.pct - a.pct)
+    .slice(0, n);
+}
+
+// ════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════
+
+function show(id) {
+  ["s-intro","s-question","s-results"].forEach(s => {
+    const el = document.getElementById(s);
+    if (s === id) {
+      el.style.display = s === "s-intro" ? "flex" : "block";
+    } else {
+      el.style.display = "none";
+    }
+  });
+}
+
+function el(id) { return document.getElementById(id); }
+
+// ════════════════════════════════════════════════════════
+//  QUIZ FLOW
+// ════════════════════════════════════════════════════════
+
+function startQuiz() {
+  qIdx = 0; answers = {};
+  el("header").style.display = "block";
+  el("bottom-nav").style.display = "block";
+  renderQ();
+  show("s-question");
+}
+
+function renderQ() {
+  const q = QS[qIdx];
+  const total = QS.length;
+
+  el("q-label").textContent = `Вопрос ${qIdx+1} из ${total}`;
+  el("q-title").textContent = q.title;
+  el("q-sub").textContent   = q.sub;
+  el("hd-counter").textContent = `${qIdx+1} / ${total}`;
+  el("progress-fill").style.width = `${(qIdx+1)/total*100}%`;
+
+  const btnBack = el("btn-back");
+  const btnNext = el("btn-next");
+  btnBack.disabled = qIdx === 0;
+  btnNext.disabled = !answers[q.key];
+
+  const list = el("options");
+  list.innerHTML = "";
+  q.opts.forEach(o => {
+    const d = document.createElement("div");
+    d.className = "opt" + (answers[q.key] === o.v ? " sel" : "");
+    d.innerHTML = `<div class="opt-text"><div class="opt-title">${o.l}</div><div class="opt-desc">${o.d}</div></div><div class="opt-radio"><div class="opt-radio-dot"></div></div>`;
+    d.onclick = () => pick(o.v);
+    list.appendChild(d);
+  });
+
+  el("s-question").scrollTop = 0;
+}
+
+function pick(v) {
+  answers[QS[qIdx].key] = v;
+  el("btn-next").disabled = false;
+  el("options").querySelectorAll(".opt").forEach((el, i) => {
+    el.classList.toggle("sel", QS[qIdx].opts[i].v === v);
+  });
+}
+
+function goNext() {
+  if (!answers[QS[qIdx].key]) return;
+  if (qIdx < QS.length - 1) { qIdx++; renderQ(); }
+  else showResults();
+}
+
+function goBack() {
+  if (qIdx > 0) { qIdx--; renderQ(); }
+}
+
+// ════════════════════════════════════════════════════════
+//  RESULTS
+// ════════════════════════════════════════════════════════
+
+function matchClass(p) { return p >= 70 ? "hi" : p >= 40 ? "mid" : "lo"; }
+
+function showResults() {
+  el("bottom-nav").style.display = "none";
+  el("hd-counter").textContent = "Результат";
+  el("progress-fill").style.width = "100%";
+
+  const top = getTop(3);
+  el("res-sub").textContent = `Лучшие совпадения из базы: ${DEVICES.length} устройств`;
+
+  const list = el("results-list");
+  list.innerHTML = "";
+  const ranks = ["#1","#2","#3"];
+
+  top.forEach((item, i) => {
+    const {d, pct, mm} = item;
+    const mc = matchClass(pct);
+    const qLabel = QLABELS_Q[d.q - 1];
+
+    // Spec tags
+    const specsData = [
+      {k:"smartphone", l:"Смартфон"},
+      {k:"magnetic",   l:"Магнит. крепление"},
+      {k:"rear_cam",   l:"Задняя камера"},
+      {k:"touch",      l:"Сенсор"},
+      {k:"rotation",   l:"Вращение"},
+      {k:"ir_cam",     l:"ИК-камера"},
+      {k:"remote",     l:"4G / удалённо"},
+    ];
+    const specTags = specsData
+      .map(s => `<span class="spec-tag${d[s.k] ? " has" : ""}">${s.l}</span>`)
+      .join("");
+
+    let mmHTML = "";
+    if (mm.length > 0) {
+      mmHTML = `
+        <button class="collapse-btn" onclick="toggleC(this)">
+          <span class="collapse-label">Что не совпало (${mm.length})</span>
+          <span class="collapse-arrow">›</span>
+        </button>
+        <div class="collapse-body">
+          ${mm.map(x=>`<div class="mm-item"><div class="mm-dot"></div>${x}</div>`).join("")}
+        </div>`;
+    }
+
+    const card = document.createElement("div");
+    card.className = "dev-card";
+
+    // Photo block: real image if available, fallback to dark gradient + icon
+    const photoHTML = d.photo
+      ? `<img src="${d.photo}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      : ``;
+    const iconStyle = d.photo ? `style="display:none"` : ``;
+
+    card.innerHTML = `
+      <div class="dev-img">
+        ${photoHTML}
+        <div class="dev-img-fallback" ${iconStyle}>
+          <div class="dev-img-brand">${d.brand}</div>
+          <div class="dev-img-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+            </svg>
+          </div>
+          <div class="dev-img-name">${d.name}</div>
+        </div>
+      </div>
+      <div class="dev-body">
+        <div class="dev-meta">
+          <div class="rank-pill">${ranks[i]}</div>
+          <div class="match-pill ${mc}">${pct}% подходит</div>
+        </div>
+        <div class="brand-pill">${d.brand}</div>
+        <div class="dev-name">${d.name}</div>
+        <div class="dev-desc">${d.desc}</div>
+        <div class="match-bar-wrap">
+          <div class="match-bar-row">
+            <span class="match-bar-label">Совпадение с вашими критериями</span>
+            <span class="match-bar-pct">${pct}%</span>
+          </div>
+          <div class="match-bar-track">
+            <div class="match-bar-fill ${mc}" style="width:${pct}%"></div>
+          </div>
+        </div>
+        ${mmHTML}
+        <div class="dev-specs-grid">
+          <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${d.resolution || '—'}</div></div>
+          <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
+          <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${d.screen || '—'}</div></div>
+          <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${d.gps || '—'}</div></div>
+        </div>
+        <div class="specs-row">${specTags}</div>
+        ${d.price ? `<div style="font-size:15px;font-weight:700;color:var(--text);margin:10px 0 4px;">Цена: ${d.price}</div>` : ''}
+        ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          На сайт производителя
+        </a>` : ''}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  show("s-results");
+  window.scrollTo(0,0);
+
+  // Send data back to Telegram if in WebApp context
+  if (window.Telegram?.WebApp) {
+    const result = top.map(t => ({name: t.d.name, pct: t.pct}));
+    try { Telegram.WebApp.sendData(JSON.stringify(result)); } catch(e) {}
+  }
+}
+
+function toggleC(btn) {
+  btn.classList.toggle("open");
+  btn.nextElementSibling.classList.toggle("open");
+}
+
+function restartQuiz() {
+  startQuiz();
+}
+
+// ════════════════════════════════════════════════════════
+//  TELEGRAM INIT
+// ════════════════════════════════════════════════════════
+
+document.getElementById("btn-start").addEventListener("click", startQuiz);
+
+if (window.Telegram?.WebApp) {
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand();
+}
+</script>
+</body>
+</html>
