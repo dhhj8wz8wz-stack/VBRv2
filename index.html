@@ -376,7 +376,17 @@ html, body {
 
 .res-sub { font-size: 14px; color: var(--text-2); line-height: 1.5; }
 
-.results-list { padding: 0 18px; display: flex; flex-direction: column; gap: 16px; }
+.results-list { padding: 0 18px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+@media (min-width: 700px) {
+  .results-list { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .results-list > div:first-child { grid-column: 1 / -1; }
+  .answer-chips-row { max-width: 1200px; margin: 0 auto; }
+}
+@media (min-width: 1100px) {
+  .results-list { grid-template-columns: 1fr 1fr 1fr; }
+  .results-list > div:first-child { grid-column: auto; }
+}
 
 /* Device card */
 .dev-card {
@@ -386,35 +396,30 @@ html, body {
   border: 0.5px solid var(--border);
 }
 
-.dev-img {
+.dev-card-header {
   background: #1C1C1E;
-  height: 186px;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+  padding: 14px 16px 12px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-
-.dev-img-brand {
-  position: absolute;
-  top: 14px; left: 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,.55);
-  letter-spacing: .02em;
+.dev-card-header-brand {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .04em; text-transform: uppercase;
 }
-
-.dev-img-name {
-  position: absolute;
-  bottom: 14px; left: 16px; right: 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,.9);
-  line-height: 1.3;
+.dev-card-header-type {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,.35);
 }
-
-.dev-img-icon svg {
-  width: 90px; height: 90px;
-  fill: rgba(255,255,255,.1);
+.cam-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(255, 200, 0, 0.15);
+  border: 1px solid rgba(255, 200, 0, 0.4);
+  color: #FFC800;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .05em;
+  padding: 3px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
 .dev-body { padding: 14px 16px 18px; }
@@ -525,7 +530,35 @@ html, body {
   font-size: 12px; font-weight: 500; color: var(--text-2);
   padding: 4px 10px;
 }
-.spec-tag.has { background: var(--green-bg); border-color: transparent; color: var(--green-text); }
+.spec-tag.has   { background: var(--green-bg);  border-color: transparent; color: var(--green-text); }
+.spec-tag.miss  { background: var(--red-bg);    border-color: transparent; color: var(--red-text); }
+.spec-tag.extra { background: transparent; border: 0.5px solid var(--red-text); color: var(--red-text); }
+.spec-tag.qual  { background: var(--amber-bg);  border-color: transparent; color: var(--amber-text); }
+
+/* Answer chips */
+.answer-chips-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 18px 18px;
+}
+.answer-chip {
+  background: var(--blue-bg); color: var(--blue);
+  border-radius: 20px; font-size: 12px; font-weight: 600;
+  padding: 5px 12px; white-space: nowrap;
+}
+
+/* Price in card */
+.dev-price {
+  font-size: 20px; font-weight: 800; color: var(--text);
+  margin: 4px 0 0;
+}
+
+/* Mobile accordion */
+.card-toggle {
+  display: flex; align-items: flex-start;
+  padding: 2px 0 10px;
+}
+.card-toggle-arrow { display: none; }
+.card-collapsible { display: block; }
 
 /* Extended specs grid */
 .dev-specs-grid {
@@ -554,15 +587,6 @@ html, body {
   line-height: 1.3;
 }
 
-/* Device photo */
-.dev-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
-  position: absolute;
-  top: 0; left: 0;
-  border-radius: 20px 20px 0 0;
-}
 
 .dev-img-fallback {
   position: absolute;
@@ -990,6 +1014,7 @@ html, body {
     <div class="res-title">Подходящие устройства</div>
     <div class="res-sub" id="res-sub"></div>
   </div>
+  <div class="answer-chips-row" id="answer-chips-row" style="display:none;"></div>
   <div class="results-list" id="results-list"></div>
   <div class="restart-wrap">
     <button class="btn-restart" onclick="restartQuiz()">↺ Подобрать снова</button>
@@ -1115,15 +1140,20 @@ const QLABELS = {
   rear_cam:"Камера заднего вида", touch:"Сенсорное управление",
   rotation:"Вращение камеры", ir_cam:"ИК-камера салона", remote:"Удалённое управление"
 };
+const QLABELS_SHORT = {
+  quality:"Качество", smartphone:"Wi-Fi", magnetic:"Магнит",
+  rear_cam:"Задн. камера", touch:"Сенсор",
+  rotation:"Вращение", ir_cam:"ИК-камера", remote:"4G/удалённо"
+};
 
 const DEVICES = [
   {name:"TrendVision TDR-725 Real 4K 2CH", brand:"TrendVision",
-   type:"gps-информер",     form:"с экраном",  q:2,
+   type:"gps-информер",     form:"с экраном",  q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:true,  rotation:true,  ir_cam:false, remote:false,
-   desc:"GPS-информер с поддержкой двух камер и превосходным 4K-качеством. Сенсорный экран и поворотный механизм для максимального удобства.",
-   resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
-   price:"~25 000 ₽",
-   url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k/",
+   desc:"GPS-информер с реальным 4K Ultra HD (Sony IMX415) и задней Full HD камерой. Сенсорный экран, сенсор жестов, магнитное поворотное крепление, Wi-Fi, CPL-фильтр.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
+   price:"~25 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k-2ch/",
    photo:"https://trendvision.ru/uploads/c1646d4c7727fd4562f5e62b09145451_png_1_Wihk_BL_jpg_4109b6b436.jpeg"},
   {name:"Neoline X-COP CITYSMART",         brand:"Neoline",
    type:"комбо 3 в 1",      form:"с экраном",  q:2,
@@ -1157,14 +1187,6 @@ const DEVICES = [
    price:"~21 000 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-zerkalo-s-signaturnym-radar-detektorom-ibox-range-2-laservision-wifi-signature-dual/",
    photo:"https://car-radar.ru/wa-data/public/shop/products/26/38/3826/images/17409/17409.750.jpg"},
-  {name:"TrendVision Online Air 4G",        brand:"TrendVision",
-   type:"видеорегистратор", form:"с экраном",  q:1,
-   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
-   desc:"Видеорегистратор со встроенным 4G SIM-модулем. Онлайн-трансляция, удалённый просмотр из любой точки мира и оповещения о событиях.",
-   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"IPS экран", gps:"GPS + 4G",
-   price:"~15 000 ₽",
-   url:"https://trendvision.ru/products/trendvision-online-air-4g/",
-   photo:null},
   {name:"Mio MiVue J20",                    brand:"Mio",
    type:"видеорегистратор", form:"без экрана",  q:1,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
@@ -1518,10 +1540,10 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skybochka_870e8160ec.jpg"},
 
   {name:"TrendVision Online Air 4G", brand:"TrendVision",
-   type:"4G-регистратор", form:"без экрана", q:2,
+   type:"4G-регистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
-   desc:"2K регистратор с 4G, задней камерой и CPL-фильтром в комплекте. HardWare Kit для прямого подключения к АКБ (парковочный режим). Двусторонняя голосовая связь.",
-   resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"нет", gps:"GPS (встроенный)",
+   desc:"Full HD 4G-регистратор с 3\" IPS экраном, задней камерой и CPL-фильтром в комплекте. Удалённый доступ 24/7, двусторонняя голосовая связь, HardWare Kit парковочный режим.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"160°", screen:"3\" IPS", gps:"GPS (встроенный)",
    price:"~15 990 ₽",
    url:"https://trendvision.ru/products/trendvision-online-air-4g/",
    photo:"https://trendvision.ru/uploads/fotka_32_5cb94f6502.jpg"},
@@ -1595,9 +1617,9 @@ const DEVICES = [
   {name:"iBOX iCON 2 LaserVision WiFi",   brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
-   desc:"Флагманское комбо iBox с лазерным детектором LaserVision и сигнатурным радаром. Super HD 2K, магнитное крепление, Wi-Fi, база камер SpeedCam.",
-   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
-   price:"~19 999 ₽",
+   desc:"Флагманское комбо iBox с лазерным детектором LaserVision и сигнатурным радаром. Super HD, магнитное крепление, Wi-Fi, съёмка 60к/с, база камер SpeedCam.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~19 299 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-icon-2-laservision/",
    photo:null},
 
@@ -1738,6 +1760,115 @@ const DEVICES = [
    price:"~26 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
    photo:null},
+
+  // ── Fujida ──────────────────────────────────────────────────────────
+  {name:"Fujida Karma Hit",                brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Доступный комбо 3 в 1 с Full HD, WDR и радаром X/K/Ka/Laser/Strelka. Суперконденсатор, GPS-база РФ и СНГ, контроль средней скорости.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~12 999 ₽",
+   url:"https://fujida.su/catalog/gibridy/fujida-karma-hit/",
+   photo:null},
+
+  {name:"Fujida Karma Hit Duo",            brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с задней камерой в комплекте — одновременная двухканальная запись Full HD. Суперконденсатор, база камер РФ и СНГ.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~14 999 ₽",
+   url:"https://fujida.su/catalog/gibridy/",
+   photo:null},
+
+  {name:"Fujida Karma One WiFi",           brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с Sony IMX307, магнитным креплением и WiFi. Сигнатурный радар с рупорной антенной, датчик жестов, интерактивные LED.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~17 999 ₽",
+   url:"https://fujida.su/catalog/gibridy/fujida-karma-one-wifi/",
+   photo:null},
+
+  {name:"Fujida Karma Pro S WiFi",         brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 Super HD с Sony IMX307, CPL-фильтром и сигнатурным патч-радиомодулем. Магнитное крепление, WiFi, AI-распознавание знаков.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~19 999 ₽",
+   url:"https://fujida.su/catalog/gibridy/fujida-karma-pro-s-wifi/",
+   photo:null},
+
+  {name:"Fujida Karma One Duo WiFi",       brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true,  touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с задней камерой, Sony IMX307 и WiFi. Двухканальная запись Full HD, сигнатурный радар, датчик жестов, магнитное крепление.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~19 999 ₽",
+   url:"https://fujida.su/catalog/gibridy/",
+   photo:null},
+
+  {name:"Fujida Karma Pro Max WiFi",       brand:"Fujida",
+   type:"комбо 3 в 1",      form:"с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Топовый комбо 3 в 1 с Sony IMX335 и записью Quad HD. CPL, HDR, LNA-усилитель, сигнатурный патч-модуль, AI-знаки, WiFi, магнитное крепление.",
+   resolution:"Quad HD 2560×1440 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~27 499 ₽",
+   url:"https://fujida.su/catalog/gibridy/fujida-karma-pro-max-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Hit S WiFi",          brand:"Fujida",
+   type:"gps-информер",     form:"с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"GPS-информер Super HD с GC2053, CPL-фильтром и WiFi. Магнитное крепление, суперконденсатор, база камер РФ и СНГ, мобильные засады.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
+   price:"~11 999 ₽",
+   url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-s-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Hit S Duo WiFi",      brand:"Fujida",
+   type:"gps-информер",     form:"с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true,  touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"GPS-информер с задней камерой и двухканальной записью Full HD. CPL, WiFi, магнитное крепление, суперконденсатор, база камер РФ и СНГ.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
+   price:"~13 999 ₽",
+   url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-s-duo-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Hit Max WiFi",        brand:"Fujida",
+   type:"gps-информер",     form:"с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"GPS-информер 2K QHD с Sony IMX335, CPL и HDR. Компактный 2.35\" экран, магнитное крепление, WiFi, база камер РФ и СНГ.",
+   resolution:"2K Quad HD 2560×1440 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
+   price:"~11 999 ₽",
+   url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-max-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Smart S WiFi",        brand:"Fujida",
+   type:"gps-информер",     form:"с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"GPS-информер Super HD с Sony IMX307 и большим 3\" экраном. CPL, HDR, WiFi, AI-распознавание знаков, магнитное крепление.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~13 999 ₽",
+   url:"https://fujida.su/catalog/informatory/fujida-zoom-smart-s-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Smart Max WiFi",      brand:"Fujida",
+   type:"gps-информер",     form:"с экраном", q:3,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Флагманский GPS-информер с 4K Ultra HD и Sony IMX415. CPL, HDR, WiFi, AI-знаки, большой 3\" экран с автояркостью, магнитное крепление.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
+   price:"~15 999 ₽",
+   url:"https://fujida.su/catalog/informatory/fujida-zoom-smart-max-wifi/",
+   photo:null},
+
+  {name:"Fujida Zoom Okko WiFi",           brand:"Fujida",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"Компактный видеорегистратор Full HD с WiFi и магнитным креплением. G-сенсор, CPL-фильтр, суперконденсатор, циклическая запись.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\"", gps:"нет",
+   price:"~5 999 ₽",
+   url:"https://fujida.su/catalog/videoregistratory/fujida-zoom-okko/",
+   photo:null},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -1766,7 +1897,16 @@ function scoreDevice(dev) {
     let ok = false;
     if (q.key === "quality") ok = dev.q >= (QRANK[a] || 0);
     else ok = a === "да" ? dev[q.key] : !dev[q.key];
-    if (ok) s++; else mm.push(QLABELS[q.key]);
+    if (ok) s++;
+    else {
+      if (q.key === "quality") {
+        mm.push({key: q.key, type: "quality"});
+      } else if (a === "да") {
+        mm.push({key: q.key, type: "missing"});
+      } else {
+        mm.push({key: q.key, type: "extra"});
+      }
+    }
   });
   return { pct: m === 0 ? 100 : Math.round(s/m*100), s, m, mm };
 }
@@ -1936,17 +2076,37 @@ function showResults() {
 
   setTimeout(() => {
     el("hd-counter").textContent = "Результат";
-    const top = getTop(5);
+    const top = getTop(6);
     _renderResults(top);
   }, 5000);
 }
 
 function _renderResults(top) {
-  el("res-sub").textContent = `Лучшие совпадения из базы: ${DEVICES.length} устройств`;
+  // ── Answer chips ──────────────────────────────────
+  const chipDefs = [
+    {k:"type",       fn: v => v && v !== "неважно" ? v : null},
+    {k:"form",       fn: v => v && v !== "неважно" ? v : null},
+    {k:"quality",    fn: v => ({хорошее:"Full HD", отличное:"2K", превосходное:"4K"}[v] || null)},
+    {k:"smartphone", fn: v => v === "да" ? "Wi-Fi" : v === "нет" ? "без Wi-Fi" : null},
+    {k:"magnetic",   fn: v => v === "да" ? "Магнит" : v === "нет" ? "без магнита" : null},
+    {k:"rear_cam",   fn: v => v === "да" ? "Задняя камера" : v === "нет" ? "1 камера" : null},
+    {k:"touch",      fn: v => v === "да" ? "Сенсор" : v === "нет" ? "без сенсора" : null},
+    {k:"rotation",   fn: v => v === "да" ? "Вращение" : v === "нет" ? "фиксирован" : null},
+    {k:"ir_cam",     fn: v => v === "да" ? "ИК-камера" : v === "нет" ? "без ИК" : null},
+    {k:"remote",     fn: v => v === "да" ? "4G/удалённо" : v === "нет" ? "без 4G" : null},
+  ];
+  const chips = chipDefs
+    .map(c => { const label = c.fn(answers[c.k] || "неважно"); return label ? `<span class="answer-chip">${label}</span>` : ""; })
+    .filter(Boolean).join("");
+  const chipsEl = el("answer-chips-row");
+  chipsEl.innerHTML = chips;
+  chipsEl.style.display = chips ? "flex" : "none";
+
+  el("res-sub").innerHTML = `Найдено <b>${top.length}</b> из ${DEVICES.length} устройств`;
 
   const list = el("results-list");
   list.innerHTML = "";
-  const ranks = ["#1","#2","#3","#4","#5"];
+  const ranks = ["#1","#2","#3","#4","#5","#6"];
 
   // ── Всё «неважно» ────────────────────────────────
   const scoredKeys = ["quality","smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
@@ -1977,127 +2137,98 @@ function _renderResults(top) {
     return;
   }
 
-  // ── Summary list ─────────────────────────────────
-  const summaryRows = top.map((item, i) => {
-    const pct = item.pct;
-    const color = pct === 100 ? "#22c55e" : pct >= 80 ? "#f59e0b" : "#ef4444";
-    const bg = i % 2 === 1 ? "background:rgba(0,0,0,.03);" : "";
-    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;${bg}">
-      <span style="font-size:13px;color:var(--text-2);min-width:24px;flex-shrink:0;">${ranks[i]}</span>
-      <span style="flex:1;font-size:14px;font-weight:600;color:var(--text);line-height:1.3;">${item.d.name}</span>
-      <span style="font-size:13px;font-weight:700;color:${color};flex-shrink:0;">${pct}%</span>
-    </div>`;
-  }).join("");
-
-  const summary = document.createElement("div");
-  summary.style.cssText = "background:var(--card);border-radius:16px;border:0.5px solid var(--border);overflow:hidden;margin-bottom:16px;";
-  summary.innerHTML = `
-    <div style="padding:12px 16px;border-bottom:0.5px solid var(--border);">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);">Топ совпадений</div>
-    </div>
-    ${summaryRows}
-    <div style="padding:10px 16px;border-top:0.5px solid var(--border);">
-      <div style="font-size:12px;color:var(--text-3);">Прокрутите вниз — подробные карточки каждого устройства</div>
-    </div>`;
-  list.appendChild(summary);
-
+  // ── Cards ─────────────────────────────────────────
   top.forEach((item, i) => {
     const {d, pct, mm} = item;
     const mc = matchClass(pct);
-    const qLabel = QLABELS_Q[d.q - 1];
 
-    // Spec tags
     const specsData = [
-      {k:"smartphone", l:"Смартфон"},
-      {k:"magnetic",   l:"Магнит. крепление"},
-      {k:"rear_cam",   l:"Задняя камера"},
+      {k:"smartphone", l:"Wi-Fi"},
+      {k:"magnetic",   l:"Магнит"},
+      {k:"rear_cam",   l:"Задн. камера"},
       {k:"touch",      l:"Сенсор"},
       {k:"rotation",   l:"Вращение"},
       {k:"ir_cam",     l:"ИК-камера"},
-      {k:"remote",     l:"4G / удалённо"},
+      {k:"remote",     l:"4G/удалённо"},
     ];
     const specTags = specsData
-      .map(s => `<span class="spec-tag${d[s.k] ? " has" : ""}">${s.l}</span>`)
+      .filter(s => d[s.k])
+      .map(s => `<span class="spec-tag has">${s.l}</span>`)
       .join("");
 
-    let mmHTML = "";
-    if (mm.length > 0) {
-      mmHTML = `
-        <button class="collapse-btn" onclick="toggleC(this)">
-          <span class="collapse-label">Что не совпало (${mm.length})</span>
-          <span class="collapse-arrow">›</span>
-        </button>
-        <div class="collapse-body">
-          ${mm.map(x=>`<div class="mm-item"><div class="mm-dot"></div>${x}</div>`).join("")}
-        </div>`;
-    }
+    // Mismatch tags inline
+    const missTags = mm.map(m => {
+      if (m.type === "missing") return `<span class="spec-tag miss">✗ ${QLABELS_SHORT[m.key]}</span>`;
+      if (m.type === "extra")   return `<span class="spec-tag extra">${QLABELS_SHORT[m.key]} — лишнее</span>`;
+      if (m.type === "quality") return `<span class="spec-tag qual">↓ Качество</span>`;
+      return "";
+    }).join("");
 
     const card = document.createElement("div");
     card.className = "dev-card";
 
-    // Photo block: real image if available, fallback to dark gradient + icon
-    const photoHTML = d.photo
-      ? `<img src="${d.photo}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-      : ``;
-    const iconStyle = d.photo ? `style="display:none"` : ``;
+    const camBadge = d.type === "комбо 3 в 1"
+      ? `<span class="cam-badge">📡 РАДАР+БАЗА</span>`
+      : d.type === "gps-информер"
+      ? `<span class="cam-badge">📍 БАЗА КАМЕР</span>`
+      : "";
 
     card.innerHTML = `
-      <div class="dev-img">
-        ${photoHTML}
-        <div class="dev-img-fallback" ${iconStyle}>
-          <div class="dev-img-brand">${d.brand}</div>
-          <div class="dev-img-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-            </svg>
-          </div>
-          <div class="dev-img-name">${d.name}</div>
-        </div>
+      <div class="dev-card-header">
+        <span class="dev-card-header-brand">${d.brand}</span>
+        ${camBadge ? camBadge : `<span class="dev-card-header-type">${d.type}</span>`}
       </div>
       <div class="dev-body">
         <div class="dev-meta">
           <div class="rank-pill">${ranks[i]}</div>
           <div class="match-pill ${mc}">${pct}% подходит</div>
         </div>
-        <div class="brand-pill">${d.brand}</div>
-        <div class="dev-name">${d.name}</div>
-        <div class="dev-desc">${d.desc}</div>
-        <div class="match-bar-wrap">
-          <div class="match-bar-row">
-            <span class="match-bar-label">Совпадение с вашими критериями</span>
-            <span class="match-bar-pct">${pct}%</span>
+        <div class="card-toggle">
+          <div style="flex:1;min-width:0;">
+            <div class="brand-pill">${d.brand}</div>
+            <div class="dev-name">${d.name}</div>
+            ${d.price ? `<div class="dev-price">${d.price}</div>` : ''}
           </div>
-          <div class="match-bar-track">
-            <div class="match-bar-fill ${mc}" style="width:${pct}%"></div>
+          <span class="card-toggle-arrow">⌄</span>
+        </div>
+        <div class="card-collapsible">
+          <div class="dev-desc">${d.desc}</div>
+          <div class="match-bar-wrap">
+            <div class="match-bar-row">
+              <span class="match-bar-label">Совпадение с вашими критериями</span>
+              <span class="match-bar-pct">${pct}%</span>
+            </div>
+            <div class="match-bar-track">
+              <div class="match-bar-fill ${mc}" style="width:${pct}%"></div>
+            </div>
           </div>
+          <div class="specs-row">${specTags}${missTags}</div>
+          <div class="dev-specs-grid">
+            <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${d.resolution || '—'}</div></div>
+            <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
+            <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${d.screen || '—'}</div></div>
+            <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${d.gps || '—'}</div></div>
+          </div>
+          ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            На сайт производителя
+          </a>` : ''}
+          <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent(d.name + ' обзор')}" target="_blank" rel="noopener">
+            <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="18" height="18" rx="5" fill="#FF4C00"/>
+              <path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/>
+            </svg>
+            Смотреть обзор на Rutube
+          </a>
         </div>
-        ${mmHTML}
-        <div class="dev-specs-grid">
-          <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${d.resolution || '—'}</div></div>
-          <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
-          <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${d.screen || '—'}</div></div>
-          <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${d.gps || '—'}</div></div>
-        </div>
-        <div class="specs-row">${specTags}</div>
-        ${d.price ? `<div style="font-size:15px;font-weight:700;color:var(--text);margin:10px 0 4px;">Цена: ${d.price}</div>` : ''}
-        ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          На сайт производителя
-        </a>` : ''}
-        <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent(d.name + ' обзор')}" target="_blank" rel="noopener">
-          <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="18" height="18" rx="5" fill="#FF4C00"/>
-            <path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/>
-          </svg>
-          Смотреть обзор на Rutube
-        </a>
       </div>
     `;
+
     list.appendChild(card);
   });
 
   show("s-results");
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 
   // Send data back to Telegram if in WebApp context
   if (window.Telegram?.WebApp) {
@@ -2106,9 +2237,9 @@ function _renderResults(top) {
   }
 }
 
-function toggleC(btn) {
-  btn.classList.toggle("open");
-  btn.nextElementSibling.classList.toggle("open");
+function toggleCard(toggle) {
+  toggle.classList.toggle("open");
+  toggle.nextElementSibling.classList.toggle("open");
 }
 
 function restartQuiz() {
