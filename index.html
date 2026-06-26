@@ -593,50 +593,22 @@ html, body {
 .btn-site:active { background: var(--border); }
 .btn-site svg { width: 16px; height: 16px; stroke: var(--text-2); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Donate */
-.donate-wrap {
-  padding: 18px 18px 0;
-}
-.donate-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-2);
-  margin-bottom: 12px;
-  text-align: center;
-  letter-spacing: .01em;
-}
-.btn-donate {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 52px;
-  background: #4F3CF7;
-  border-radius: 14px;
-  padding: 0 18px;
+.btn-rutube {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px;
+  width: 100%; height: 46px;
+  background: #141414;
+  border: none;
+  border-radius: 13px;
+  font-size: 14px; font-weight: 600;
+  color: white;
+  cursor: pointer;
   text-decoration: none;
-  box-sizing: border-box;
   transition: opacity .15s;
+  margin-top: 8px;
 }
-.btn-donate:active { opacity: .82; }
-.ym-logo {
-  width: 28px; height: 28px;
-  flex-shrink: 0;
-}
-.ym-text {
-  flex: 1;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  letter-spacing: .01em;
-}
-.ym-amount {
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  flex-shrink: 0;
-}
+.btn-rutube:active { opacity: .8; }
+.btn-rutube-logo { width: 18px; height: 18px; flex-shrink: 0; }
 
 /* Restart */
 .restart-wrap { padding: 14px 18px 0; }
@@ -824,19 +796,17 @@ html, body {
 /* ── Ad banner (loading) ── */
 .loading-ad {
   width: 100%;
-  padding-bottom: 28px;
-  margin-top: auto;
-  padding-top: 18px;
+  padding: 24px 0 28px;
 }
 .ad-banner-lg {
   background: var(--card);
   border: 1.5px dashed var(--border);
   border-radius: 16px;
-  padding: 20px 16px 18px;
+  padding: 28px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .ad-icon-circle {
   width: 46px; height: 46px;
@@ -1021,25 +991,20 @@ html, body {
     <div class="res-sub" id="res-sub"></div>
   </div>
   <div class="results-list" id="results-list"></div>
-  <!-- Донат -->
-  <div class="donate-wrap">
-    <div class="donate-label">☕ Поддержать проект</div>
-    <a class="btn-donate" href="https://yoomoney.ru/to/4100116787721997" target="_blank" rel="noopener">
-      <!-- YooMoney Ю logo -->
-      <svg class="ym-logo" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" rx="8" fill="white" fill-opacity="0.18"/>
-        <text x="14" y="20" text-anchor="middle" font-size="16" font-weight="900" fill="white" font-family="-apple-system,sans-serif">Ю</text>
-      </svg>
-      <span class="ym-text">Отправить</span>
-      <span class="ym-amount">200 ₽</span>
-    </a>
-  </div>
-
   <div class="restart-wrap">
     <button class="btn-restart" onclick="restartQuiz()">↺ Подобрать снова</button>
   </div>
-  <div class="ad-banner">
-    <span class="ad-label">здесь может быть ваша реклама</span>
+
+  <div style="padding: 14px 18px 32px;">
+    <div style="background: #F0F1FA; border-radius: 20px; padding: 18px 20px;">
+      <div style="font-size: 15px; font-weight: 600; color: #1C1C1E; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        ☕ Поддержать проект
+      </div>
+      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank"
+         style="display: block; width: 100%; box-sizing: border-box; background: #5B67F8; border-radius: 14px; padding: 16px; text-align: center; font-size: 17px; font-weight: 700; color: white; text-decoration: none;">
+        Отправить
+      </a>
+    </div>
   </div>
 </div>
 
@@ -1829,7 +1794,14 @@ function getTop(n=5) {
   });
 
   // Шаг 2: сортируем чемпионов по убыванию %
-  const champions = Object.values(brandBest).sort((a, b) => b.pct - a.pct);
+  // Минимальный порог: не показываем бренд, если его лучшее устройство
+  // не набрало хотя бы 50% (явное несовпадение по заданным критериям)
+  const answeredCount = Object.keys(answers).filter(k => k !== "type" && k !== "form" && answers[k] !== "неважно").length;
+  const minPct = answeredCount >= 2 ? 50 : 0;
+
+  const champions = Object.values(brandBest)
+    .filter(c => c.pct >= minPct)
+    .sort((a, b) => b.pct - a.pct);
 
   // Шаг 3: берём топ-N чемпионов — каждый бренд гарантированно конкурирует
   const result = champions.slice(0, n);
@@ -1838,7 +1810,7 @@ function getTop(n=5) {
   if (result.length < n) {
     const used = new Set(result.map(r => r.d.name));
     const rest = scored
-      .filter(r => !used.has(r.d.name))
+      .filter(r => !used.has(r.d.name) && r.pct >= minPct)
       .sort((a, b) => b.pct - a.pct);
     while (result.length < n && rest.length > 0) result.push(rest.shift());
     result.sort((a, b) => b.pct - a.pct);
@@ -1897,7 +1869,13 @@ function renderQ() {
     const d = document.createElement("div");
     d.className = "opt" + (answers[q.key] === o.v ? " sel" : "");
     d.innerHTML = `<div class="opt-text"><div class="opt-title">${o.l}</div><div class="opt-desc">${o.d}</div></div><div class="opt-radio"><div class="opt-radio-dot"></div></div>`;
-    d.onclick = () => pick(o.v);
+    let lastTap = 0;
+    d.onclick = () => {
+      pick(o.v);
+      const now = Date.now();
+      if (now - lastTap < 350) goNext();
+      lastTap = now;
+    };
     list.appendChild(d);
   });
 
@@ -1969,6 +1947,35 @@ function _renderResults(top) {
   const list = el("results-list");
   list.innerHTML = "";
   const ranks = ["#1","#2","#3","#4","#5"];
+
+  // ── Всё «неважно» ────────────────────────────────
+  const scoredKeys = ["quality","smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
+  const allDontCare = scoredKeys.every(k => !answers[k] || answers[k] === "неважно");
+  if (allDontCare) {
+    const lazy = document.createElement("div");
+    lazy.style.cssText = "display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;";
+    lazy.innerHTML = `
+      <div style="font-size:56px;margin-bottom:20px;">🤷</div>
+      <div style="font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px;line-height:1.25;margin-bottom:14px;">Вы слишком непринципиальны в выборе.</div>
+      <div style="font-size:15px;color:var(--text-2);line-height:1.6;">Вам подойдёт абсолютно любой регистратор.</div>`;
+    list.appendChild(lazy);
+    show("s-results");
+    return;
+  }
+
+  // ── Пустой результат: всё ниже 40% ───────────────
+  if (top.length === 0 || top[0].pct < 40) {
+    const empty = document.createElement("div");
+    empty.style.cssText = "display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;";
+    empty.innerHTML = `
+      <div style="font-size:56px;margin-bottom:20px;">🤔</div>
+      <div style="font-size:24px;font-weight:800;color:var(--text);letter-spacing:-0.5px;line-height:1.25;margin-bottom:14px;">УПС.</div>
+      <div style="font-size:18px;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:12px;">У вас слишком своеобразный запрос.</div>
+      <div style="font-size:15px;color:var(--text-2);line-height:1.6;">По нашим данным таких устройств не существует.</div>`;
+    list.appendChild(empty);
+    show("s-results");
+    return;
+  }
 
   // ── Summary list ─────────────────────────────────
   const summaryRows = top.map((item, i) => {
@@ -2077,6 +2084,13 @@ function _renderResults(top) {
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           На сайт производителя
         </a>` : ''}
+        <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent(d.name + ' обзор')}" target="_blank" rel="noopener">
+          <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="18" height="18" rx="5" fill="#FF4C00"/>
+            <path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/>
+          </svg>
+          Смотреть обзор на Rutube
+        </a>
       </div>
     `;
     list.appendChild(card);
