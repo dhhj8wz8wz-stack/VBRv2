@@ -112,7 +112,7 @@ html, body {
 
 .intro-inner {
   text-align: center;
-  padding: 48px 24px 36px;
+  padding: 24px 24px 28px;
   max-width: 360px;
   width: 100%;
   position: relative;
@@ -120,11 +120,11 @@ html, body {
 }
 
 .intro-icon {
-  width: 96px; height: 96px;
+  width: 88px; height: 88px;
   background: white;
-  border-radius: 26px;
+  border-radius: 24px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 16px;
   box-shadow: 0 4px 20px rgba(91,103,248,.12);
 }
 
@@ -141,7 +141,7 @@ html, body {
 .intro-tagline {
   font-size: 14px;
   color: var(--text-2);
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .intro-headline {
@@ -149,7 +149,7 @@ html, body {
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .intro-headline .accent { color: var(--indigo); }
 
@@ -157,14 +157,16 @@ html, body {
   font-size: 15px;
   color: var(--text-2);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 .intro-desc .accent { color: var(--indigo); font-weight: 600; }
+
+.btn-start { margin-bottom: 16px; }
 
 .intro-cards {
   display: flex;
   gap: 10px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .icard {
@@ -921,6 +923,7 @@ html, body {
     <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
     <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
     <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
+    <button class="btn-start" id="btn-start">Начать подбор →</button>
     <div class="intro-cards">
       <div class="icard">
         <div class="icard-icon">⚡</div>
@@ -938,7 +941,6 @@ html, body {
         <div class="icard-sub">Без регистрации и условий</div>
       </div>
     </div>
-    <button class="btn-start" id="btn-start">Начать подбор →</button>
     <div class="intro-footer">🛡️ Конфиденциально. Никаких личных данных.</div>
   </div>
 </div>
