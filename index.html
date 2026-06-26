@@ -1072,11 +1072,10 @@ const QS = [
     key:"form", title:"Какой форм-фактор?",
     sub:"Выберите предпочтительный вариант исполнения",
     opts:[
-      {l:"Компактный без экрана", d:"Минимальный размер, управление через смартфон", v:"компактный без экрана"},
-      {l:"Компактный с экраном",  d:"Небольшой размер с дисплеем на борту",          v:"компактный с экраном"},
-      {l:"Стандартный с экраном", d:"Классический регистратор с экраном",            v:"стандартный с экраном"},
-      {l:"Регистратор-зеркало",   d:"Заменяет штатное зеркало заднего вида",         v:"регистратор-зеркало"},
-      {l:"Неважно",               d:"Форм-фактор не является критерием",             v:"неважно"},
+      {l:"С экраном",           d:"Регистратор со встроенным дисплеем",            v:"с экраном"},
+      {l:"Без экрана",          d:"Скрытая установка, управление через смартфон",  v:"без экрана"},
+      {l:"Регистратор-зеркало", d:"Заменяет штатное зеркало заднего вида",         v:"регистратор-зеркало"},
+      {l:"Неважно",             d:"Форм-фактор не является критерием",             v:"неважно"},
     ]
   },
   {
@@ -1154,7 +1153,7 @@ const QLABELS = {
 
 const DEVICES = [
   {name:"TrendVision TDR-725 Real 4K 2CH", brand:"TrendVision",
-   type:"gps-информер",     form:"стандартный с экраном",  q:2,
+   type:"gps-информер",     form:"с экраном",  q:2,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:true,  rotation:true,  ir_cam:false, remote:false,
    desc:"GPS-информер с поддержкой двух камер и превосходным 4K-качеством. Сенсорный экран и поворотный механизм для максимального удобства.",
    resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
@@ -1162,7 +1161,7 @@ const DEVICES = [
    url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k/",
    photo:"https://trendvision.ru/uploads/c1646d4c7727fd4562f5e62b09145451_png_1_Wihk_BL_jpg_4109b6b436.jpeg"},
   {name:"Neoline X-COP CITYSMART",         brand:"Neoline",
-   type:"комбо 3 в 1",      form:"стандартный с экраном",  q:2,
+   type:"комбо 3 в 1",      form:"с экраном",  q:2,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
    desc:"Сигнатурный комбо 3 в 1 от Neoline. Матрица Sony Exmor, автоматические пресеты по регионам и полная библиотека сигнатур. Сделано в Корее.",
    resolution:"Full HD 1920×1080 @30fps", angle:"135°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
@@ -1170,7 +1169,7 @@ const DEVICES = [
    url:"https://neoline.ru/shop/gibrid-videoregistratora-s-radar-detektorom-neoline-x-cop-citysmart/",
    photo:"https://car-radar.ru/wa-data/public/shop/products/88/37/3788/images/16853/16853.750.jpg"},
   {name:"70Mai Dash Cam 4K A810S",          brand:"70Mai",
-   type:"видеорегистратор", form:"стандартный с экраном",  q:3,
+   type:"видеорегистратор", form:"с экраном",  q:3,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагман от 70mai с сенсором Sony STARVIS 2, технологией MaiColor Vivid+, Wi-Fi 6 и поддержкой 4G удалённого мониторинга.",
    resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS", gps:"встроенный GPS",
@@ -1194,7 +1193,7 @@ const DEVICES = [
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-zerkalo-s-signaturnym-radar-detektorom-ibox-range-2-laservision-wifi-signature-dual/",
    photo:"https://car-radar.ru/wa-data/public/shop/products/26/38/3826/images/17409/17409.750.jpg"},
   {name:"TrendVision Online Air 4G",        brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном",  q:1,
+   type:"видеорегистратор", form:"с экраном",  q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"Видеорегистратор со встроенным 4G SIM-модулем. Онлайн-трансляция, удалённый просмотр из любой точки мира и оповещения о событиях.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"IPS экран", gps:"GPS + 4G",
@@ -1202,7 +1201,7 @@ const DEVICES = [
    url:"https://trendvision.ru/products/trendvision-online-air-4g/",
    photo:null},
   {name:"Mio MiVue J20",                    brand:"Mio",
-   type:"видеорегистратор", form:"компактный без экрана",  q:1,
+   type:"видеорегистратор", form:"без экрана",  q:1,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Ультракомпактный регистратор без экрана. Суперконденсатор, защищённый Wi-Fi, управление через приложение MiVue Pro.",
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"без экрана", gps:"нет",
@@ -1210,7 +1209,7 @@ const DEVICES = [
    url:"https://www.mio.com/ru/mivue-j20-ru",
    photo:"https://www.mio.com/media/catalog/product/m/i/mivue_j20_camera-l45-1_4.png"},
   {name:"iBox Flip 2K WiFi Dual",           brand:"iBox",
-   type:"видеорегистратор", form:"компактный с экраном",   q:2,
+   type:"видеорегистратор", form:"с экраном",   q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
    desc:"Компактный регистратор 2K с поворотной ИК-камерой для записи салона. Поддержка камеры заднего вида и подключения третьей камеры.",
    resolution:"2K 2560×1440 @30fps", angle:"130°", screen:"1.5\" экран", gps:"нет",
@@ -1218,7 +1217,7 @@ const DEVICES = [
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-flip-2k-wifi-dual-dvukhkanalnyy-s-vozmozhnostyu-podklyucheniya-tretey/",
    photo:null},
   {name:"iBox Flip GPS Dual",               brand:"iBox",
-   type:"видеорегистратор", form:"компактный с экраном",   q:1,
+   type:"видеорегистратор", form:"с экраном",   q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
    desc:"Компактный регистратор с поворотной ИК-камерой салона, GPS и двухканальной записью. Работает автономно без мобильного приложения.",
    resolution:"Full HD 1920×1080 @30fps", angle:"130°", screen:"1.5\" экран", gps:"GPS встроенный",
@@ -1226,7 +1225,7 @@ const DEVICES = [
    url:"https://iboxstore.ru/catalog/videoregistratory/dvukhkanalnyy-videoregistrator-ibox-flip-gps-dual/",
    photo:null},
   {name:"SilverStone F1 HYBRID S-BOT PRO",  brand:"SilverStone F1",
-   type:"комбо 3 в 1",      form:"стандартный с экраном",  q:2,
+   type:"комбо 3 в 1",      form:"с экраном",  q:2,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1 корейского производства. Рупорная антенна с усилителем LNA, Z-сигнатуры, Wi-Fi обновления через приложение VideoMix.",
    resolution:"SuperHD 2304×1296 @30fps", angle:"145°", screen:"3\" IPS LCD", gps:"GPS + ГЛОНАСС",
@@ -1236,7 +1235,7 @@ const DEVICES = [
 
   /* ── TrendVision Классические ───────────────────── */
   {name:"TrendVision Nano 2K Wi-Fi CPL", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   type:"видеорегистратор", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Ультракомпактный регистратор 2K со скрытой установкой. Крепится на магните, управляется через Wi-Fi приложение, CPL-фильтр в комплекте.",
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"нет",
@@ -1245,7 +1244,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_29e6866887.jpg"},
 
   {name:"TrendVision Nano 2K Wi-Fi CPL GPS", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   type:"видеорегистратор", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Версия Nano 2K с GPS-модулем: скорость и координаты записываются в видео. Скрытая установка, магнит, Wi-Fi, CPL-фильтр.",
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"координаты/скорость",
@@ -1254,7 +1253,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_f615cae76f.jpg"},
 
   {name:"TrendVision Phantom 3CH GPS", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:3,
+   type:"видеорегистратор", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
    desc:"3-канальный регистратор: 4K фронт + 2K салон с ИК-подсветкой (130°) + Full HD сзади. Wi-Fi, GPS-штамп координат и скорости.",
    resolution:"2K нативное / 4K интерп.", angle:"170°+170°+120°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
@@ -1263,7 +1262,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/xlarge_03_f889d2e006.jpg"},
 
   {name:"TrendVision DriveCam Real 4K GPS 2CH", brand:"TrendVision",
-   type:"gps-информер", form:"стандартный с экраном", q:3,
+   type:"gps-информер", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Реальный 4K + GPS-информер SpeedCam в одном устройстве. Sony IMX415, задняя Full HD камера в комплекте, сенсор жестов, магнитное крепление.",
    resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1272,7 +1271,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/xlarge_6_klass_a92d6f18ab.jpg"},
 
   {name:"TrendVision TDR-725 Real 4K Max", brand:"TrendVision",
-   type:"gps-информер", form:"стандартный с экраном", q:3,
+   type:"gps-информер", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
    desc:"Флагман с реальным 4K, сенсорным экраном и HardWare Kit (парковочный режим) в комплекте. GPS-информер SpeedCam, сенсор жестов, Sony IMX415.",
    resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
@@ -1281,7 +1280,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/6_1_029f8048bf.jpg"},
 
   {name:"TrendVision Victory", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Бюджетный компактный регистратор с 3\" IPS-экраном и магнитным креплением. Простая установка и съём, Full HD съёмка 170°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
@@ -1290,7 +1289,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/viktori_2_2_0fbe0f848e.jpg"},
 
   {name:"TrendVision Victory Dual", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Victory с задней камерой в комплекте. Одновременная запись спереди и сзади, 3\" IPS, магнитное крепление, Full HD.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
@@ -1299,7 +1298,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Proof Ultra", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:3,
+   type:"видеорегистратор", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
    desc:"Мощный 4K регистратор с 3-канальной записью: фронт + поворотная ИК-камера салона + задняя камера. Wi-Fi, GPS, широкий угол.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
@@ -1308,7 +1307,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision TDR-721S EVO", brand:"TrendVision",
-   type:"gps-информер", form:"стандартный с экраном", q:2,
+   type:"gps-информер", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 2K с магнитным креплением и Wi-Fi. Sony Starvis IMX335, SpeedCam, CPL-фильтр в комплекте, суперконденсатор.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1317,7 +1316,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/trendvision_tdr_721s_11_fa25240127.jpg"},
 
   {name:"TrendVision TDR-721S EVO Pro", brand:"TrendVision",
-   type:"gps-информер", form:"стандартный с экраном", q:2,
+   type:"gps-информер", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 2K с задней камерой в комплекте. Все преимущества EVO + двухканальная запись спереди и сзади.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1326,7 +1325,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Bullet", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:2,
+   type:"видеорегистратор", form:"без экрана", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Компактный цилиндрический регистратор 2K без экрана. Скрытая установка, магнитное крепление, управление через Wi-Fi приложение.",
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
@@ -1335,7 +1334,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Proof PRO", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Бюджетный двухканальный регистратор с поворотной камерой и задней камерой в комплекте. Full HD, 3\" IPS, широкий угол 170°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
@@ -1344,7 +1343,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Proof PRO GPS", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Proof PRO с GPS-модулем: скорость и координаты в записи. Задняя камера, поворотный механизм, Full HD 170°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
@@ -1353,7 +1352,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Proof 360 GPS", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:2,
+   type:"видеорегистратор", form:"с экраном", q:2,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Регистратор 2K с поворотной камерой на 360°, задней камерой, GPS и Wi-Fi. Запись дороги и салона одновременно.",
    resolution:"2K 2304×1296 @30fps", angle:"360°/170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
@@ -1362,7 +1361,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Winner", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Минималистичный компактный регистратор с экраном и магнитным креплением. Лёгкая установка/съём, Full HD 170°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"нет",
@@ -1371,7 +1370,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Winner PRO Plus", brand:"TrendVision",
-   type:"gps-информер", form:"компактный с экраном", q:1,
+   type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Компактный GPS-информер с магнитным креплением и Wi-Fi. SpeedCam предупреждения о камерах, Full HD 170°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
@@ -1380,7 +1379,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision X1 (ver.2)", brand:"TrendVision",
-   type:"gps-информер", form:"компактный с экраном", q:1,
+   type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Компактный GPS-информер с магнитным креплением и Wi-Fi. Уведомления о камерах SpeedCam, Full HD.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
@@ -1389,7 +1388,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision X1 Max (ver.2)", brand:"TrendVision",
-   type:"gps-информер", form:"компактный с экраном", q:1,
+   type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"X1 с задней камерой в комплекте. Компактный GPS-информер: двухканальная запись + SpeedCam, магнит, Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
@@ -1398,16 +1397,16 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision X2 Dual", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Ультракомпактный двухканальный регистратор без экрана. Задняя камера в комплекте, магнитное крепление, Full HD.",
-   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   desc:"Компактный двухканальный регистратор с экраном и задней камерой в комплекте. Магнитное крепление, Full HD.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" IPS", gps:"нет",
    price:"~6 990 ₽",
    url:"https://trendvision.ru/products/trendvision-x2-dual/",
    photo:null},
 
   {name:"TrendVision TENET", brand:"TrendVision",
-   type:"видеорегистратор", form:"стандартный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Базовый регистратор с 3\" экраном и Full HD записью. Простое управление, стандартная установка, надёжная работа.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" экран", gps:"нет",
@@ -1416,7 +1415,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Prime", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   type:"видеорегистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
    desc:"Компактный регистратор без экрана с ИК-ночной камерой. Скрытая установка, Full HD, работает без смартфона.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
@@ -1425,7 +1424,7 @@ const DEVICES = [
    photo:null},
 
   {name:"TrendVision Prime (ver.2)", brand:"TrendVision",
-   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   type:"видеорегистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
    desc:"Обновлённая версия Prime: компактный регистратор без экрана с ИК-камерой. Улучшенная электроника, то же удобство скрытой установки.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
@@ -1436,7 +1435,7 @@ const DEVICES = [
   // ── TrendVision: Комбо 3 в 1 (с радар-детектором) ──────────────────────────
 
   {name:"TrendVision Combo F10", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Комбо-устройство 3 в 1: Full HD регистратор + сигнатурный радар-детектор (6 режимов) + GPS-информатор. Wi-Fi, суперконденсатор, поворотное крепление 360°.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1445,7 +1444,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png"},
 
   {name:"TrendVision Combo F10 CPL", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1: Full HD + сигнатурный радар-детектор + GPS-информатор. В комплекте CPL-фильтр для устранения бликов. Wi-Fi, суперконденсатор.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1454,7 +1453,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png"},
 
   {name:"TrendVision Hybrid Signature Real 4K", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1: реальный 4K Ultra HD (Sony IMX415) + сигнатурный радар-детектор + GPS-информатор. Wi-Fi, сенсор жестов, CPL-фильтр, суперконденсатор.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1463,7 +1462,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
 
   {name:"TrendVision Hybrid Signature Real 4K 2CH", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1 с задней камерой: реальный 4K + сигнатурный радар-детектор + GPS-информатор. Wi-Fi, сенсор жестов, CPL-фильтр, суперконденсатор.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1472,7 +1471,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
 
   {name:"TrendVision Hybrid Signature Real 4K Max", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1 с кабелем прямого подключения (парковочный режим): реальный 4K + сигнатурный радар-детектор + GPS-информатор. Wi-Fi, сенсор жестов.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1481,7 +1480,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1: реальный 4K (Sony IMX415) + сигнатурный радар-детектор с LNA-усилителем (дальность +30%) + GPS-информатор. Магнитное крепление, Wi-Fi, сенсор жестов.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1490,7 +1489,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA Max", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1 с парковочным режимом (кабель Direct в комплекте): реальный 4K + сигнатурный радар-детектор с LNA + GPS-информатор. Магнитное крепление, Wi-Fi.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1499,7 +1498,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA 2CH", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1 с задней камерой: реальный 4K + сигнатурный радар-детектор с LNA-усилителем + GPS-информатор. Магнитное крепление, Wi-Fi, сенсор жестов.",
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1508,7 +1507,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
 
   {name:"TrendVision Hybrid Signature EVO Wi", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1: 2K QuadHD (Sony IMX335) + сигнатурный радар-детектор + GPS-информатор. CPL-фильтр, магнитное крепление, Wi-Fi, AI распознавание знаков.",
    resolution:"2K QuadHD 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1517,7 +1516,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg"},
 
   {name:"TrendVision Hybrid Signature EVO Wi 2CH", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1 с задней камерой GalaxyCore: 2K + сигнатурный радар-детектор + GPS-информатор. CPL-фильтр, магнитное крепление, Wi-Fi.",
    resolution:"2K QuadHD 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1526,7 +1525,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg"},
 
   {name:"TrendVision Hybrid Signature EVO Pro", brand:"TrendVision",
-   type:"комбо 3 в 1", form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманское комбо 3 в 1 с задней камерой Sony: 2K Super HD + сигнатурный радар-детектор + GPS-информатор. CPL-фильтр, магнитное крепление, Wi-Fi, суперконденсатор.",
    resolution:"2K Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
@@ -1536,7 +1535,7 @@ const DEVICES = [
 
   // ── TrendVision 4G онлайн ────────────────────────────────────────────────
   {name:"TrendVision Online Sky 4G", brand:"TrendVision",
-   type:"4G-регистратор", form:"компактный без экрана", q:1,
+   type:"4G-регистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"Ультракомпактный Full HD регистратор с 4G онлайн-мониторингом 24/7. Электронное ограждение, GPS-трек, парковочный режим, уведомления о событиях. Скрытая установка.",
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"нет", gps:"GPS (встроенный)",
@@ -1545,7 +1544,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skyverh_niz_ba7c3736b1.jpg"},
 
   {name:"TrendVision Online Sky 4G Dual", brand:"TrendVision",
-   type:"4G-регистратор", form:"компактный без экрана", q:2,
+   type:"4G-регистратор", form:"без экрана", q:2,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"2K регистратор с 4G, задней Full HD камерой в комплекте и двусторонней голосовой связью. Электронное ограждение, GPS, парковочный режим.",
    resolution:"2K 2560×1440 @30fps", angle:"150°", screen:"нет", gps:"GPS (встроенный)",
@@ -1554,7 +1553,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skybochka_870e8160ec.jpg"},
 
   {name:"TrendVision Online Air 4G", brand:"TrendVision",
-   type:"4G-регистратор", form:"компактный без экрана", q:2,
+   type:"4G-регистратор", form:"без экрана", q:2,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"2K регистратор с 4G, задней камерой и CPL-фильтром в комплекте. HardWare Kit для прямого подключения к АКБ (парковочный режим). Двусторонняя голосовая связь.",
    resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"нет", gps:"GPS (встроенный)",
@@ -1563,7 +1562,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/fotka_32_5cb94f6502.jpg"},
 
   {name:"TrendVision Online Cloud 4G", brand:"TrendVision",
-   type:"4G-регистратор", form:"компактный без экрана", q:1,
+   type:"4G-регистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"Full HD регистратор с 4G и облачным мониторингом CMSv6 для автопарков. Задняя камера в комплекте, двусторонняя связь, умный парковочный режим.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"нет", gps:"GPS (встроенный)",
@@ -1572,7 +1571,7 @@ const DEVICES = [
    photo:"https://trendvision.ru/uploads/Trendvision_online_cloud_4g_1_7a99fc8d0d.jpg"},
 
   {name:"TrendVision SafeCube 4G", brand:"TrendVision",
-   type:"4G-регистратор", form:"компактный без экрана", q:1,
+   type:"4G-регистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:true,
    desc:"Автономная 4G-камера наблюдения: два объектива (140° + x6 зум), ИК-подсветка до 5м, аппаратный датчик движения. Аккумулятор до 10 суток. Склад, гараж, дача.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"нет", gps:"нет",
@@ -1582,7 +1581,7 @@ const DEVICES = [
 
   /* ── iBOX Видеорегистраторы ─────────────────────── */
   {name:"iBOX City PRO",                  brand:"iBox",
-   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Компактный регистратор с 3\" IPS-экраном и магнитным креплением. Full HD, WDR, режим парковки и поддержка камеры заднего вида. Управление через iBOX Assist.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
@@ -1591,7 +1590,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX Epic WiFi Dual",            brand:"iBox",
-   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   type:"видеорегистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Ультракомпактный цилиндрический регистратор без экрана. Full HD, скрытая установка на скотч, двухканальная запись, управление через Wi-Fi приложение iBOX Assist.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
@@ -1601,7 +1600,7 @@ const DEVICES = [
 
   /* ── iBOX GPS-информеры ──────────────────────────── */
   {name:"iBOX RoadScan",                  brand:"iBox",
-   type:"gps-информер",     form:"компактный с экраном", q:1,
+   type:"gps-информер",     form:"с экраном", q:1,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Компактный GPS-информер с магнитным креплением. Full HD, встроенная база камер, поддержка камеры заднего вида, управление через iBOX Assist.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
@@ -1610,7 +1609,7 @@ const DEVICES = [
    photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/341524/f6e5b326a22b0348aad67cbb31d5615d/iblock/0ff/0ff7af7afaebc33e38313098c48903a8/iBOX_RoadScan.jpg"},
 
   {name:"iBOX RoadScan 4K GPS",           brand:"iBox",
-   type:"gps-информер",     form:"компактный с экраном", q:3,
+   type:"gps-информер",     form:"с экраном", q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"GPS-информер с реальной съёмкой 4K. Sony-матрица, магнитное крепление, расширенная база камер SpeedCam, Wi-Fi и поддержка второй камеры.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1619,7 +1618,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX RoadScan PRO 4K",           brand:"iBox",
-   type:"gps-информер",     form:"компактный с экраном", q:3,
+   type:"gps-информер",     form:"с экраном", q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманский GPS-информер 4K от iBox. Максимальная база камер, магнитное крепление, Wi-Fi, расширенный режим парковки и поддержка задней камеры.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1629,7 +1628,7 @@ const DEVICES = [
 
   /* ── iBOX Комбо 3 в 1 ───────────────────────────── */
   {name:"iBOX iCON 2 LaserVision WiFi",   brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманское комбо iBox с лазерным детектором LaserVision и сигнатурным радаром. Super HD 2K, магнитное крепление, Wi-Fi, база камер SpeedCam.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1638,7 +1637,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX Alta LaserScan WiFi",        brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Компактное комбо 3 в 1 с лазерным детектором LaserScan и сигнатурным радаром. Full HD, магнитное крепление, Wi-Fi, база SpeedCam.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1647,7 +1646,7 @@ const DEVICES = [
    photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/340561/f6e5b326a22b0348aad67cbb31d5615d/iblock/cea/cea2e80fb46cfdccd21971afd8614a1f/iBOX_Alta_WiFi.jpg"},
 
   {name:"iBOX F5 PRO 4K LaserScan WiFi",  brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1",      form:"с экраном", q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, сигнатурный радар, Wi-Fi, магнитное крепление.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1657,7 +1656,7 @@ const DEVICES = [
 
   /* ── iBOX Видеорегистраторы (дополнение) ────────── */
   {name:"iBOX Alpha WiFi",                brand:"iBox",
-   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Компактный регистратор с IPS-экраном, магнитным креплением и Wi-Fi. Full HD, матрица SMARTSENS, стильный корпус, управление через iBOX Assist.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
@@ -1666,7 +1665,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX Epic 4K",                   brand:"iBox",
-   type:"видеорегистратор", form:"компактный без экрана", q:3,
+   type:"видеорегистратор", form:"без экрана", q:3,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Ультракомпактный 4K-регистратор без экрана. Скрытая установка на скотч, реальная 4K съёмка, управление через Wi-Fi приложение iBOX Assist.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
@@ -1676,7 +1675,7 @@ const DEVICES = [
 
   /* ── iBOX GPS-информеры (дополнение) ────────────── */
   {name:"iBOX RoadScan 2K",               brand:"iBox",
-   type:"gps-информер",     form:"компактный с экраном", q:2,
+   type:"gps-информер",     form:"с экраном", q:2,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Новинка: GPS-информер 2K QHD с детализированной съёмкой. Sony Starvis, магнитное крепление, база SpeedCam, Wi-Fi, поддержка второй камеры.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1695,7 +1694,7 @@ const DEVICES = [
 
   /* ── iBOX Комбо 3 в 1 (дополнение) ─────────────── */
   {name:"iBOX Alta",                      brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:true,  smartphone:false, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Доступное комбо 3 в 1 с магнитным креплением. Full HD, сигнатурный радар, база SpeedCam. Работает автономно — без смартфона.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1704,7 +1703,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX iCON WiFi",                 brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1 с Sony Starvis, сигнатурным радаром и Wi-Fi. Full HD, база SpeedCam, поддержка задней камеры.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1713,7 +1712,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX iCON LaserVision WiFi",     brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1 с лазерным LaserVision 2.0 и сигнатурным радаром. Super HD, Sony Starvis, Wi-Fi, база SpeedCam, поддержка задней камеры.",
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1722,7 +1721,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX iCON Dual",                 brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальное комбо 3 в 1 с Sony Starvis, сигнатурным радаром и задней камерой. Full HD, база SpeedCam, Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1740,7 +1739,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX EVO",                       brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Победитель «За рулём»: комбо 3 в 1 с LaserVision и Sony Starvis. Full HD, сигнатурный радар, Wi-Fi, двухканальная запись.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1749,7 +1748,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX EVO 4K",                    brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1",      form:"с экраном", q:3,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"4K-версия флагманского комбо EVO. Реальная 4K съёмка, LaserVision, Sony Starvis, сигнатурный радар, Wi-Fi, двухканальная запись.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1758,7 +1757,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX F5+ WiFi",                  brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Комбо 3 в 1 Super HD с рупорной антенной дальнего обнаружения и Wi-Fi. Сигнатурный радар, база SpeedCam, поддержка задней камеры.",
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1767,7 +1766,7 @@ const DEVICES = [
    photo:null},
 
   {name:"iBOX F5 PRO 4K Контроль",        brand:"iBox",
-   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   type:"комбо 3 в 1",      form:"с экраном", q:3,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
    desc:"Новинка: комбо 3 в 1 с 4K и технологией iBOX Контроль — удалённый доступ и автообновление базы SpeedCam через SIM. Детальная 4K съёмка.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
@@ -1970,6 +1969,30 @@ function _renderResults(top) {
   const list = el("results-list");
   list.innerHTML = "";
   const ranks = ["#1","#2","#3","#4","#5"];
+
+  // ── Summary list ─────────────────────────────────
+  const summaryRows = top.map((item, i) => {
+    const pct = item.pct;
+    const color = pct === 100 ? "#22c55e" : pct >= 80 ? "#f59e0b" : "#ef4444";
+    const bg = i % 2 === 1 ? "background:rgba(0,0,0,.03);" : "";
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;${bg}">
+      <span style="font-size:13px;color:var(--text-2);min-width:24px;flex-shrink:0;">${ranks[i]}</span>
+      <span style="flex:1;font-size:14px;font-weight:600;color:var(--text);line-height:1.3;">${item.d.name}</span>
+      <span style="font-size:13px;font-weight:700;color:${color};flex-shrink:0;">${pct}%</span>
+    </div>`;
+  }).join("");
+
+  const summary = document.createElement("div");
+  summary.style.cssText = "background:var(--card);border-radius:16px;border:0.5px solid var(--border);overflow:hidden;margin-bottom:16px;";
+  summary.innerHTML = `
+    <div style="padding:12px 16px;border-bottom:0.5px solid var(--border);">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);">Топ совпадений</div>
+    </div>
+    ${summaryRows}
+    <div style="padding:10px 16px;border-top:0.5px solid var(--border);">
+      <div style="font-size:12px;color:var(--text-3);">Прокрутите вниз — подробные карточки каждого устройства</div>
+    </div>`;
+  list.appendChild(summary);
 
   top.forEach((item, i) => {
     const {d, pct, mm} = item;
