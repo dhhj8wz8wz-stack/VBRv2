@@ -82,82 +82,143 @@ html, body {
 .screen.on { display: block; }
 
 /* ── INTRO ────────────────────────────────────────── */
+:root {
+  --indigo: #5B67F8;
+  --indigo-light: #ECEEFF;
+}
+
 #s-intro {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
+  background: #F0F1FA;
+  position: relative;
+  overflow: hidden;
 }
 
 #s-intro.on { display: flex; }
 
+/* decorative dot grids */
+#s-intro::before, #s-intro::after {
+  content: '';
+  position: absolute;
+  width: 160px; height: 160px;
+  background-image: radial-gradient(circle, #BFC3F0 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+  opacity: .5;
+  pointer-events: none;
+}
+#s-intro::before { top: -20px; left: -20px; }
+#s-intro::after  { top: -20px; right: -20px; }
+
 .intro-inner {
   text-align: center;
-  padding: 40px 28px;
-  max-width: 340px;
+  padding: 48px 24px 36px;
+  max-width: 360px;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .intro-icon {
-  width: 88px; height: 88px;
-  background: #1C1C1E;
-  border-radius: 22px;
+  width: 96px; height: 96px;
+  background: white;
+  border-radius: 26px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 28px;
+  margin: 0 auto 24px;
+  box-shadow: 0 4px 20px rgba(91,103,248,.12);
 }
 
-.intro-icon svg { width: 48px; height: 48px; fill: white; }
+.intro-icon svg { width: 52px; height: 52px; fill: #1C1C1E; }
 
-.intro-title { font-size: 30px; font-weight: 700; margin-bottom: 12px; }
+.intro-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.intro-title .accent { color: var(--indigo); }
+
+.intro-tagline {
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 28px;
+}
+
+.intro-headline {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  margin-bottom: 16px;
+}
+.intro-headline .accent { color: var(--indigo); }
 
 .intro-desc {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-2);
-  line-height: 1.65;
-  margin-bottom: 40px;
+  line-height: 1.6;
+  margin-bottom: 32px;
 }
+.intro-desc .accent { color: var(--indigo); font-weight: 600; }
 
-.intro-pills {
+.intro-cards {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 40px;
+  gap: 10px;
+  margin-bottom: 32px;
 }
 
-.ipill { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.icard {
+  flex: 1;
+  background: white;
+  border-radius: 16px;
+  padding: 14px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
 
-.ipill-circle {
-  width: 72px; height: 72px;
-  background: var(--blue-bg);
+.icard-icon {
+  width: 44px; height: 44px;
+  background: var(--indigo-light);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  line-height: 1;
 }
 
-.ipill-circle svg {
-  width: 30px; height: 30px;
-  stroke: var(--blue); fill: none;
-  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+.icard-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text);
 }
 
-.ipill-label {
-  font-size: 11px; font-weight: 700;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--blue);
+.icard-sub {
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.35;
+  text-align: center;
 }
 
 .btn-start {
   width: 100%;
-  height: 56px;
-  background: #1C1C1E;
+  height: 58px;
+  background: var(--indigo);
   border: none;
-  border-radius: 16px;
+  border-radius: 18px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   color: white;
   cursor: pointer;
   letter-spacing: -0.2px;
-  transition: opacity .15s;
+  transition: opacity .15s, transform .1s;
+  box-shadow: 0 4px 16px rgba(91,103,248,.35);
 }
-.btn-start:active { opacity: .8; }
+.btn-start:active { opacity: .88; transform: scale(.98); }
+
+.intro-footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-3);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
 
 /* ── QUESTION SCREEN ─────────────────────────────── */
 #s-question {
@@ -856,29 +917,29 @@ html, body {
         <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
       </svg>
     </div>
-    <div class="intro-title">VBR Bot</div>
-    <div class="intro-desc">Подберём видеорегистратор под ваши задачи за 10 вопросов</div>
-    <div class="intro-pills">
-      <div class="ipill">
-        <div class="ipill-circle">
-          <svg viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><polygon points="22 12 12 2 2 12 2 22 22 22"/><line x1="12" y1="22" x2="12" y2="15"/></svg>
-        </div>
-        <span class="ipill-label">Быстро</span>
+    <div class="intro-title">VBR <span class="accent">БОТ</span></div>
+    <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
+    <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
+    <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
+    <div class="intro-cards">
+      <div class="icard">
+        <div class="icard-icon">⚡</div>
+        <div class="icard-title">Быстро</div>
+        <div class="icard-sub">Всего несколько вопросов</div>
       </div>
-      <div class="ipill">
-        <div class="ipill-circle">
-          <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-        </div>
-        <span class="ipill-label">Удобно</span>
+      <div class="icard">
+        <div class="icard-icon">👍</div>
+        <div class="icard-title">Удобно</div>
+        <div class="icard-sub">Подберем то, что нужно</div>
       </div>
-      <div class="ipill">
-        <div class="ipill-circle">
-          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <span class="ipill-label">Бесплатно</span>
+      <div class="icard">
+        <div class="icard-icon">🛡️</div>
+        <div class="icard-title">Бесплатно</div>
+        <div class="icard-sub">Без регистрации и условий</div>
       </div>
     </div>
     <button class="btn-start" id="btn-start">Начать подбор →</button>
+    <div class="intro-footer">🛡️ Конфиденциально. Никаких личных данных.</div>
   </div>
 </div>
 
@@ -1516,6 +1577,201 @@ const DEVICES = [
    price:"~8 990 ₽",
    url:"https://trendvision.ru/products/trendvision-safecube-4g/",
    photo:"https://trendvision.ru/uploads/xlarge_bok_3_e5facf64cd.jpg"},
+
+  /* ── iBOX Видеорегистраторы ─────────────────────── */
+  {name:"iBOX City PRO",                  brand:"iBox",
+   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Компактный регистратор с 3\" IPS-экраном и магнитным креплением. Full HD, WDR, режим парковки и поддержка камеры заднего вида. Управление через iBOX Assist.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
+   price:"~7 490 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-city-pro/",
+   photo:null},
+
+  {name:"iBOX Epic WiFi Dual",            brand:"iBox",
+   type:"видеорегистратор", form:"компактный без экрана", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный цилиндрический регистратор без экрана. Full HD, скрытая установка на скотч, двухканальная запись, управление через Wi-Fi приложение iBOX Assist.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~5 990 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-epic-wifi-dual/",
+   photo:null},
+
+  /* ── iBOX GPS-информеры ──────────────────────────── */
+  {name:"iBOX RoadScan",                  brand:"iBox",
+   type:"gps-информер",     form:"компактный с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Компактный GPS-информер с магнитным креплением. Full HD, встроенная база камер, поддержка камеры заднего вида, управление через iBOX Assist.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
+   price:"~10 790 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan/",
+   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/341524/f6e5b326a22b0348aad67cbb31d5615d/iblock/0ff/0ff7af7afaebc33e38313098c48903a8/iBOX_RoadScan.jpg"},
+
+  {name:"iBOX RoadScan 4K GPS",           brand:"iBox",
+   type:"gps-информер",     form:"компактный с экраном", q:3,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"GPS-информер с реальной съёмкой 4K. Sony-матрица, магнитное крепление, расширенная база камер SpeedCam, Wi-Fi и поддержка второй камеры.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~13 990 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan-4k-gps/",
+   photo:null},
+
+  {name:"iBOX RoadScan PRO 4K",           brand:"iBox",
+   type:"gps-информер",     form:"компактный с экраном", q:3,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Флагманский GPS-информер 4K от iBox. Максимальная база камер, магнитное крепление, Wi-Fi, расширенный режим парковки и поддержка задней камеры.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~14 990 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan-pro-4k/",
+   photo:null},
+
+  /* ── iBOX Комбо 3 в 1 ───────────────────────────── */
+  {name:"iBOX iCON 2 LaserVision WiFi",   brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Флагманское комбо iBox с лазерным детектором LaserVision и сигнатурным радаром. Super HD 2K, магнитное крепление, Wi-Fi, база камер SpeedCam.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~19 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-icon-2-laservision/",
+   photo:null},
+
+  {name:"iBOX Alta LaserScan WiFi",        brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Компактное комбо 3 в 1 с лазерным детектором LaserScan и сигнатурным радаром. Full HD, магнитное крепление, Wi-Fi, база SpeedCam.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~17 990 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-alta-laserscan-wifi/",
+   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/340561/f6e5b326a22b0348aad67cbb31d5615d/iblock/cea/cea2e80fb46cfdccd21971afd8614a1f/iBOX_Alta_WiFi.jpg"},
+
+  {name:"iBOX F5 PRO 4K LaserScan WiFi",  brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, сигнатурный радар, Wi-Fi, магнитное крепление.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~24 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-f5-pro-4k-laserscan-wifi-signature-dual/",
+   photo:null},
+
+  /* ── iBOX Видеорегистраторы (дополнение) ────────── */
+  {name:"iBOX Alpha WiFi",                brand:"iBox",
+   type:"видеорегистратор", form:"компактный с экраном", q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Компактный регистратор с IPS-экраном, магнитным креплением и Wi-Fi. Full HD, матрица SMARTSENS, стильный корпус, управление через iBOX Assist.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
+   price:"~5 599 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-alpha-wifi/",
+   photo:null},
+
+  {name:"iBOX Epic 4K",                   brand:"iBox",
+   type:"видеорегистратор", form:"компактный без экрана", q:3,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный 4K-регистратор без экрана. Скрытая установка на скотч, реальная 4K съёмка, управление через Wi-Fi приложение iBOX Assist.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
+   price:"~8 999 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-epic-4k-wifi-dual/",
+   photo:null},
+
+  /* ── iBOX GPS-информеры (дополнение) ────────────── */
+  {name:"iBOX RoadScan 2K",               brand:"iBox",
+   type:"gps-информер",     form:"компактный с экраном", q:2,
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Новинка: GPS-информер 2K QHD с детализированной съёмкой. Sony Starvis, магнитное крепление, база SpeedCam, Wi-Fi, поддержка второй камеры.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~13 499 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/",
+   photo:null},
+
+  {name:"iBOX Rover 2",                   brand:"iBox",
+   type:"gps-информер",     form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Обновлённый GPS-информер-зеркало с Sony Starvis и расширенной базой SpeedCam. Wi-Fi, двухканальная запись, большой дисплей заменяет штатное зеркало.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"12\" зеркало", gps:"GPS + ГЛОНАСС",
+   price:"~14 299 ₽",
+   url:"https://iboxstore.ru/catalog/videoregistratory/",
+   photo:null},
+
+  /* ── iBOX Комбо 3 в 1 (дополнение) ─────────────── */
+  {name:"iBOX Alta",                      brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   magnetic:true,  smartphone:false, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Доступное комбо 3 в 1 с магнитным креплением. Full HD, сигнатурный радар, база SpeedCam. Работает автономно — без смартфона.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~13 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX iCON WiFi",                 brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с Sony Starvis, сигнатурным радаром и Wi-Fi. Full HD, база SpeedCam, поддержка задней камеры.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~17 899 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX iCON LaserVision WiFi",     brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с лазерным LaserVision 2.0 и сигнатурным радаром. Super HD, Sony Starvis, Wi-Fi, база SpeedCam, поддержка задней камеры.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~19 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX iCON Dual",                 brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальное комбо 3 в 1 с Sony Starvis, сигнатурным радаром и задней камерой. Full HD, база SpeedCam, Wi-Fi.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~16 599 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX Range",                     brand:"iBox",
+   type:"комбо 3 в 1",      form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 в формате зеркала с LaserVision и сигнатурным радаром. Sony Starvis, Full HD, большой дисплей, двухканальная запись.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.26\" зеркало", gps:"GPS + ГЛОНАСС",
+   price:"~14 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-range-laservision-wifi-signature-dual/",
+   photo:null},
+
+  {name:"iBOX EVO",                       brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Победитель «За рулём»: комбо 3 в 1 с LaserVision и Sony Starvis. Full HD, сигнатурный радар, Wi-Fi, двухканальная запись.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~19 399 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-evo-laservision-wifi-signature-dual/",
+   photo:null},
+
+  {name:"iBOX EVO 4K",                    brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K-версия флагманского комбо EVO. Реальная 4K съёмка, LaserVision, Sony Starvis, сигнатурный радар, Wi-Fi, двухканальная запись.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~24 499 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX F5+ WiFi",                  brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 Super HD с рупорной антенной дальнего обнаружения и Wi-Fi. Сигнатурный радар, база SpeedCam, поддержка задней камеры.",
+   resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~16 199 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
+
+  {name:"iBOX F5 PRO 4K Контроль",        brand:"iBox",
+   type:"комбо 3 в 1",      form:"стандартный с экраном", q:3,
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
+   desc:"Новинка: комбо 3 в 1 с 4K и технологией iBOX Контроль — удалённый доступ и автообновление базы SpeedCam через SIM. Детальная 4K съёмка.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
+   price:"~26 999 ₽",
+   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
+   photo:null},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -1549,26 +1805,45 @@ function scoreDevice(dev) {
   return { pct: m === 0 ? 100 : Math.round(s/m*100), s, m, mm };
 }
 
-function getTop(n=3) {
+function getTop(n=5) {
   let pool = DEVICES;
 
-  // Жёсткий фильтр по типу — только устройства выбранного типа
+  // Жёсткий фильтр по типу
   if (answers.type && answers.type !== "неважно") {
-    const t = answers.type.toLowerCase();
-    pool = pool.filter(d => d.type.toLowerCase() === t);
+    pool = pool.filter(d => d.type.toLowerCase() === answers.type.toLowerCase());
   }
   // Жёсткий фильтр по форм-фактору
   if (answers.form && answers.form !== "неважно") {
-    const f = answers.form.toLowerCase();
-    const narrowed = pool.filter(d => d.form.toLowerCase() === f);
-    // Если совпадений нет — игнорируем форм-фактор, чтобы хоть что-то показать
+    const narrowed = pool.filter(d => d.form.toLowerCase() === answers.form.toLowerCase());
     pool = narrowed.length > 0 ? narrowed : pool;
   }
 
-  return pool
-    .map(d => ({ d, ...scoreDevice(d) }))
-    .sort((a,b) => b.pct - a.pct)
-    .slice(0, n);
+  const scored = pool.map(d => ({ d, ...scoreDevice(d) }));
+
+  // Шаг 1: лучший представитель каждого бренда (brand champion)
+  const brandBest = {};
+  scored.forEach(item => {
+    const b = item.d.brand;
+    if (!brandBest[b] || item.pct > brandBest[b].pct) brandBest[b] = item;
+  });
+
+  // Шаг 2: сортируем чемпионов по убыванию %
+  const champions = Object.values(brandBest).sort((a, b) => b.pct - a.pct);
+
+  // Шаг 3: берём топ-N чемпионов — каждый бренд гарантированно конкурирует
+  const result = champions.slice(0, n);
+
+  // Шаг 4: если брендов меньше N — добиваем оставшимися устройствами
+  if (result.length < n) {
+    const used = new Set(result.map(r => r.d.name));
+    const rest = scored
+      .filter(r => !used.has(r.d.name))
+      .sort((a, b) => b.pct - a.pct);
+    while (result.length < n && rest.length > 0) result.push(rest.shift());
+    result.sort((a, b) => b.pct - a.pct);
+  }
+
+  return result;
 }
 
 // ════════════════════════════════════════════════════════
@@ -1682,7 +1957,7 @@ function showResults() {
 
   setTimeout(() => {
     el("hd-counter").textContent = "Результат";
-    const top = getTop(3);
+    const top = getTop(5);
     _renderResults(top);
   }, 5000);
 }
@@ -1692,7 +1967,7 @@ function _renderResults(top) {
 
   const list = el("results-list");
   list.innerHTML = "";
-  const ranks = ["#1","#2","#3"];
+  const ranks = ["#1","#2","#3","#4","#5"];
 
   top.forEach((item, i) => {
     const {d, pct, mm} = item;
