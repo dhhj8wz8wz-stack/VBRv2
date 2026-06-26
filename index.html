@@ -537,6 +537,80 @@ html, body {
 .spec-tag.extra { background: transparent; border: 0.5px solid var(--red-text); color: var(--red-text); }
 .spec-tag.qual  { background: var(--amber-bg);  border-color: transparent; color: var(--amber-text); }
 
+/* Support section */
+.support-section {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  padding: 24px 18px 36px;
+}
+.support-inner {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.support-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.support-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+.support-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.support-sub {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+.btn-support {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: #5B67F8;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.btn-support:active { opacity: .8; }
+
+/* Results sections */
+.res-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.res-section-header:first-child { margin-top: 4px; }
+.res-section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.res-section-header.exact { color: var(--green-text); }
+.res-section-header.near  { color: var(--text-2); }
+.rank-pill.exact-pill {
+  background: var(--green-bg);
+  color: var(--green-text);
+  font-size: 14px;
+}
+
 /* Answer chips */
 .answer-chips-row {
   display: flex; flex-wrap: wrap; gap: 6px;
@@ -620,20 +694,21 @@ html, body {
 
 .btn-rutube {
   display: flex; align-items: center; justify-content: center;
-  gap: 6px;
-  width: 100%; height: 46px;
-  background: #141414;
+  gap: 8px;
+  width: 100%; height: 36px;
+  background: none;
   border: none;
-  border-radius: 13px;
-  font-size: 14px; font-weight: 600;
-  color: white;
+  border-radius: 0;
+  padding: 0;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-2);
   cursor: pointer;
   text-decoration: none;
   transition: opacity .15s;
-  margin-top: 8px;
+  margin-top: 10px;
 }
-.btn-rutube:active { opacity: .8; }
-.btn-rutube-logo { width: 18px; height: 18px; flex-shrink: 0; }
+.btn-rutube:active { opacity: .6; }
+.btn-rutube-logo { width: 18px; height: 18px; flex-shrink: 0; border-radius: 5px; }
 
 /* Restart */
 .restart-wrap { padding: 14px 18px 0; }
@@ -641,6 +716,7 @@ html, body {
   width: 100%;
   height: 54px;
   background: #1C1C1E;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
   border: none;
   border-radius: 16px;
   font-size: 16px; font-weight: 600;
@@ -656,11 +732,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(100vh - 88px);
   padding: 10px 16px 0;
 }
 .loading-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -821,7 +895,7 @@ html, body {
 /* ── Ad banner (loading) ── */
 .loading-ad {
   width: 100%;
-  padding: 24px 0 28px;
+  padding: 16px 0 16px;
 }
 .ad-banner-lg {
   background: var(--card);
@@ -1107,17 +1181,26 @@ html, body {
   <div class="answer-chips-row" id="answer-chips-row" style="display:none;"></div>
   <div class="results-list" id="results-list"></div>
   <div class="restart-wrap">
-    <button class="btn-restart" onclick="restartQuiz()">↺ Подобрать снова</button>
+    <button class="btn-restart" onclick="restartQuiz()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <path d="M3 3v5h5"/>
+      </svg>
+      Начать новый подбор
+    </button>
   </div>
 
-  <div style="padding: 14px 18px 32px;">
-    <div style="background: #F0F1FA; border-radius: 20px; padding: 18px 20px;">
-      <div style="font-size: 15px; font-weight: 600; color: #1C1C1E; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        ☕ Поддержать проект
+  <div class="support-section">
+    <div class="support-inner">
+      <div class="support-top">
+        <span class="support-icon">☕</span>
+        <div>
+          <div class="support-title">Поддержать проект</div>
+          <div class="support-sub">Помогите нам развиваться</div>
+        </div>
       </div>
-      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank"
-         style="display: block; width: 100%; box-sizing: border-box; background: #5B67F8; border-radius: 14px; padding: 16px; text-align: center; font-size: 17px; font-weight: 700; color: white; text-decoration: none;">
-        Отправить
+      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="btn-support">
+        Отправить донат
       </a>
     </div>
   </div>
@@ -1162,9 +1245,9 @@ const QS = [
     key:"quality", title:"Какое качество съёмки необходимо?",
     sub:"Выберите нужный уровень детализации",
     opts:[
-      {l:"Хорошее",    d:"Базовый уровень для повседневной записи",    v:"хорошее"},
-      {l:"Отличное",   d:"Хорошая детализация и уверенная картинка",   v:"отличное"},
-      {l:"Превосходное",d:"Максимальный уровень качества съёмки",      v:"превосходное"},
+      {l:"Хорошее",    d:"Full HD 1080p — базовый уровень, достаточный для большинства задач",  v:"хорошее"},
+      {l:"Отличное",   d:"2K 1440p — чёткая детализация, хорошо читаются номера",               v:"отличное"},
+      {l:"Превосходное",d:"4K 2160p — максимальная чёткость, идеально в любых условиях",        v:"превосходное"},
       {l:"Неважно",    d:"Качество не главный критерий",               v:"неважно"},
     ]
   },
@@ -1232,8 +1315,8 @@ const QLABELS = {
 };
 const QLABELS_SHORT = {
   quality:"Качество", smartphone:"Wi-Fi", magnetic:"Магнит",
-  rear_cam:"Задн. камера", touch:"Сенсор",
-  rotation:"Вращение", ir_cam:"ИК-камера", remote:"4G/удалённо"
+  rear_cam:"Задн. камера", touch:"Сенсор. упр.",
+  rotation:"Вращение", ir_cam:"Салонная камера", remote:"4G/удалённо"
 };
 
 const DEVICES = [
@@ -2115,6 +2198,168 @@ const DEVICES = [
    price:"~5 999 ₽",
    url:"https://fujida.su/catalog/videoregistratory/fujida-zoom-okko/",
    photo:null},
+
+  // ── Roadgid ──────────────────────────────────────────
+  {name:"Roadgid CityGo 4 Pro", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагманский GPS-информер 4K на Sony IMX678. WDR, суперконденсатор, Wi-Fi, CPL-фильтр, магнитное крепление, 3.5\" IPS, оповещения о камерах по GPS.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
+   price:"~15 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4pro", photo:null},
+
+  {name:"Roadgid CityGo 4 Pro 2CH", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный GPS-информер 4K на Sony IMX678. Wi-Fi, CPL-фильтр, магнитное крепление, задняя Full HD камера в комплекте.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
+   price:"~16 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo4pro-2ch", photo:null},
+
+  {name:"Roadgid CityGo 4", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 2K на Sony IMX675. Wi-Fi, магнитное крепление, суперконденсатор, оповещения о камерах по GPS.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4", photo:null},
+
+  {name:"Roadgid CityGo 4 2CH", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный GPS-информер Full HD на Sony IMX675. Wi-Fi, магнитное крепление, задняя камера в комплекте.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
+   price:"~13 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4-2ch", photo:null},
+
+  {name:"Roadgid CityGo 3 Wi-Fi AI", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 2K на Sony IMX327 с AI-распознаванием знаков. Wi-Fi, магнитное крепление, ультра-ночная съёмка.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS встроенный",
+   price:"~10 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-wi-fi-ai", photo:null},
+
+  {name:"Roadgid CityGo 3 Wi-Fi 2CH", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный GPS-информер Full HD на Sony IMX327. Ультра-ночная съёмка, Wi-Fi, магнитное крепление, задняя камера в комплекте.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS встроенный",
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-2ch", photo:null},
+
+  {name:"Roadgid Blick 3 GPS", brand:"Roadgid",
+   type:"gps-информер", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-видеорегистратор с GPS-базой камер на Sony IMX327. Ультра-ночная съёмка, сенсорный дисплей 9.66\", камера заднего вида, Wi-Fi.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"9.66\" сенсорный", gps:"GPS встроенный",
+   price:"~14 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3-gps", photo:null},
+
+  {name:"Roadgid Blick 3 Wi-Fi", brand:"Roadgid",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-видеорегистратор на Sony IMX327 без GPS. Ультра-ночная съёмка, сенсорный дисплей 9.66\", камера заднего вида, Wi-Fi.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"9.66\" сенсорный", gps:"нет",
+   price:"~12 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3", photo:null},
+
+  {name:"Roadgid Tube 4K 2CH", brand:"Roadgid",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный двухканальный регистратор 4K без экрана. Sony IMX415, Wi-Fi, GPS-трекинг, задняя камера в комплекте. Скрытая установка.",
+   resolution:"4K 3840×2160 @25fps", angle:"140°", screen:"нет", gps:"GPS встроенный",
+   price:"~13 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube-2ch-4k", photo:null},
+
+  {name:"Roadgid Tube 4K", brand:"Roadgid",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный регистратор 4K без экрана. Sony IMX415, Wi-Fi, GPS-трекинг. Скрытая установка, управление через смартфон.",
+   resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"нет", gps:"GPS встроенный",
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube", photo:null},
+
+  {name:"Roadgid Duo 4", brand:"Roadgid",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Бюджетный видеорегистратор Full HD с камерой заднего вида и Wi-Fi. Ассистент парковки, поворотная камера.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"3\" IPS", gps:"нет",
+   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/duo4", photo:null},
+
+  {name:"Roadgid Mini 3 Wi-Fi GPS", brand:"Roadgid",
+   type:"gps-информер", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный GPS-информер Full HD с Wi-Fi и магнитным креплением. Миниатюрный дисплей 1.54\", оповещения о камерах.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"1.54\" IPS", gps:"GPS встроенный",
+   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/mini3-gps", photo:null},
+
+  {name:"Roadgid Premier 4 Pro", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Премиальное комбо 4K на Sony IMX678 с сигнатурным радар-детектором и LNA-усилителем сигналов. Wi-Fi, магнитное крепление.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~24 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4pro", photo:null},
+
+  {name:"Roadgid Premier 4 Pro 2CH", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагманское комбо 4K на Sony IMX678 с сигнатурным радар-детектором, LNA-усилителем и задней Full HD камерой. Wi-Fi, магнит.",
+   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~26 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4pro-2ch", photo:null},
+
+  {name:"Roadgid Premier 4", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Обновлённое комбо 2K на Sony IMX675 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~20 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4", photo:null},
+
+  {name:"Roadgid Premier 4 2CH", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальное комбо Full HD на Sony IMX675 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление, задняя камера.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~22 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4-2ch", photo:null},
+
+  {name:"Roadgid Premier 3 Carbon", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 2K с ультра-ночным сенсором Sony IMX327 и сигнатурным радар-детектором. Wi-Fi, магнитное крепление.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~18 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3", photo:null},
+
+  {name:"Roadgid Premier 3 Carbon 2CH", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Первое комбо с ультра-ночным сенсором Sony IMX327 и сигнатурным радаром. Wi-Fi, магнитное крепление, задняя камера.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3-carbon-2ch-s-vtoroj-kameroj-pervyj-kombo-s-ultra-nochnym-sensorom-sony-imx-327", photo:null},
+
+  {name:"Roadgid X9 Gibrid GT", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо Full HD на Sony IMX307 с сигнатурным радар-детектором и Wi-Fi. Магнитное крепление, GPS.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~17 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9", photo:null},
+
+  {name:"Roadgid X9 Gibrid GT 2CH", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальное комбо Full HD на Sony IMX307 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление, задняя камера.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
+   price:"~19 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9_2ch", photo:null},
+
+  {name:"Roadgid OPTIMA GT", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Доступное комбо Full HD на Sony IMX307 с сигнатурным радар-детектором и Wi-Fi. Компактный дисплей 2.31\".",
+   resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"2.31\"", gps:"GPS + сигнатурный радар",
+   price:"~15 990 ₽", url:"https://roadgid.ru/shop/gibrid/optima_gt", photo:null},
+
+  {name:"Roadgid Blick Combo", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-комбо 2K на Sony IMX335 с радар-детектором. Сенсорный дисплей 11.66\", Wi-Fi. Первое сенсорное зеркало с радар-детектором.",
+   resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
+   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo", photo:null},
+
+  {name:"Roadgid Blick Combo 2CH", brand:"Roadgid",
+   type:"комбо 3 в 1", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-комбо Full HD на Sony IMX335 с радар-детектором, задней камерой и сенсорным дисплеем 11.66\". Wi-Fi.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
+   price:"~21 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo-2ch", photo:null},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -2157,7 +2402,7 @@ function scoreDevice(dev) {
   return { pct: m === 0 ? 100 : Math.round(s/m*100), s, m, mm };
 }
 
-function getTop(n=5) {
+function getTop() {
   let pool = DEVICES;
 
   // Жёсткий фильтр по типу
@@ -2172,37 +2417,15 @@ function getTop(n=5) {
 
   const scored = pool.map(d => ({ d, ...scoreDevice(d) }));
 
-  // Шаг 1: лучший представитель каждого бренда (brand champion)
+  // Лучший представитель каждого бренда (brand champion)
   const brandBest = {};
   scored.forEach(item => {
     const b = item.d.brand;
     if (!brandBest[b] || item.pct > brandBest[b].pct) brandBest[b] = item;
   });
 
-  // Шаг 2: сортируем чемпионов по убыванию %
-  // Минимальный порог: не показываем бренд, если его лучшее устройство
-  // не набрало хотя бы 50% (явное несовпадение по заданным критериям)
-  const answeredCount = Object.keys(answers).filter(k => k !== "type" && k !== "form" && answers[k] !== "неважно").length;
-  const minPct = answeredCount >= 2 ? 50 : 0;
-
-  const champions = Object.values(brandBest)
-    .filter(c => c.pct >= minPct)
-    .sort((a, b) => b.pct - a.pct);
-
-  // Шаг 3: берём топ-N чемпионов — каждый бренд гарантированно конкурирует
-  const result = champions.slice(0, n);
-
-  // Шаг 4: если брендов меньше N — добиваем оставшимися устройствами
-  if (result.length < n) {
-    const used = new Set(result.map(r => r.d.name));
-    const rest = scored
-      .filter(r => !used.has(r.d.name) && r.pct >= minPct)
-      .sort((a, b) => b.pct - a.pct);
-    while (result.length < n && rest.length > 0) result.push(rest.shift());
-    result.sort((a, b) => b.pct - a.pct);
-  }
-
-  return result;
+  // Возвращаем всех чемпионов, отсортированных по убыванию %
+  return Object.values(brandBest).sort((a, b) => b.pct - a.pct);
 }
 
 // ════════════════════════════════════════════════════════
@@ -2322,7 +2545,7 @@ function showResults() {
 
   setTimeout(() => {
     el("hd-counter").textContent = "Результат";
-    const top = getTop(6);
+    const top = getTop();
     _renderResults(top);
   }, 5000);
 }
@@ -2336,9 +2559,9 @@ function _renderResults(top) {
     {k:"smartphone", fn: v => v === "да" ? "Wi-Fi" : v === "нет" ? "без Wi-Fi" : null},
     {k:"magnetic",   fn: v => v === "да" ? "Магнит" : v === "нет" ? "без магнита" : null},
     {k:"rear_cam",   fn: v => v === "да" ? "Задняя камера" : v === "нет" ? "1 камера" : null},
-    {k:"touch",      fn: v => v === "да" ? "Сенсор" : v === "нет" ? "без сенсора" : null},
+    {k:"touch",      fn: v => v === "да" ? "Сенсорное управление" : v === "нет" ? "Физические кнопки" : null},
     {k:"rotation",   fn: v => v === "да" ? "Вращение" : v === "нет" ? "фиксирован" : null},
-    {k:"ir_cam",     fn: v => v === "да" ? "ИК-камера" : v === "нет" ? "без ИК" : null},
+    {k:"ir_cam",     fn: v => v === "да" ? "ИК-камера" : v === "нет" ? "Без внутрисалонной камеры" : null},
     {k:"remote",     fn: v => v === "да" ? "4G/удалённо" : v === "нет" ? "без 4G" : null},
   ];
   const chips = chipDefs
@@ -2348,11 +2571,15 @@ function _renderResults(top) {
   chipsEl.innerHTML = chips;
   chipsEl.style.display = chips ? "flex" : "none";
 
-  el("res-sub").innerHTML = `Найдено <b>${top.length}</b> из ${DEVICES.length} устройств`;
+  const exact = top.filter(t => t.mm.length === 0);
+  const near  = top.filter(t => t.mm.length > 0).slice(0, 6);
+
+  el("res-sub").innerHTML = exact.length > 0
+    ? `<b>${exact.length}</b> точных совпадений · <b>${near.length}</b> похожих`
+    : `<b>${near.length}</b> похожих вариантов`;
 
   const list = el("results-list");
   list.innerHTML = "";
-  const ranks = ["#1","#2","#3","#4","#5","#6"];
 
   // ── Всё «неважно» ────────────────────────────────
   const scoredKeys = ["quality","smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
@@ -2369,8 +2596,8 @@ function _renderResults(top) {
     return;
   }
 
-  // ── Пустой результат: всё ниже 40% ───────────────
-  if (top.length === 0 || top[0].pct < 40) {
+  // ── Пустой результат ─────────────────────────────
+  if (top.length === 0) {
     const empty = document.createElement("div");
     empty.style.cssText = "display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;";
     empty.innerHTML = `
@@ -2383,51 +2610,63 @@ function _renderResults(top) {
     return;
   }
 
-  // ── Cards ─────────────────────────────────────────
-  top.forEach((item, i) => {
-    const {d, pct, mm} = item;
-    const mc = matchClass(pct);
+  // ── Рендер секции карточек ────────────────────────
+  function renderSection(items, isExact) {
+    if (items.length === 0) return;
 
-    const specsData = [
-      {k:"smartphone", l:"Wi-Fi"},
-      {k:"magnetic",   l:"Магнит"},
-      {k:"rear_cam",   l:"Задн. камера"},
-      {k:"touch",      l:"Сенсор"},
-      {k:"rotation",   l:"Вращение"},
-      {k:"ir_cam",     l:"ИК-камера"},
-      {k:"remote",     l:"4G/удалённо"},
-    ];
-    const specTags = specsData
-      .filter(s => d[s.k])
-      .map(s => `<span class="spec-tag has">${s.l}</span>`)
-      .join("");
+    // Заголовок секции
+    const header = document.createElement("div");
+    header.className = `res-section-header ${isExact ? "exact" : "near"}`;
+    header.textContent = isExact ? "✓ Точное совпадение" : "~ Похожие варианты";
+    list.appendChild(header);
 
-    // Mismatch tags inline
-    const missTags = mm.map(m => {
-      if (m.type === "missing") return `<span class="spec-tag miss">✗ ${QLABELS_SHORT[m.key]}</span>`;
-      if (m.type === "extra")   return `<span class="spec-tag extra">${QLABELS_SHORT[m.key]} — лишнее</span>`;
-      if (m.type === "quality") return `<span class="spec-tag qual">↓ Качество</span>`;
-      return "";
-    }).join("");
+    items.forEach((item, i) => {
+      const {d, pct, mm} = item;
+      const mc = matchClass(pct);
 
-    const card = document.createElement("div");
-    card.className = "dev-card";
+      const specsData = [
+        {k:"smartphone", l:"Wi-Fi"},
+        {k:"magnetic",   l:"Магнит"},
+        {k:"rear_cam",   l:"Задн. камера"},
+        {k:"touch",      l:"Сенсорное управление"},
+        {k:"rotation",   l:"Вращение"},
+        {k:"ir_cam",     l:"Внутрисалонная камера"},
+        {k:"remote",     l:"4G/удалённо"},
+      ];
+      const specTags = specsData
+        .filter(s => d[s.k])
+        .map(s => `<span class="spec-tag has">${s.l}</span>`)
+        .join("");
 
-    const camBadge = d.type === "комбо 3 в 1"
-      ? `<span class="cam-badge">📡 РАДАР+БАЗА</span>`
-      : d.type === "gps-информер"
-      ? `<span class="cam-badge">📍 БАЗА КАМЕР</span>`
-      : "";
+      const missTags = mm.map(m => {
+        if (m.type === "missing") return `<span class="spec-tag miss">✗ ${QLABELS_SHORT[m.key]}</span>`;
+        if (m.type === "extra")   return `<span class="spec-tag extra">${QLABELS_SHORT[m.key]} — лишнее</span>`;
+        if (m.type === "quality") return `<span class="spec-tag qual">↓ Качество</span>`;
+        return "";
+      }).join("");
 
-    card.innerHTML = `
+      const card = document.createElement("div");
+      card.className = "dev-card";
+
+      const camBadge = d.type === "комбо 3 в 1"
+        ? `<span class="cam-badge">📡 РАДАР+БАЗА</span>`
+        : d.type === "gps-информер"
+        ? `<span class="cam-badge">📍 БАЗА КАМЕР</span>`
+        : "";
+
+      const rankLabel = isExact ? "✓" : `#${i+1}`;
+      const rankClass = isExact ? "rank-pill exact-pill" : "rank-pill";
+      const matchLabel = isExact ? "100% подходит" : `${pct}% подходит`;
+
+      card.innerHTML = `
       <div class="dev-card-header">
         <span class="dev-card-header-brand">${d.brand}</span>
         ${camBadge ? camBadge : `<span class="dev-card-header-type">${d.type}</span>`}
       </div>
       <div class="dev-body">
         <div class="dev-meta">
-          <div class="rank-pill">${ranks[i]}</div>
-          <div class="match-pill ${mc}">${pct}% подходит</div>
+          <div class="${rankClass}">${rankLabel}</div>
+          <div class="match-pill ${isExact ? "hi" : mc}">${matchLabel}</div>
         </div>
         <div class="card-toggle">
           <div style="flex:1;min-width:0;">
@@ -2445,7 +2684,7 @@ function _renderResults(top) {
               <span class="match-bar-pct">${pct}%</span>
             </div>
             <div class="match-bar-track">
-              <div class="match-bar-fill ${mc}" style="width:${pct}%"></div>
+              <div class="match-bar-fill ${isExact ? "hi" : mc}" style="width:${pct}%"></div>
             </div>
           </div>
           <div class="specs-row">${specTags}${missTags}</div>
@@ -2470,8 +2709,13 @@ function _renderResults(top) {
       </div>
     `;
 
-    list.appendChild(card);
-  });
+      list.appendChild(card);
+    }); // end forEach
+  } // end renderSection
+
+  // ── Рендерим оба блока ────────────────────────────
+  renderSection(exact, true);
+  renderSection(near, false);
 
   show("s-results");
   window.scrollTo(0, 0);
