@@ -112,7 +112,7 @@ html, body {
 
 .intro-inner {
   text-align: center;
-  padding: 24px 24px 28px;
+  padding: 24px 24px 36px;
   max-width: 360px;
   width: 100%;
   position: relative;
@@ -394,6 +394,8 @@ html, body {
   border-radius: 20px;
   overflow: hidden;
   border: 0.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
 
 .dev-card-header {
@@ -422,7 +424,7 @@ html, body {
   white-space: nowrap;
 }
 
-.dev-body { padding: 14px 16px 18px; }
+.dev-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; }
 
 .dev-meta {
   display: flex;
@@ -558,14 +560,14 @@ html, body {
   padding: 2px 0 10px;
 }
 .card-toggle-arrow { display: none; }
-.card-collapsible { display: block; }
+.card-collapsible { display: flex; flex-direction: column; flex: 1; }
 
 /* Extended specs grid */
 .dev-specs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .spec-cell {
   background: var(--bg);
@@ -599,7 +601,6 @@ html, body {
 
 /* Manufacturer button */
 .btn-site {
-  display: block;
   width: 100%;
   height: 46px;
   background: var(--bg);
@@ -612,7 +613,7 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   gap: 6px;
   transition: background .15s, border-color .15s;
-  margin-top: 12px;
+  margin-top: auto;
 }
 .btn-site:active { background: var(--border); }
 .btn-site svg { width: 16px; height: 16px; stroke: var(--text-2); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -867,6 +868,93 @@ html, body {
   font-style: italic;
   user-select: none;
 }
+
+/* ── DESKTOP (700px+) ────────────────────────────── */
+@media (min-width: 700px) {
+
+  /* ── Header ── */
+  .header-main { max-width: 1000px; margin: 0 auto; padding: 16px 40px 12px; }
+
+  /* ── Intro: centered card ── */
+  #s-intro { padding: 40px 24px; }
+  #s-intro::before { width: 320px; height: 320px; }
+  #s-intro::after  { width: 320px; height: 320px; }
+
+  .intro-inner {
+    max-width: 560px;
+    width: 100%;
+    padding: 52px 56px 44px;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 12px 56px rgba(91,103,248,.14);
+  }
+  .intro-text { width: 100%; }
+  .intro-icon { margin: 0 auto 28px; width: 96px; height: 96px; border-radius: 26px; }
+  .intro-icon svg { width: 58px; height: 58px; }
+  .intro-headline { font-size: 42px; letter-spacing: -1px; }
+  .intro-desc { font-size: 16px; margin-bottom: 28px; }
+  .btn-start { height: 66px; font-size: 19px; border-radius: 20px; margin-bottom: 0; }
+  .intro-cards {
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    margin-top: 28px;
+    margin-bottom: 16px;
+  }
+  .icard { flex: 1; flex-direction: column; align-items: center; text-align: center; padding: 16px 10px; }
+  .icard-icon { width: 48px; height: 48px; font-size: 22px; }
+  .icard-title { font-size: 13px; }
+  .icard-sub { font-size: 11px; }
+  .intro-footer { justify-content: center; }
+
+  /* ── Questions ── */
+  #s-question { padding-top: 82px; padding-bottom: 100px; }
+  .q-body { max-width: 740px; width: 100%; margin: 0 auto; padding: 36px 48px 0; }
+  .q-label { font-size: 12px; margin-bottom: 10px; }
+  .q-title { font-size: 34px; }
+  .q-subtitle { font-size: 15px; margin-bottom: 28px; }
+  .options { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+  .opt { padding: 20px 20px; border-radius: 18px; gap: 16px; }
+  .opt-title { font-size: 17px; }
+  .opt-desc  { font-size: 14px; }
+
+  /* ── Bottom nav: equal large buttons ── */
+  #bottom-nav { padding: 16px 0 24px; }
+  .nav-row { max-width: 740px; width: 100%; margin: 0 auto; padding: 0 48px; gap: 14px; }
+  .nav-hint { max-width: 740px; margin: 6px auto 0; font-size: 13px; }
+  .btn-back { flex: 1; height: 60px; font-size: 17px; border-radius: 16px; }
+  .btn-next { flex: 1; height: 60px; font-size: 18px; border-radius: 16px; }
+
+  /* ── Loading: two columns ── */
+  #s-loading { padding-top: 82px; }
+  .loading-wrap {
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 48px;
+    gap: 56px;
+    min-height: unset;
+  }
+  .loading-content { flex: 1; align-items: center; }
+  .radar-wrap { width: 260px; height: 260px; margin: 0 auto 24px; }
+  .loading-title { font-size: 26px; }
+  .loading-sub   { font-size: 16px; margin-bottom: 24px; }
+  .search-card { border-radius: 20px; padding: 18px 20px; }
+  .search-icon-wrap { width: 48px; height: 48px; border-radius: 14px; }
+  .search-icon-wrap svg { width: 24px; height: 24px; }
+  .search-card-label { font-size: 16px; }
+
+  .loading-ad { width: 320px; flex-shrink: 0; padding: 0; align-self: stretch; }
+  .ad-banner-lg {
+    height: 100%; min-height: 420px;
+    border-radius: 24px; padding: 40px 24px;
+    justify-content: center; gap: 20px;
+  }
+  .ad-icon-circle { width: 64px; height: 64px; }
+  .ad-icon-circle svg { width: 30px; height: 30px; }
+  .ad-text-lg { font-size: 16px; }
+}
 </style>
 </head>
 <body>
@@ -908,16 +996,18 @@ html, body {
 <!-- ── INTRO ───────────────────────────────────────── -->
 <div id="s-intro" class="screen on">
   <div class="intro-inner">
-    <div class="intro-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-      </svg>
+    <div class="intro-text">
+      <div class="intro-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
+      </div>
+      <div class="intro-title">VBR <span class="accent">БОТ</span></div>
+      <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
+      <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
+      <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
+      <button class="btn-start" id="btn-start">Начать подбор →</button>
     </div>
-    <div class="intro-title">VBR <span class="accent">БОТ</span></div>
-    <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
-    <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
-    <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
-    <button class="btn-start" id="btn-start">Начать подбор →</button>
     <div class="intro-cards">
       <div class="icard">
         <div class="icard-icon">⚡</div>
@@ -1265,6 +1355,162 @@ const DEVICES = [
    price:"~26 990 ₽",
    url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k-max/",
    photo:"https://trendvision.ru/uploads/6_1_029f8048bf.jpg"},
+
+  /* ── Mio i серия (комбо 3 в 1) ───────────────────── */
+  {name:"Mio MiVue i85", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактное комбо 3 в 1: Full HD + радар-детектор + GPS. Обнаружение радаров свыше 1 км, база сигнатур (Стрелка, Кордон, Кречет), 150° угол, ADAS.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~7 000 ₽",
+   url:"https://www.mio.com/ru/mivue-i85",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i85_camera_merge_01.png"},
+
+  {name:"Mio MiVue i87", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с сенсором Sony Exmor IMX323. Full HD, база сигнатур радаров, GPS-оповещение о камерах контроля скорости. 140° угол обзора.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~7 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i87",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i87_camera_merge_01.png"},
+
+  {name:"Mio MiVue i88", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с Sony Exmor IMX323. Full HD, сигнатурная база радаров, ADAS, режимы работы радара Город/Трасса/Смарт.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~7 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i88",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i88_scr_merge_01.png"},
+
+  {name:"Mio MiVue i80", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с Sony Starvis. Full HD 60 к/с — чёткие номера на скорости, сигнатурная база радаров, ADAS, Автодория, SmartAlert.",
+   resolution:"Full HD 1920×1080 @60fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~7 000 ₽",
+   url:"https://www.mio.com/ru/mivue-i80",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i80_camera_merge_01.png"},
+
+  {name:"Mio MiVue i90", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с Sony Starvis CMOS. Full HD 60 к/с, сигнатурная база радаров, Автодория, SmartAlert, ADAS.",
+   resolution:"Full HD 1920×1080 @60fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~8 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i90",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i90_camera_merge_01.png"},
+
+  {name:"Mio MiVue i95", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 с разрешением 2.5K QHD и Sony Starvis. Сигнатурная база радаров, 150° угол, ADAS, Автодория, SmartAlert.",
+   resolution:"2.5K 2848×1600 @25fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~10 000 ₽",
+   url:"https://www.mio.com/ru/mivue-i95",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i95_scr_merge_01.png"},
+
+  {name:"Mio MiVue i127", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Премиальное комбо 3 в 1: 2K QHD, Sony Starvis, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA.",
+   resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
+   price:"~20 000 ₽",
+   url:"https://www.mio.com/ru/mivue-i127",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i127_camera_merge_01.png"},
+
+  {name:"Mio MiVue i150", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:false, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Стильное компактное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка задней камеры, база сигнатур радаров.",
+   resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
+   price:"~10 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i150",
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i150_camera_merge_01.png"},
+
+  {name:"Mio MiVue i157", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Высокотехнологичное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA-обновления.",
+   resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
+   price:"~13 000 ₽",
+   url:"https://www.mio.com/ru/mivue-i157",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i157_camera_merge_01.png"},
+
+  {name:"Mio MiVue i170", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:false, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Стильное комбо 3 в 1 с Sony Starvis: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка задней камеры, Автодория, SmartAlert.",
+   resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
+   price:"~11 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i170",
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i170_camera_merge_01.png"},
+
+  {name:"Mio MiVue i177", brand:"Mio",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагманское комбо 3 в 1: Sony Starvis, 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA.",
+   resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
+   price:"~14 500 ₽",
+   url:"https://www.mio.com/ru/mivue-i177",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i177_camera_merge_01.png"},
+
+  /* ── Mio 8 серия (GPS-информеры) ─────────────────── */
+  {name:"Mio MiVue 812", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:2,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 8-й серии: 2K QHD 1440p, 140° угол, база 60+ типов камер контроля скорости, Автодория, режим парковки через SmartBox.",
+   resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~7 500 ₽",
+   url:"https://www.mio.com/ru/mivue-812",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_812_camera_merge_01.png"},
+
+  {name:"Mio MiVue 818", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 8-й серии с Wi-Fi и Bluetooth. 2K QHD, функция «Моя парковка», Автодория, OTA-обновления через MiVue Pro.",
+   resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~9 500 ₽",
+   url:"https://www.mio.com/ru/mivue-818",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_818_camera_merge_01.png"},
+
+  {name:"Mio MiVue 826", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 8-й серии: Full HD 60 к/с, Wi-Fi, 3DNR, QuickClick крепление, Автодория, энергосберегающий режим парковки до 48 часов.",
+   resolution:"Full HD 1920×1080 @60fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~6 500 ₽",
+   url:"https://www.mio.com/ru/mivue-826-5415n6310040",
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_826_camera_merge_01.png"},
+
+  /* ── Mio 9 серия (GPS-информеры, 4K) ─────────────── */
+  {name:"Mio MiVue 910W", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"GPS-информер 9-й серии: 4K Sony Starvis, 3.2\" экран, Wi-Fi, суперконденсатор, OTA-обновления, формат SuperMP4 (H.265), скрытая установка.",
+   resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
+   price:"~10 500 ₽",
+   url:"https://www.mio.com/ru/products/dash-cameras/car-cameras/9-series/mivue-910w-ru",
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910w_scr-angle-45_merge.png"},
+
+  {name:"Mio MiVue 910WD", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K GPS-информер с задней Full HD камерой. Sony Starvis спереди, 3.2\" экран, Wi-Fi, суперконденсатор, OTA-обновления, SuperMP4 (H.265).",
+   resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
+   price:"~14 000 ₽",
+   url:"https://www.mio.com/ru/products/dash-cameras/car-cameras/9-series/mivue-910wd-ru",
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910wd_scr-angle-45_merge.png"},
+
+  {name:"Mio MiVue 955W", brand:"Mio",
+   type:"gps-информер", form:"с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагман 9-й серии: 4K с 8Мп сенсором 1/1.8\", Wi-Fi, суперконденсатор, SuperMP4 (H.265), 120° угол, скрытая установка, OTA-обновления.",
+   resolution:"4K 3840×2160 @30fps", angle:"120°", screen:"2.7\"", gps:"GPS встроенный",
+   price:"~14 000 ₽",
+   url:"https://www.mio.com/ru/mivue-955w-ru",
+   photo:"https://www.mio.com/media/catalog/product/t/w/tw_mivue_955wd_camera_angle-l45_03_1_1.png"},
 
   {name:"TrendVision Victory", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
