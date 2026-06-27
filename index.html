@@ -87,6 +87,12 @@ html, body {
 }
 .btn-hd-donate:hover { background: rgba(91,103,248,.18); }
 .btn-hd-donate:active { opacity: .7; }
+.partner-hint {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 6px;
+  line-height: 1.4;
+}
 
 /* Desktop support block in header — hidden on mobile */
 .hd-support-block { display: none; }
@@ -105,6 +111,13 @@ html, body {
 }
 .hd-btn-donate:hover { opacity: .88; }
 .hd-btn-donate:active { opacity: .7; }
+.hd-partner-text {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: 6px;
+  line-height: 1.4;
+  text-align: right;
+}
 
 /* No-exact-match notice */
 .no-exact-notice {
@@ -679,6 +692,33 @@ html, body {
   border-color: var(--blue); font-weight: 600;
 }
 
+/* Full specs collapsible */
+.specs-full {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.specs-full-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: var(--card-bg); border: none;
+  font-size: 13px; font-weight: 600; color: var(--text-2);
+  cursor: pointer; text-align: left;
+}
+.specs-full-arrow { transition: transform .2s; font-size: 16px; display: inline-block; }
+.specs-full.open .specs-full-arrow { transform: rotate(90deg); }
+.specs-full-body { display: none; border-top: 1px solid var(--border); }
+.specs-full.open .specs-full-body { display: block; }
+.specs-full-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 7px 14px; font-size: 13px; border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.specs-full-row:last-child { border-bottom: none; }
+.specs-full-label { color: var(--text-2); flex-shrink: 0; }
+.specs-full-val { color: var(--text); font-weight: 500; text-align: right; }
+.specs-full-val.nd { color: var(--text-2); font-weight: 400; font-style: italic; }
+
 /* Compromise section */
 .compromise-wrap {
   display: flex; flex-direction: column; gap: 10px;
@@ -759,12 +799,14 @@ html, body {
   grid-template-columns: 1fr 1fr;
   gap: 6px;
   margin-bottom: 16px;
-  margin-top: auto;
+  margin-top: 10px;
 }
 .spec-cell {
   background: var(--bg);
   border-radius: 10px;
   padding: 8px 10px;
+  min-width: 0;
+  overflow: hidden;
 }
 .spec-cell-label {
   font-size: 10px;
@@ -1215,7 +1257,10 @@ html, body {
           <div class="hd-support-sub">Помогите нам развиваться</div>
         </div>
       </div>
-      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="hd-btn-donate">Отправить донат</a>
+      <div>
+        <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="hd-btn-donate">Отправить донат</a>
+        <div class="hd-partner-text">Сотрудничество и реклама: partners@vbrbot.ru</div>
+      </div>
     </div>
     <div class="hd-counter" id="hd-counter">1 / 10</div>
   </div>
@@ -1251,7 +1296,7 @@ html, body {
         <div class="icard-sub">Подберем то, что нужно</div>
       </div>
       <div class="icard">
-        <div class="icard-icon">🛡️</div>
+        <div class="icard-icon">💰</div>
         <div class="icard-title">Бесплатно</div>
         <div class="icard-sub">Без подписок и скрытых платежей</div>
       </div>
@@ -1364,6 +1409,7 @@ html, body {
       <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="btn-support">
         Отправить донат
       </a>
+      <div class="partner-hint">Сотрудничество и реклама: partners@vbrbot.ru</div>
     </div>
   </div>
 </div>
@@ -1374,7 +1420,7 @@ html, body {
     <button class="btn-back" id="btn-back" onclick="goBack()">← Назад</button>
     <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Далее →</button>
   </div>
-  <div class="nav-hint">Нажмите на вариант, потом переходите дальше</div>
+  <div class="nav-hint">Выберите вариант и нажмите «Далее» или дважды кликните по нему</div>
 </div>
 
 <script>
@@ -1510,7 +1556,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
    price:"~25 990 ₽",
    url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k-2ch/",
-   photo:"https://trendvision.ru/uploads/c1646d4c7727fd4562f5e62b09145451_png_1_Wihk_BL_jpg_4109b6b436.jpeg"},
+   photo:"https://trendvision.ru/uploads/c1646d4c7727fd4562f5e62b09145451_png_1_Wihk_BL_jpg_4109b6b436.jpeg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"Neoline X-COP CITYSMART",         brand:"Neoline",
    type:"комбо 3 в 1",      form:"с экраном",  q:2,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
@@ -1518,7 +1565,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"135°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
    price:"~18 000 ₽",
    url:"https://neoline.ru/shop/gibrid-videoregistratora-s-radar-detektorom-neoline-x-cop-citysmart/",
-   photo:"https://car-radar.ru/wa-data/public/shop/products/88/37/3788/images/16853/16853.750.jpg"},
+   photo:"https://car-radar.ru/wa-data/public/shop/products/88/37/3788/images/16853/16853.750.jpg",
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"70Mai Dash Cam 4K A810S",          brand:"70Mai",
    type:"видеорегистратор", form:"с экраном",  q:3,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
@@ -1526,7 +1574,19 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"3\" IPS", gps:"встроенный GPS",
    price:"~14 000 ₽",
    url:"https://new-cdn-res.70mai.com/ru/a810s/",
-   photo:"https://cdn-www.70mai.com/locales/en/a810s/A810S.png"},
+   photo:"https://cdn-www.70mai.com/locales/en/a810s/A810S.png",
+   specs:{
+     processor:    null,
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "512 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       true,
+     timelapse:    true,
+     wifi_gen:     "Wi-Fi 6 (2.4 ГГц)",
+   }},
   {name:"iBox Rover WiFi GPS Dual",         brand:"iBox",
    type:"gps-информер",     form:"регистратор-зеркало",    q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
@@ -1534,7 +1594,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"7\" IPS зеркало", gps:"GPS + ГЛОНАСС",
    price:"~12 000 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-zerkalo-s-gps-glonass-bazoy-kamer-ibox-rover-wifi-gps-dual/",
-   photo:"https://img.ixbt.site/live/topics/preview/00/03/04/50/b6ca243506.jpg"},
+   photo:"https://img.ixbt.site/live/topics/preview/00/03/04/50/b6ca243506.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"7\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"iBox Range 2 LaserVision WiFi",    brand:"iBox",
    type:"комбо 3 в 1",      form:"регистратор-зеркало",    q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:true,  rotation:false, ir_cam:false, remote:false,
@@ -1542,7 +1603,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.26\" сенсор", gps:"GPS + ГЛОНАСС",
    price:"~21 000 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-zerkalo-s-signaturnym-radar-detektorom-ibox-range-2-laservision-wifi-signature-dual/",
-   photo:"https://car-radar.ru/wa-data/public/shop/products/26/38/3826/images/17409/17409.750.jpg"},
+   photo:"https://car-radar.ru/wa-data/public/shop/products/26/38/3826/images/17409/17409.750.jpg",
+   specs:{processor:null,display_type:null,screen_size:"11.26\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"Mio MiVue J20",                    brand:"Mio",
    type:"видеорегистратор", form:"без экрана",  q:1,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
@@ -1550,7 +1612,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"без экрана", gps:"нет",
    price:"~7 000 ₽",
    url:"https://www.mio.com/ru/mivue-j20-ru",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_j20_camera-l45-1_4.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_j20_camera-l45-1_4.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"iBox Flip 2K WiFi Dual",           brand:"iBox",
    type:"видеорегистратор", form:"с экраном",   q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
@@ -1558,7 +1621,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"130°", screen:"1.5\" экран", gps:"нет",
    price:"~8 500 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-flip-2k-wifi-dual-dvukhkanalnyy-s-vozmozhnostyu-podklyucheniya-tretey/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"1.5\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
   {name:"iBox Flip GPS Dual",               brand:"iBox",
    type:"видеорегистратор", form:"с экраном",   q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
@@ -1566,7 +1630,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"130°", screen:"1.5\" экран", gps:"GPS встроенный",
    price:"~6 500 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/dvukhkanalnyy-videoregistrator-ibox-flip-gps-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"1.5\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
   {name:"SilverStone F1 HYBRID S-BOT PRO",  brand:"SilverStone F1",
    type:"комбо 3 в 1",      form:"с экраном",  q:2,
    magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:true,  ir_cam:false, remote:false,
@@ -1574,7 +1639,19 @@ const DEVICES = [
    resolution:"SuperHD 2304×1296 @30fps", angle:"145°", screen:"3\" IPS LCD", gps:"GPS + ГЛОНАСС",
    price:"~16 000 ₽",
    url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-s-bot-pro-wifi/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2023/10/ren_sbot_pro_wifi_01.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/10/ren_sbot_pro_wifi_01.jpg",
+   specs:{
+     processor:    "AIT 8339D",
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "64 ГБ",
+     power_element:"аккумулятор",
+     power_type:   "jack 3.5",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   /* ── TrendVision Классические ───────────────────── */
   {name:"TrendVision Nano 2K Wi-Fi CPL", brand:"TrendVision",
@@ -1584,7 +1661,8 @@ const DEVICES = [
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"нет",
    price:"~5 990 ₽",
    url:"https://trendvision.ru/products/trendvision-nano-2k-wi-fi-cpl/",
-   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_29e6866887.jpg"},
+   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_29e6866887.jpg",
+   specs:{processor:"GK7202",display_type:null,screen_size:'1.47"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:true,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Nano 2K Wi-Fi CPL GPS", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -1593,7 +1671,8 @@ const DEVICES = [
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"1.47\" (авто-откл.)", gps:"координаты/скорость",
    price:"~6 990 ₽",
    url:"https://trendvision.ru/products/trendvision-nano-2k-wi-fi-cpl-gps/",
-   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_f615cae76f.jpg"},
+   photo:"https://trendvision.ru/uploads/zaglavnaya_kartinka_dlya_nanopupsika_f615cae76f.jpg",
+   specs:{processor:"GK7202",display_type:null,screen_size:'1.47"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:true,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Phantom 3CH GPS", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:3,
@@ -1602,7 +1681,8 @@ const DEVICES = [
    resolution:"2K нативное / 4K интерп.", angle:"170°+170°+120°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~11 990 ₽",
    url:"https://trendvision.ru/products/trendvision-phantom-3ch-gps/",
-   photo:"https://trendvision.ru/uploads/xlarge_03_f889d2e006.jpg"},
+   photo:"https://trendvision.ru/uploads/xlarge_03_f889d2e006.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision DriveCam Real 4K GPS 2CH", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:3,
@@ -1611,7 +1691,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 990 ₽",
    url:"https://trendvision.ru/products/trendvision-drivecam-real-4k-gps-2ch/",
-   photo:"https://trendvision.ru/uploads/xlarge_6_klass_a92d6f18ab.jpg"},
+   photo:"https://trendvision.ru/uploads/xlarge_6_klass_a92d6f18ab.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision TDR-725 Real 4K Max", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:3,
@@ -1620,7 +1701,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 реальный", angle:"140°", screen:"3\" IPS сенсорный", gps:"GPS + ГЛОНАСС",
    price:"~26 990 ₽",
    url:"https://trendvision.ru/products/trendvision-tdr-725-real-4k-max/",
-   photo:"https://trendvision.ru/uploads/6_1_029f8048bf.jpg"},
+   photo:"https://trendvision.ru/uploads/6_1_029f8048bf.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── Mio i серия (комбо 3 в 1) ───────────────────── */
   {name:"Mio MiVue i85", brand:"Mio",
@@ -1630,7 +1712,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~7 000 ₽",
    url:"https://www.mio.com/ru/mivue-i85",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i85_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i85_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i87", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -1639,7 +1722,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~7 500 ₽",
    url:"https://www.mio.com/ru/mivue-i87",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i87_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i87_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i88", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -1648,7 +1732,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~7 500 ₽",
    url:"https://www.mio.com/ru/mivue-i88",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i88_scr_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i88_scr_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i80", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -1657,7 +1742,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @60fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~7 000 ₽",
    url:"https://www.mio.com/ru/mivue-i80",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i80_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i80_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i90", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -1666,7 +1752,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @60fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~8 500 ₽",
    url:"https://www.mio.com/ru/mivue-i90",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i90_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i90_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i95", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1675,7 +1762,8 @@ const DEVICES = [
    resolution:"2.5K 2848×1600 @25fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~10 000 ₽",
    url:"https://www.mio.com/ru/mivue-i95",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i95_scr_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i95_scr_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i127", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1684,7 +1772,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~20 000 ₽",
    url:"https://www.mio.com/ru/mivue-i127",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i127_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i127_camera_merge_01.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Mio MiVue i150", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1693,7 +1782,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~10 500 ₽",
    url:"https://www.mio.com/ru/mivue-i150",
-   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i150_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i150_camera_merge_01.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i157", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1702,7 +1792,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~13 000 ₽",
    url:"https://www.mio.com/ru/mivue-i157",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i157_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i157_camera_merge_01.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Mio MiVue i170", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1711,7 +1802,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~11 500 ₽",
    url:"https://www.mio.com/ru/mivue-i170",
-   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i170_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_i170_camera_merge_01.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue i177", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -1720,7 +1812,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~14 500 ₽",
    url:"https://www.mio.com/ru/mivue-i177",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i177_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_i177_camera_merge_01.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── Mio 8 серия (GPS-информеры) ─────────────────── */
   {name:"Mio MiVue 812", brand:"Mio",
@@ -1730,7 +1823,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~7 500 ₽",
    url:"https://www.mio.com/ru/mivue-812",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_812_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_812_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Mio MiVue 818", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:2,
@@ -1739,7 +1833,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~9 500 ₽",
    url:"https://www.mio.com/ru/mivue-818",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_818_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_818_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Mio MiVue 826", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:1,
@@ -1748,7 +1843,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @60fps", angle:"150°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~6 500 ₽",
    url:"https://www.mio.com/ru/mivue-826-5415n6310040",
-   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_826_camera_merge_01.png"},
+   photo:"https://www.mio.com/media/catalog/product/m/i/mivue_826_camera_merge_01.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── Mio 9 серия (GPS-информеры, 4K) ─────────────── */
   {name:"Mio MiVue 910W", brand:"Mio",
@@ -1758,7 +1854,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
    price:"~10 500 ₽",
    url:"https://www.mio.com/ru/products/dash-cameras/car-cameras/9-series/mivue-910w-ru",
-   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910w_scr-angle-45_merge.png"},
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910w_scr-angle-45_merge.png",
+   specs:{processor:null,display_type:null,screen_size:'3.2"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Mio MiVue 910WD", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:3,
@@ -1767,7 +1864,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
    price:"~14 000 ₽",
    url:"https://www.mio.com/ru/products/dash-cameras/car-cameras/9-series/mivue-910wd-ru",
-   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910wd_scr-angle-45_merge.png"},
+   photo:"https://www.mio.com/media/catalog/product/r/u/ru_mivue_910wd_scr-angle-45_merge.png",
+   specs:{processor:null,display_type:null,screen_size:'3.2"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Mio MiVue 955W", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:3,
@@ -1776,7 +1874,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"120°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~14 000 ₽",
    url:"https://www.mio.com/ru/mivue-955w-ru",
-   photo:"https://www.mio.com/media/catalog/product/t/w/tw_mivue_955wd_camera_angle-l45_03_1_1.png"},
+   photo:"https://www.mio.com/media/catalog/product/t/w/tw_mivue_955wd_camera_angle-l45_03_1_1.png",
+   specs:{processor:null,display_type:null,screen_size:'2.7"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Victory", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1785,7 +1884,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
    price:"~5 990 ₽",
    url:"https://trendvision.ru/products/trendvision-victory/",
-   photo:"https://trendvision.ru/uploads/viktori_2_2_0fbe0f848e.jpg"},
+   photo:"https://trendvision.ru/uploads/viktori_2_2_0fbe0f848e.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Victory Dual", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1794,7 +1894,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
    price:"~7 490 ₽",
    url:"https://trendvision.ru/products/trendvision-victory-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Proof Ultra", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:3,
@@ -1803,7 +1904,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~12 990 ₽",
    url:"https://trendvision.ru/products/trendvision-proof-ultra/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision TDR-721S EVO", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:2,
@@ -1812,7 +1914,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~12 990 ₽",
    url:"https://trendvision.ru/products/trendvision-tdr-721s-evo/",
-   photo:"https://trendvision.ru/uploads/trendvision_tdr_721s_11_fa25240127.jpg"},
+   photo:"https://trendvision.ru/uploads/trendvision_tdr_721s_11_fa25240127.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision TDR-721S EVO Pro", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:2,
@@ -1821,7 +1924,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 490 ₽",
    url:"https://trendvision.ru/products/trendvision-tdr-721s-evo-pro/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Bullet", brand:"TrendVision",
    type:"видеорегистратор", form:"без экрана", q:2,
@@ -1830,7 +1934,8 @@ const DEVICES = [
    resolution:"2K 2304×1296 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~8 990 ₽",
    url:"https://trendvision.ru/products/trendvision-bullet/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Proof PRO", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1839,7 +1944,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
    price:"~8 990 ₽",
    url:"https://trendvision.ru/products/trendvision-proof-pro/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Proof PRO GPS", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1848,7 +1954,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~9 990 ₽",
    url:"https://trendvision.ru/products/trendvision-proof-pro-gps/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Proof 360 GPS", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -1857,7 +1964,8 @@ const DEVICES = [
    resolution:"2K 2304×1296 @30fps", angle:"360°/170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~13 990 ₽",
    url:"https://trendvision.ru/products/trendvision-proof-360-gps/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Winner", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1866,7 +1974,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"нет",
    price:"~6 990 ₽",
    url:"https://trendvision.ru/products/trendvision-winner/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:'2"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Winner PRO Plus", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:1,
@@ -1875,7 +1984,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
    price:"~9 990 ₽",
    url:"https://trendvision.ru/products/trendvision-winner-pro-plus/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:'2"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision X1 (ver.2)", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:1,
@@ -1884,7 +1994,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
    price:"~8 490 ₽",
    url:"https://trendvision.ru/products/trendvision-x1-(ver.-2)/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:'2"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision X1 Max (ver.2)", brand:"TrendVision",
    type:"gps-информер", form:"с экраном", q:1,
@@ -1893,7 +2004,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
    price:"~9 490 ₽",
    url:"https://trendvision.ru/products/trendvision-x1-max-(ver.-2)/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:'2"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision X2 Dual", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1902,7 +2014,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" IPS", gps:"нет",
    price:"~6 990 ₽",
    url:"https://trendvision.ru/products/trendvision-x2-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:'2"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision TENET", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -1911,7 +2024,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" экран", gps:"нет",
    price:"~10 990 ₽",
    url:"https://trendvision.ru/products/trendvision-tenet/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:'3"',max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Prime", brand:"TrendVision",
    type:"видеорегистратор", form:"без экрана", q:1,
@@ -1920,7 +2034,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~6 490 ₽",
    url:"https://trendvision.ru/products/trendvision-prime/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Prime (ver.2)", brand:"TrendVision",
    type:"видеорегистратор", form:"без экрана", q:1,
@@ -1929,7 +2044,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~6 490 ₽",
    url:"https://trendvision.ru/products/trendvision-prime-(ver.2)/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   // ── TrendVision: Комбо 3 в 1 (с радар-детектором) ──────────────────────────
 
@@ -1940,7 +2056,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~13 990 ₽",
    url:"https://trendvision.ru/products/trendvision-combo-f10/",
-   photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png"},
+   photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Combo F10 CPL", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -1949,7 +2066,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~14 990 ₽",
    url:"https://trendvision.ru/products/trendvision-combo-f10-cpl/",
-   photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png"},
+   photo:"https://trendvision.ru/uploads/b66b4cc1636cde4592438389c7c16aa9_ce50f768d5.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature Real 4K", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -1958,7 +2076,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~32 990 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-real-4k/",
-   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
+   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature Real 4K 2CH", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -1967,7 +2086,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~35 990 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-real-4k-2ch/",
-   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
+   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature Real 4K Max", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -1976,7 +2096,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~36 490 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-real-4k-max/",
-   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png"},
+   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_Real_4_K_top_photo_7_2dde630e95.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -1985,7 +2106,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~27 990 ₽",
    url:"https://trendvision.ru/products/trendvision-drivecam-real-4k-signature-lna/",
-   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
+   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA Max", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -1994,7 +2116,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~29 990 ₽",
    url:"https://trendvision.ru/products/trendvision-drivecam-real-4k-signature-lna-max/",
-   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
+   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision DriveCam Real 4K Signature LNA 2CH", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -2003,7 +2126,8 @@ const DEVICES = [
    resolution:"4K Ultra HD 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~30 990 ₽",
    url:"https://trendvision.ru/products/trendvision-drivecam-real-4k-signature-lna-2ch/",
-   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png"},
+   photo:"https://trendvision.ru/uploads/1de0275b95059c5339796df1a324f647_dfeada3d39.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature EVO Wi", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -2012,7 +2136,8 @@ const DEVICES = [
    resolution:"2K QuadHD 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~20 490 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-evo-wi/",
-   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg"},
+   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature EVO Wi 2CH", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -2021,7 +2146,8 @@ const DEVICES = [
    resolution:"2K QuadHD 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~22 490 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-evo-wi-2ch/",
-   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg"},
+   photo:"https://trendvision.ru/uploads/TrendVision_Hybrid_Signature_EVO_Wi_10_48e6ef641a.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"TrendVision Hybrid Signature EVO Pro", brand:"TrendVision",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -2030,7 +2156,8 @@ const DEVICES = [
    resolution:"2K Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС (GPS-информатор)",
    price:"~24 490 ₽",
    url:"https://trendvision.ru/products/trendvision-hybrid-signature-evo-pro/",
-   photo:"https://trendvision.ru/uploads/d622aad00e2a72bdda364059a2188895_ba1733cc7a.png"},
+   photo:"https://trendvision.ru/uploads/d622aad00e2a72bdda364059a2188895_ba1733cc7a.png",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // ── TrendVision 4G онлайн ────────────────────────────────────────────────
   {name:"TrendVision Online Sky 4G", brand:"TrendVision",
@@ -2040,7 +2167,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"нет", gps:"GPS (встроенный)",
    price:"~11 990 ₽",
    url:"https://trendvision.ru/products/trendvision-online-sky-4g/",
-   photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skyverh_niz_ba7c3736b1.jpg"},
+   photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skyverh_niz_ba7c3736b1.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Online Sky 4G Dual", brand:"TrendVision",
    type:"4G-регистратор", form:"без экрана", q:2,
@@ -2049,7 +2177,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"150°", screen:"нет", gps:"GPS (встроенный)",
    price:"~13 990 ₽",
    url:"https://trendvision.ru/products/trendvision-online-sky-4g-dual/",
-   photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skybochka_870e8160ec.jpg"},
+   photo:"https://trendvision.ru/uploads/xlarge_Online_4_G_skybochka_870e8160ec.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Online Air 4G", brand:"TrendVision",
    type:"4G-регистратор", form:"с экраном", q:1,
@@ -2058,7 +2187,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"160°", screen:"3\" IPS", gps:"GPS (встроенный)",
    price:"~15 990 ₽",
    url:"https://trendvision.ru/products/trendvision-online-air-4g/",
-   photo:"https://trendvision.ru/uploads/fotka_32_5cb94f6502.jpg"},
+   photo:"https://trendvision.ru/uploads/fotka_32_5cb94f6502.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision Online Cloud 4G", brand:"TrendVision",
    type:"4G-регистратор", form:"без экрана", q:1,
@@ -2067,7 +2197,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"нет", gps:"GPS (встроенный)",
    price:"~19 490 ₽",
    url:"https://trendvision.ru/products/trendvision-online-cloud-4g/",
-   photo:"https://trendvision.ru/uploads/Trendvision_online_cloud_4g_1_7a99fc8d0d.jpg"},
+   photo:"https://trendvision.ru/uploads/Trendvision_online_cloud_4g_1_7a99fc8d0d.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"TrendVision SafeCube 4G", brand:"TrendVision",
    type:"4G-регистратор", form:"без экрана", q:1,
@@ -2076,7 +2207,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"нет", gps:"нет",
    price:"~8 990 ₽",
    url:"https://trendvision.ru/products/trendvision-safecube-4g/",
-   photo:"https://trendvision.ru/uploads/xlarge_bok_3_e5facf64cd.jpg"},
+   photo:"https://trendvision.ru/uploads/xlarge_bok_3_e5facf64cd.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   /* ── iBOX Видеорегистраторы ─────────────────────── */
   {name:"iBOX City PRO",                  brand:"iBox",
@@ -2086,7 +2218,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
    price:"~7 490 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-city-pro/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX Epic WiFi Dual",            brand:"iBox",
    type:"видеорегистратор", form:"без экрана", q:1,
@@ -2095,7 +2228,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~5 990 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-epic-wifi-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── iBOX GPS-информеры ──────────────────────────── */
   {name:"iBOX RoadScan",                  brand:"iBox",
@@ -2105,7 +2239,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\" экран", gps:"GPS + ГЛОНАСС",
    price:"~10 790 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan/",
-   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/341524/f6e5b326a22b0348aad67cbb31d5615d/iblock/0ff/0ff7af7afaebc33e38313098c48903a8/iBOX_RoadScan.jpg"},
+   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/341524/f6e5b326a22b0348aad67cbb31d5615d/iblock/0ff/0ff7af7afaebc33e38313098c48903a8/iBOX_RoadScan.jpg",
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX RoadScan 4K GPS",           brand:"iBox",
    type:"gps-информер",     form:"с экраном", q:3,
@@ -2114,7 +2249,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~13 990 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan-4k-gps/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX RoadScan PRO 4K",           brand:"iBox",
    type:"gps-информер",     form:"с экраном", q:3,
@@ -2123,7 +2259,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~14 990 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan-pro-4k/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── iBOX Комбо 3 в 1 ───────────────────────────── */
   {name:"iBOX iCON 2 LaserVision WiFi",   brand:"iBox",
@@ -2133,7 +2270,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~19 299 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-icon-2-laservision/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX Alta LaserScan WiFi",        brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2142,7 +2280,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~17 990 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-alta-laserscan-wifi/",
-   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/340561/f6e5b326a22b0348aad67cbb31d5615d/iblock/cea/cea2e80fb46cfdccd21971afd8614a1f/iBOX_Alta_WiFi.jpg"},
+   photo:"https://s3.regru.cloud/iboxstore-upload/resize_cache/340561/f6e5b326a22b0348aad67cbb31d5615d/iblock/cea/cea2e80fb46cfdccd21971afd8614a1f/iBOX_Alta_WiFi.jpg",
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX F5 PRO 4K LaserScan WiFi",  brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:3,
@@ -2151,7 +2290,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~24 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-f5-pro-4k-laserscan-wifi-signature-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── iBOX Видеорегистраторы (дополнение) ────────── */
   {name:"iBOX Alpha WiFi",                brand:"iBox",
@@ -2161,7 +2301,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"нет",
    price:"~5 599 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-alpha-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX Epic 4K",                   brand:"iBox",
    type:"видеорегистратор", form:"без экрана", q:3,
@@ -2170,7 +2311,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~8 999 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-epic-4k-wifi-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── iBOX GPS-информеры (дополнение) ────────────── */
   {name:"iBOX RoadScan 2K",               brand:"iBox",
@@ -2180,7 +2322,8 @@ const DEVICES = [
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~13 499 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX Rover 2",                   brand:"iBox",
    type:"gps-информер",     form:"регистратор-зеркало", q:1,
@@ -2189,7 +2332,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"12\" зеркало", gps:"GPS + ГЛОНАСС",
    price:"~14 299 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"12\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   /* ── iBOX Комбо 3 в 1 (дополнение) ─────────────── */
   {name:"iBOX Alta",                      brand:"iBox",
@@ -2199,7 +2343,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~13 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"iBOX iCON WiFi",                 brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2208,7 +2353,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~17 899 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX iCON LaserVision WiFi",     brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
@@ -2217,7 +2363,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~19 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX iCON Dual",                 brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2226,7 +2373,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 599 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX Range",                     brand:"iBox",
    type:"комбо 3 в 1",      form:"регистратор-зеркало", q:1,
@@ -2235,7 +2383,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.26\" зеркало", gps:"GPS + ГЛОНАСС",
    price:"~14 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-range-laservision-wifi-signature-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"11.26\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX EVO",                       brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2244,7 +2393,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~19 399 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-evo-laservision-wifi-signature-dual/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX EVO 4K",                    brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:3,
@@ -2253,7 +2403,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~24 499 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX F5+ WiFi",                  brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
@@ -2262,7 +2413,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 199 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"iBOX F5 PRO 4K Контроль",        brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:3,
@@ -2271,7 +2423,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~26 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // ── Fujida ──────────────────────────────────────────────────────────
   {name:"Fujida Karma Hit",                brand:"Fujida",
@@ -2281,7 +2434,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~12 999 ₽",
    url:"https://fujida.su/catalog/gibridy/fujida-karma-hit/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Fujida Karma Hit Duo",            brand:"Fujida",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2290,7 +2444,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~14 999 ₽",
    url:"https://fujida.su/catalog/gibridy/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Fujida Karma One WiFi",           brand:"Fujida",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2299,7 +2454,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~17 999 ₽",
    url:"https://fujida.su/catalog/gibridy/fujida-karma-one-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Karma Pro S WiFi",         brand:"Fujida",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
@@ -2308,7 +2464,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~19 999 ₽",
    url:"https://fujida.su/catalog/gibridy/fujida-karma-pro-s-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Karma One Duo WiFi",       brand:"Fujida",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
@@ -2317,7 +2474,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~19 999 ₽",
    url:"https://fujida.su/catalog/gibridy/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Karma Pro Max WiFi",       brand:"Fujida",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
@@ -2326,7 +2484,8 @@ const DEVICES = [
    resolution:"Quad HD 2560×1440 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~27 499 ₽",
    url:"https://fujida.su/catalog/gibridy/fujida-karma-pro-max-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Hit S WiFi",          brand:"Fujida",
    type:"gps-информер",     form:"с экраном", q:2,
@@ -2335,7 +2494,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
    price:"~11 999 ₽",
    url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-s-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"2.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Hit S Duo WiFi",      brand:"Fujida",
    type:"gps-информер",     form:"с экраном", q:1,
@@ -2344,7 +2504,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
    price:"~13 999 ₽",
    url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-s-duo-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"2.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Hit Max WiFi",        brand:"Fujida",
    type:"gps-информер",     form:"с экраном", q:2,
@@ -2353,7 +2514,8 @@ const DEVICES = [
    resolution:"2K Quad HD 2560×1440 @30fps", angle:"170°", screen:"2.35\"", gps:"GPS + ГЛОНАСС",
    price:"~11 999 ₽",
    url:"https://fujida.su/catalog/informatory/fujida-zoom-hit-max-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"2.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Smart S WiFi",        brand:"Fujida",
    type:"gps-информер",     form:"с экраном", q:2,
@@ -2362,7 +2524,8 @@ const DEVICES = [
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~13 999 ₽",
    url:"https://fujida.su/catalog/informatory/fujida-zoom-smart-s-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Smart Max WiFi",      brand:"Fujida",
    type:"gps-информер",     form:"с экраном", q:3,
@@ -2371,7 +2534,8 @@ const DEVICES = [
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~15 999 ₽",
    url:"https://fujida.su/catalog/informatory/fujida-zoom-smart-max-wifi/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Fujida Zoom Okko WiFi",           brand:"Fujida",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2380,7 +2544,8 @@ const DEVICES = [
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"2\"", gps:"нет",
    price:"~5 999 ₽",
    url:"https://fujida.su/catalog/videoregistratory/fujida-zoom-okko/",
-   photo:null},
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // ── Roadgid ──────────────────────────────────────────
   {name:"Roadgid CityGo 4 Pro", brand:"Roadgid",
@@ -2388,161 +2553,184 @@ const DEVICES = [
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагманский GPS-информер 4K на Sony IMX678. WDR, суперконденсатор, Wi-Fi, CPL-фильтр, магнитное крепление, 3.5\" IPS, оповещения о камерах по GPS.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
-   price:"~15 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4pro", photo:null},
+   price:"~15 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4pro", photo:null,
+   specs:{processor:"Novatek 98529",display_type:"IPS",screen_size:'3.5"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
 
   {name:"Roadgid CityGo 4 Pro 2CH", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальный GPS-информер 4K на Sony IMX678. Wi-Fi, CPL-фильтр, магнитное крепление, задняя Full HD камера в комплекте.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
-   price:"~16 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo4pro-2ch", photo:null},
+   price:"~16 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo4pro-2ch", photo:null,
+   specs:{processor:"Novatek 98529",display_type:"IPS",screen_size:'3.5"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
 
   {name:"Roadgid CityGo 4", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 2K на Sony IMX675. Wi-Fi, магнитное крепление, суперконденсатор, оповещения о камерах по GPS.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
-   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4", photo:null},
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4", photo:null,
+   specs:{processor:"Novatek 96565",display_type:"IPS",screen_size:'3.5"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid CityGo 4 2CH", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальный GPS-информер Full HD на Sony IMX675. Wi-Fi, магнитное крепление, задняя камера в комплекте.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS встроенный",
-   price:"~13 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4-2ch", photo:null},
+   price:"~13 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-4-2ch", photo:null,
+   specs:{processor:"Novatek 96565",display_type:"IPS",screen_size:'3.5"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid CityGo 3 Wi-Fi AI", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 2K на Sony IMX327 с AI-распознаванием знаков. Wi-Fi, магнитное крепление, ультра-ночная съёмка.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS встроенный",
-   price:"~10 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-wi-fi-ai", photo:null},
+   price:"~10 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-wi-fi-ai", photo:null,
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid CityGo 3 Wi-Fi 2CH", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальный GPS-информер Full HD на Sony IMX327. Ультра-ночная съёмка, Wi-Fi, магнитное крепление, задняя камера в комплекте.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS встроенный",
-   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-2ch", photo:null},
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-citygo-3-2ch", photo:null,
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Blick 3 GPS", brand:"Roadgid",
    type:"gps-информер", form:"регистратор-зеркало", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
    desc:"Зеркало-видеорегистратор с GPS-базой камер на Sony IMX327. Ультра-ночная съёмка, сенсорный дисплей 9.66\", камера заднего вида, Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"9.66\" сенсорный", gps:"GPS встроенный",
-   price:"~14 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3-gps", photo:null},
+   price:"~14 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3-gps", photo:null,
+   specs:{processor:"Novatek 96565",display_type:null,screen_size:'9.66"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Blick 3 Wi-Fi", brand:"Roadgid",
    type:"видеорегистратор", form:"регистратор-зеркало", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
    desc:"Зеркало-видеорегистратор на Sony IMX327 без GPS. Ультра-ночная съёмка, сенсорный дисплей 9.66\", камера заднего вида, Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"9.66\" сенсорный", gps:"нет",
-   price:"~12 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3", photo:null},
+   price:"~12 490 ₽", url:"https://roadgid.ru/shop/videoreg/roadgid-blick3", photo:null,
+   specs:{processor:"Novatek 96565",display_type:null,screen_size:'9.66"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Tube 4K 2CH", brand:"Roadgid",
    type:"видеорегистратор", form:"без экрана", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Компактный двухканальный регистратор 4K без экрана. Sony IMX415, Wi-Fi, GPS-трекинг, задняя камера в комплекте. Скрытая установка.",
    resolution:"4K 3840×2160 @25fps", angle:"140°", screen:"нет", gps:"GPS встроенный",
-   price:"~13 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube-2ch-4k", photo:null},
+   price:"~13 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube-2ch-4k", photo:null,
+   specs:{processor:"Novatek 96670",display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Micro USB",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Tube 4K", brand:"Roadgid",
    type:"видеорегистратор", form:"без экрана", q:3,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Компактный регистратор 4K без экрана. Sony IMX415, Wi-Fi, GPS-трекинг. Скрытая установка, управление через смартфон.",
    resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"нет", gps:"GPS встроенный",
-   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube", photo:null},
+   price:"~11 990 ₽", url:"https://roadgid.ru/shop/videoreg/tube", photo:null,
+   specs:{processor:"Novatek 96670",display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Micro USB",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Duo 4", brand:"Roadgid",
    type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Бюджетный видеорегистратор Full HD с камерой заднего вида и Wi-Fi. Ассистент парковки, поворотная камера.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"3\" IPS", gps:"нет",
-   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/duo4", photo:null},
+   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/duo4", photo:null,
+   specs:{processor:"GPCV6248",display_type:"IPS",screen_size:'3"',max_sd:"32 ГБ",power_element:"аккумулятор",power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Mini 3 Wi-Fi GPS", brand:"Roadgid",
    type:"gps-информер", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Ультракомпактный GPS-информер Full HD с Wi-Fi и магнитным креплением. Миниатюрный дисплей 1.54\", оповещения о камерах.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"1.54\" IPS", gps:"GPS встроенный",
-   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/mini3-gps", photo:null},
+   price:"~6 490 ₽", url:"https://roadgid.ru/shop/videoreg/mini3-gps", photo:null,
+   specs:{processor:"Jieli 5601",display_type:"IPS",screen_size:'1.54"',max_sd:"64 ГБ",power_element:"аккумулятор",power_type:"Micro USB",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Premier 4 Pro", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Премиальное комбо 4K на Sony IMX678 с сигнатурным радар-детектором и LNA-усилителем сигналов. Wi-Fi, магнитное крепление.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~24 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4pro", photo:null},
+   price:"~24 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4pro", photo:null,
+   specs:{processor:"Novatek 98529",display_type:"IPS",screen_size:'3.5"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
 
   {name:"Roadgid Premier 4 Pro 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:3,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Флагманское комбо 4K на Sony IMX678 с сигнатурным радар-детектором, LNA-усилителем и задней Full HD камерой. Wi-Fi, магнит.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~26 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4pro-2ch", photo:null},
+   price:"~26 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4pro-2ch", photo:null,
+   specs:{processor:"Novatek 98529",display_type:"IPS",screen_size:'3.5"',max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
 
   {name:"Roadgid Premier 4", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Обновлённое комбо 2K на Sony IMX675 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~20 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4", photo:null},
+   price:"~20 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4", photo:null,
+   specs:{processor:"Novatek 96565",display_type:"IPS",screen_size:'3.5"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Premier 4 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальное комбо Full HD на Sony IMX675 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление, задняя камера.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~22 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4-2ch", photo:null},
+   price:"~22 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4-2ch", photo:null,
+   specs:{processor:"Novatek 96565",display_type:"IPS",screen_size:'3.5"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Premier 3 Carbon", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Комбо 2K с ультра-ночным сенсором Sony IMX327 и сигнатурным радар-детектором. Wi-Fi, магнитное крепление.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~18 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3", photo:null},
+   price:"~18 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3", photo:null,
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Premier 3 Carbon 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Первое комбо с ультра-ночным сенсором Sony IMX327 и сигнатурным радаром. Wi-Fi, магнитное крепление, задняя камера.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3-carbon-2ch-s-vtoroj-kameroj-pervyj-kombo-s-ultra-nochnym-sensorom-sony-imx-327", photo:null},
+   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-3-carbon-2ch-s-vtoroj-kameroj-pervyj-kombo-s-ultra-nochnym-sensorom-sony-imx-327", photo:null,
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:'3"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Type-C",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid X9 Gibrid GT", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Комбо Full HD на Sony IMX307 с сигнатурным радар-детектором и Wi-Fi. Магнитное крепление, GPS.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~17 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9", photo:null},
+   price:"~17 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9", photo:null,
+   specs:{processor:"Mstar 8339",display_type:"IPS",screen_size:'3"',max_sd:"64 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid X9 Gibrid GT 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Двухканальное комбо Full HD на Sony IMX307 с сигнатурным радар-детектором. Wi-Fi, магнитное крепление, задняя камера.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + сигнатурный радар",
-   price:"~19 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9_2ch", photo:null},
+   price:"~19 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid_x9_2ch", photo:null,
+   specs:{processor:"Mstar 8339",display_type:"IPS",screen_size:'3"',max_sd:"64 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid OPTIMA GT", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"Доступное комбо Full HD на Sony IMX307 с сигнатурным радар-детектором и Wi-Fi. Компактный дисплей 2.31\".",
    resolution:"Full HD 1920×1080 @30fps", angle:"150°", screen:"2.31\"", gps:"GPS + сигнатурный радар",
-   price:"~15 990 ₽", url:"https://roadgid.ru/shop/gibrid/optima_gt", photo:null},
+   price:"~15 990 ₽", url:"https://roadgid.ru/shop/gibrid/optima_gt", photo:null,
+   specs:{processor:"Mstar 8339",display_type:null,screen_size:'2.31"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Blick Combo", brand:"Roadgid",
    type:"комбо 3 в 1", form:"регистратор-зеркало", q:2,
    magnetic:false, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
    desc:"Зеркало-комбо 2K на Sony IMX335 с радар-детектором. Сенсорный дисплей 11.66\", Wi-Fi. Первое сенсорное зеркало с радар-детектором.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
-   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo", photo:null},
+   price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo", photo:null,
+   specs:{processor:"Novatek 96565",display_type:null,screen_size:'11.66"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Roadgid Blick Combo 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"регистратор-зеркало", q:1,
    magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
    desc:"Зеркало-комбо Full HD на Sony IMX335 с радар-детектором, задней камерой и сенсорным дисплеем 11.66\". Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
-   price:"~21 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo-2ch", photo:null},
+   price:"~21 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo-2ch", photo:null,
+   specs:{processor:"Novatek 96565",display_type:null,screen_size:'11.66"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // ── SilverStone F1 ──────────────────────────────────────────────────────────
   {name:"SilverStone F1 HYBRID S-BOT PRO Wi-Fi DE", brand:"SilverStone F1",
@@ -2551,7 +2739,19 @@ const DEVICES = [
    desc:"Сигнатурное комбо 3 в 1, Full HD, допплеровская антенна LNA, Wi-Fi приложение VideoMix. Без экрана, GPS-информирование.",
    resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"GPS + ГЛОНАСС",
    price:"~23 650 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-s-bot-pro-wi-fi-de/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2025/09/sbot_pro_wifi_de_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/09/sbot_pro_wifi_de_01-300x300.jpg",
+   specs:{
+     processor:    "AIT 8339D",
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "64 ГБ",
+     power_element:"аккумулятор",
+     power_type:   "jack 3.5",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 HYBRID UNO SPORT 4K Wi-Fi LNA", brand:"SilverStone F1",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -2559,7 +2759,19 @@ const DEVICES = [
    desc:"Топовое сигнатурное комбо 3 в 1, запись 4K, дисплей, GPS, Wi-Fi, задняя и внутрисалонная ИК-камера. Антенна LNA.",
    resolution:"4K 2160p", angle:"140°", screen:"дисплей", gps:"GPS + ГЛОНАСС",
    price:"~18 690 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-uno-sport-4k-wi-fi-lna/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/ren_uspwifi_4K_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/ren_uspwifi_4K_01-300x300.jpg",
+   specs:{
+     processor:    "AIT 8629",
+     display_type: "LCD",
+     screen_size:  "3\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "jack 2.5",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 HYBRID UNO SPORT Wi-Fi", brand:"SilverStone F1",
    type:"комбо 3 в 1", form:"без экрана", q:1,
@@ -2567,7 +2779,19 @@ const DEVICES = [
    desc:"Сигнатурное комбо 3 в 1, Full HD, GPS, Wi-Fi приложение, задняя камера. Без встроенного экрана.",
    resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"GPS + ГЛОНАСС",
    price:"~15 390 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-uno-sport-wi-fi/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2021/02/USPWiFi_01_REN_mm-300x290.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2021/02/USPWiFi_01_REN_mm-300x290.jpg",
+   specs:{
+     processor:    "AIT 8339",
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "jack 2.5",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 HYBRID X-DRIVER", brand:"SilverStone F1",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2575,7 +2799,19 @@ const DEVICES = [
    desc:"Сигнатурное комбо 3 в 1, Full HD, встроенный дисплей, GPS, угол обзора 145°. Без Wi-Fi.",
    resolution:"Full HD 1080p", angle:"145°", screen:"дисплей", gps:"GPS + ГЛОНАСС",
    price:"~12 490 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-x-driver/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2019/12/xDriver_01-300x200.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2019/12/xDriver_01-300x200.jpg",
+   specs:{
+     processor:    "AIT 8339",
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "64 ГБ",
+     power_element:"аккумулятор",
+     power_type:   null,
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     null,
+   }},
 
   {name:"SilverStone F1 Focus 2K", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:2,
@@ -2583,7 +2819,19 @@ const DEVICES = [
    desc:"Компактный видеорегистратор 2K без экрана, угол 150°, Wi-Fi управление через приложение. Новинка 2026.",
    resolution:"2K 1440p", angle:"150°", screen:"без экрана", gps:"нет",
    price:"~4 090 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-focus-2k/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2k_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2k_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: "LCD",
+     screen_size:  "1.47\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 VideoJET II 4K", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:3,
@@ -2591,7 +2839,19 @@ const DEVICES = [
    desc:"Видеорегистратор 4K без экрана, Wi-Fi приложение, компактный корпус. Отличный вариант для скрытой установки.",
    resolution:"4K 2160p", angle:"140°", screen:"без экрана", gps:"нет",
    price:"~6 390 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-videojet-4k/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2025/01/ren_vj4K_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/01/ren_vj4K_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: null,
+     screen_size:  null,
+     max_sd:       "256 ГБ",
+     power_element:null,
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       true,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 Poliscan 4K", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:3,
@@ -2599,7 +2859,19 @@ const DEVICES = [
    desc:"Компактный видеорегистратор 4K без экрана, Wi-Fi, угол 140°. Чёткая запись в любых условиях освещения.",
    resolution:"4K 2160p", angle:"140°", screen:"без экрана", gps:"нет",
    price:"~7 090 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-poliskan-4k/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2025/12/ren_Poliscan4K_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/12/ren_Poliscan4K_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "256 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 CityScanner 4K", brand:"SilverStone F1",
    type:"видеорегистратор", form:"с экраном", q:3,
@@ -2607,7 +2879,19 @@ const DEVICES = [
    desc:"Видеорегистратор 4K с дисплеем, GPS, задняя камера, Wi-Fi, магнитное крепление. Полный набор функций.",
    resolution:"4K 2160p", angle:"140°", screen:"дисплей", gps:"GPS встроенный",
    price:"~9 750 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-cityscanner-4k/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/cs4k_01_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/cs4k_01_01-300x300.jpg",
+   specs:{
+     processor:    "AIT 8629",
+     display_type: "IPS",
+     screen_size:  "3\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "jack 2.5",
+     gsensor:      true,
+     motion:       true,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 Focus Duo", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:2,
@@ -2615,7 +2899,19 @@ const DEVICES = [
    desc:"Двухканальный видеорегистратор 2K без экрана, угол 150°, Wi-Fi приложение, задняя камера. Новинка 2026.",
    resolution:"2K 1440p", angle:"150°", screen:"без экрана", gps:"нет",
    price:"~5 100 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-focus-duo/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2kDUO_04-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2kDUO_04-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: "LCD",
+     screen_size:  "1.47\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 Taxi 2K Wi-Fi", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:2,
@@ -2623,7 +2919,19 @@ const DEVICES = [
    desc:"Видеорегистратор 2K без экрана с Wi-Fi управлением. Компактный, надёжный, свежая модель 2026 года.",
    resolution:"2K 1440p", angle:"140°", screen:"без экрана", gps:"нет",
    price:"~6 490 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-taxi-2k-wi-fi/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2026/04/ren_Taxi2K_WiFi_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/04/ren_Taxi2K_WiFi_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: "LCD",
+     screen_size:  "3\"",
+     max_sd:       "128 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 INTEGRAL 2.0", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:1,
@@ -2631,7 +2939,19 @@ const DEVICES = [
    desc:"Компактный видеорегистратор Full HD для скрытой установки, сплит-система, Wi-Fi приложение CityScan F1.",
    resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"нет",
    price:"~8 690 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-integral-2-0/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2021/11/ren_IN2.0_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2021/11/ren_IN2.0_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: null,
+     screen_size:  null,
+     max_sd:       "64 ГБ",
+     power_element:"суперконденсатор",
+     power_type:   null,
+     gsensor:      true,
+     motion:       false,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   {name:"SilverStone F1 VideoJET DUO", brand:"SilverStone F1",
    type:"видеорегистратор", form:"без экрана", q:1,
@@ -2639,7 +2959,19 @@ const DEVICES = [
    desc:"Двухканальный видеорегистратор Full HD, угол 150°, Wi-Fi приложение FinalCamX, крепление на 3М-скотче.",
    resolution:"Full HD 1080p", angle:"150°", screen:"без экрана", gps:"нет",
    price:"~4 690 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-videojet-duo/",
-   photo:"https://silverstonef1.ru/wp-content/uploads/2026/01/ren_vjDuo_01-300x300.jpg"},
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/01/ren_vjDuo_01-300x300.jpg",
+   specs:{
+     processor:    null,
+     display_type: null,
+     screen_size:  null,
+     max_sd:       "128 ГБ",
+     power_element:"аккумулятор",
+     power_type:   "Type-C",
+     gsensor:      true,
+     motion:       true,
+     timelapse:    false,
+     wifi_gen:     "Wi-Fi",
+   }},
 
   // ── Inspector ──────────────────────────────────────────────────────────────
   // Комбо 3 в 1 — с LNA-усилителем
@@ -2649,7 +2981,8 @@ const DEVICES = [
    desc:"Компактное сигнатурное комбо с LNA-усилителем, Wi-Fi приложением, Full HD 145°, GPS/ГЛОНАСС, дисплей 2.45\". Сделано в Южной Корее.",
    resolution:"Full HD 1920×1080p", angle:"145°", screen:"2.45\"", gps:"GPS + ГЛОНАСС",
    price:"~16 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-kombo-registratory/inspector-mike-s-pro/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/107/k452a2kyblsohhmnb957e21zgs9ww5zz/karta-mike.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/107/k452a2kyblsohhmnb957e21zgs9ww5zz/karta-mike.jpg",
+   specs:{processor:null,display_type:null,screen_size:"2.45\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Inspector Marlin S Pro", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2657,7 +2990,8 @@ const DEVICES = [
    desc:"Легендарный Marlin с сигнатурным радаром и LNA-усилителем, Full HD 130°, GPS/ГЛОНАСС, Ambarella A12, дисплей 2.4\". Сделано в Южной Корее.",
    resolution:"Full HD 1920×1080p", angle:"130°", screen:"2.4\"", gps:"GPS + ГЛОНАСС",
    price:"~15 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-kombo-registratory/inspector-marlin-s-pro/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/87d/zs3dt5cj9kkwzh5ow2cjplkw45nkujka/karta-marlin.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/87d/zs3dt5cj9kkwzh5ow2cjplkw45nkujka/karta-marlin.jpg",
+   specs:{processor:"Ambarella A12",display_type:null,screen_size:"2.4\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Inspector Bravo S Pro", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2665,7 +2999,8 @@ const DEVICES = [
    desc:"Сигнатурное комбо с LNA-усилителем линейки Bravo, Full HD, GPS/ГЛОНАСС, дисплей 2.45\". Сделано в Южной Корее.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"2.45\"", gps:"GPS + ГЛОНАСС",
    price:"~16 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-kombo-registratory/inspector-bravo-s-pro/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/889/t3oeucaqsk7mg05t6f7isgt4sdlvghrk/karta_bravo.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/889/t3oeucaqsk7mg05t6f7isgt4sdlvghrk/karta_bravo.jpg",
+   specs:{processor:null,display_type:null,screen_size:"2.45\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   // Комбо 3 в 1 — сигнатурные без LNA
   {name:"Inspector GlobuS", brand:"Inspector",
@@ -2674,7 +3009,8 @@ const DEVICES = [
    desc:"Топовое сигнатурное комбо с задней камерой 170°, 2K съёмка, дисплей 3.0\" IPS, GPS/ГЛОНАСС, Wi-Fi. Сделано в Южной Корее.",
    resolution:"2K 2560×1440p", angle:"155° + 170° (зад)", screen:"3.0\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~29 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-combo/inspector-globus/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/b01/hh649iz9nic372uza9chddbi6j7zsu7c/iq-pro.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/b01/hh649iz9nic372uza9chddbi6j7zsu7c/iq-pro.jpg",
+   specs:{processor:"iCatch CR1A-S",display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Inspector AtlaS", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -2682,7 +3018,8 @@ const DEVICES = [
    desc:"Флагманское сигнатурное комбо без LNA, 2K съёмка, дисплей 3.0\" IPS, 155°, GPS/ГЛОНАСС, Wi-Fi. Сделано в Южной Корее.",
    resolution:"2K 2560×1440p", angle:"155°", screen:"3.0\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~28 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-combo/inspector-atlas/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Inspector MapS", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:2,
@@ -2690,7 +3027,8 @@ const DEVICES = [
    desc:"Сигнатурное комбо среднего класса, 2K, дисплей 3.0\" IPS, GPS/ГЛОНАСС, Wi-Fi приложение. Сделано в Южной Корее.",
    resolution:"2K 2560×1440p", angle:"140°", screen:"3.0\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~22 490 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-combo/inspector-maps/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Inspector Cayman S", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2698,7 +3036,8 @@ const DEVICES = [
    desc:"Популярное сигнатурное комбо начального уровня, Full HD, 140°, GPS/ГЛОНАСС, дисплей 2.45\". Сделано в Южной Корее.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"2.45\"", gps:"GPS + ГЛОНАСС",
    price:"~16 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-combo/inspector-cayman-s/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:"2.45\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Inspector Barracuda", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2706,7 +3045,8 @@ const DEVICES = [
    desc:"Доступное комбо-устройство, Full HD, GPS/ГЛОНАСС, дисплей 2.4\". Оптимальный выбор по бюджету. Сделано в Южной Корее.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"2.4\"", gps:"GPS + ГЛОНАСС",
    price:"~12 390 ₽", url:"https://www.rd-inspector.ru/catalog/kombo/inspector-barracuda/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:"2.4\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   // Видеорегистраторы
   {name:"Inspector Drive", brand:"Inspector",
@@ -2715,7 +3055,8 @@ const DEVICES = [
    desc:"Компактный видеорегистратор Inspector Drive, Full HD, встроенный GPS/ГЛОНАСС, современный дизайн. Новинка.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~10 390 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/inspector-drive/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/200/5eac3qgu2goyir6ic0vx6v26j3sbt4e0/drive_1_1.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/200/5eac3qgu2goyir6ic0vx6v26j3sbt4e0/drive_1_1.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"9.66\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Inspector Tubus Plus", brand:"Inspector",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2723,7 +3064,8 @@ const DEVICES = [
    desc:"Бюджетный видеорегистратор Tubus Plus, Full HD, компактный корпус, простая установка.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~4 990 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/videoregistrator-inspector-tubus-plus/",
-   photo:"https://www.rd-inspector.ru/upload/iblock/747/7g43s11i98i0b0jrz2t2h2j26bc5zbm6/tubus-plus_1.jpg"},
+   photo:"https://www.rd-inspector.ru/upload/iblock/747/7g43s11i98i0b0jrz2t2h2j26bc5zbm6/tubus-plus_1.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   // Inspector GPS-информеры (видеорегистратор + база камер, без радара)
   {name:"Inspector Alfa", brand:"Inspector",
@@ -2732,7 +3074,8 @@ const DEVICES = [
    desc:"GPS-информер с широкоугольной камерой 170°, Full HD, база камер GPS/ГЛОНАСС, яркий экран. Компактный и надёжный.",
    resolution:"Full HD 1920×1080p", angle:"170°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~10 990 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/inspector-alfa/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Inspector Delta", brand:"Inspector",
    type:"GPS-информер", form:"с экраном", q:1,
@@ -2740,7 +3083,8 @@ const DEVICES = [
    desc:"GPS-информер с Full HD, 170°, Wi-Fi приложением Inspector Wi-Fi Master, базой камер GPS/ГЛОНАСС. Обновления без ПК.",
    resolution:"Full HD 1920×1080p", angle:"170°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~12 990 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/inspector-delta/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Inspector Tango", brand:"Inspector",
    type:"GPS-информер", form:"с экраном", q:1,
@@ -2748,7 +3092,8 @@ const DEVICES = [
    desc:"GPS-информер Full HD 170° с Wi-Fi, слотом для CPL-фильтра, базой камер GPS/ГЛОНАСС. Убирает блики на лобовом стекле.",
    resolution:"Full HD 1920×1080p", angle:"170°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~14 990 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/inspector-tango/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // Inspector — дополнительные видеорегистраторы
   {name:"Inspector DEL", brand:"Inspector",
@@ -2757,7 +3102,8 @@ const DEVICES = [
    desc:"Компактный видеорегистратор Inspector DEL, Full HD, скрытая установка, крепление на 3М-скотче.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~6 990 ₽", url:"https://www.rd-inspector.ru/catalog/videoregistratory/inspector-del/",
-   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg"},
+   photo:"https://www.rd-inspector.ru/bitrix/templates/magnet_s1/img/no-photo.svg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   // ── Navitel ────────────────────────────────────────────────────────────────
   // Комбо 3 в 1
@@ -2767,7 +3113,8 @@ const DEVICES = [
    desc:"Зеркало-видеорегистратор с сигнатурным радар-детектором, 2K съёмка спереди, задняя камера, 5\" экран, GPS/ГЛОНАСС, Wi-Fi. Флагман серии MXR.",
    resolution:"2K 2560×1440p", angle:"140° + зад", screen:"5\"", gps:"GPS + ГЛОНАСС",
    price:"~17 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/combo-ystroistva/navitel-mxr2700/",
-   photo:"https://market.navitel.ru/upload/iblock/65c/a5oite56w4sjhwzqtim2854c6alg2r18.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/65c/a5oite56w4sjhwzqtim2854c6alg2r18.webp",
+   specs:{processor:null,display_type:null,screen_size:"5\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL XR2650 PRO", brand:"Navitel",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2775,7 +3122,8 @@ const DEVICES = [
    desc:"Компактное комбо с сигнатурным радар-детектором и GPS-информером, Full HD 150°, магнитное крепление, дисплей 3\", Wi-Fi.",
    resolution:"Full HD 1920×1080p", angle:"150°", screen:"3\"", gps:"GPS + ГЛОНАСС",
    price:"~14 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/combo-ystroistva/navitel-xr2650-pro/",
-   photo:"https://market.navitel.ru/upload/iblock/424/v104hqcvv35ybsesu7vnqjpl8f6c3c2m.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/424/v104hqcvv35ybsesu7vnqjpl8f6c3c2m.webp",
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // Видеорегистраторы Navitel
   {name:"NAVITEL RS990 GPS", brand:"Navitel",
@@ -2784,7 +3132,8 @@ const DEVICES = [
    desc:"Флагман Navitel: 4K фронтальная + Full HD задняя, ADAS+BSD, голосовое управление, GPS/ГЛОНАСС, Wi-Fi. Максимальная начинка.",
    resolution:"4K 3840×2160p + Full HD", angle:"170° + зад", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~14 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-rs990-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/33d/k7gkj8fszru7tf6uemx61p08oeg5p8kh.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/33d/k7gkj8fszru7tf6uemx61p08oeg5p8kh.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL RS984 GPS", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:3,
@@ -2792,7 +3141,8 @@ const DEVICES = [
    desc:"4K видеорегистратор с двумя камерами, ADAS+BSD, GPS/ГЛОНАСС, Wi-Fi. Отличное качество съёмки по доступной цене.",
    resolution:"4K 3840×2160p", angle:"140° + зад", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~12 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-rs984-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/3aa/98eurut4jnh9j3ofep5jsuebn1ian8nd.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/3aa/98eurut4jnh9j3ofep5jsuebn1ian8nd.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL MR750 SMART", brand:"Navitel",
    type:"видеорегистратор", form:"регистратор-зеркало", q:2,
@@ -2800,7 +3150,8 @@ const DEVICES = [
    desc:"Полноэкранное зеркало-регистратор 2K с задней камерой, ADAS+BSD, GPS/ГЛОНАСС, Wi-Fi. Сенсорный IPS дисплей на весь экран зеркала.",
    resolution:"2K 2560×1440p", angle:"140° + зад", screen:"зеркало", gps:"GPS + ГЛОНАСС",
    price:"~12 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-mr750-smart/",
-   photo:"https://market.navitel.ru/upload/iblock/bfc/w6lebw9kia2fgxm85ksy3n4gteg512w0.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/bfc/w6lebw9kia2fgxm85ksy3n4gteg512w0.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL RC3 PRO", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -2808,7 +3159,8 @@ const DEVICES = [
    desc:"Регистратор с 3 камерами, сенсорным дисплеем, GPS-информером (база камер), 2K, Wi-Fi. Максимальный обзор из салона.",
    resolution:"2K 2560×1440p", angle:"170° + боковые", screen:"сенсор", gps:"GPS + ГЛОНАСС",
    price:"~12 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-rc3-pro/",
-   photo:"https://market.navitel.ru/upload/iblock/4a0/zrbm2j1dnsplth2m28fuh46xucgtvjhj.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/4a0/zrbm2j1dnsplth2m28fuh46xucgtvjhj.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL RS3 DUO WIDE", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2816,7 +3168,8 @@ const DEVICES = [
    desc:"Регистратор с двумя камерами 240°: фронтальная + ИК-камера в салон. Ультраширокий обзор, ночная съёмка салона.",
    resolution:"Full HD 1920×1080p", angle:"240° + 240° (салон ИК)", screen:"с экраном", gps:"нет",
    price:"~14 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-rs3-duo-wide/",
-   photo:"https://market.navitel.ru/upload/iblock/f72/5b9ekmjs5xfcmdg6083yvypfvtgxa8oo.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/f72/5b9ekmjs5xfcmdg6083yvypfvtgxa8oo.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL MR450 GPS", brand:"Navitel",
    type:"видеорегистратор", form:"регистратор-зеркало", q:1,
@@ -2824,7 +3177,8 @@ const DEVICES = [
    desc:"Зеркало-регистратор Full HD с задней камерой, сенсорным экраном, GPS-информером и Wi-Fi. Удобное управление касанием.",
    resolution:"Full HD 1920×1080p", angle:"130° + зад", screen:"зеркало", gps:"GPS + ГЛОНАСС",
    price:"~9 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-mr450-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/305/840laluig3xg93sipolk9y7mzifkyl6a.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/305/840laluig3xg93sipolk9y7mzifkyl6a.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL R9 DUAL", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2832,7 +3186,8 @@ const DEVICES = [
    desc:"Регистратор с двумя Full HD камерами 170°, GPS-информером, Wi-Fi. Доступный вариант с задней камерой в комплекте.",
    resolution:"Full HD 1920×1080p", angle:"170° + зад", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~8 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r9-dual/",
-   photo:"https://market.navitel.ru/upload/iblock/5d9/wrgli61xlaa82pypb25pugkivxw42pu4.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/5d9/wrgli61xlaa82pypb25pugkivxw42pu4.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL R480 2K", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -2840,7 +3195,8 @@ const DEVICES = [
    desc:"Регистратор 2K с двумя камерами, магнитным креплением и широким углом 160°. Быстрый съём/установка благодаря магниту.",
    resolution:"2K 2560×1440p", angle:"160° + зад", screen:"с экраном", gps:"нет",
    price:"~7 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r480-2k/",
-   photo:"https://market.navitel.ru/upload/iblock/215/9b5kjh1xdq4dmn02zw2ib8a0pj78on6n.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/215/9b5kjh1xdq4dmn02zw2ib8a0pj78on6n.webp",
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL MR255 NV", brand:"Navitel",
    type:"видеорегистратор", form:"регистратор-зеркало", q:1,
@@ -2848,7 +3204,8 @@ const DEVICES = [
    desc:"Бюджетное зеркало-регистратор с двумя Full HD камерами. Простая установка на стандартное зеркало заднего вида.",
    resolution:"Full HD 1920×1080p", angle:"130° + зад", screen:"зеркало", gps:"нет",
    price:"~7 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-mr255-nv/",
-   photo:"https://market.navitel.ru/upload/iblock/08f/16ym9ucokufrpqid4w6t3205ngdksikl.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/08f/16ym9ucokufrpqid4w6t3205ngdksikl.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL R67 2K", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -2856,7 +3213,8 @@ const DEVICES = [
    desc:"Компактный регистратор 2K с информационным дисплеем и Wi-Fi. Качественная съёмка и управление через приложение.",
    resolution:"2K 2560×1440p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~5 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r67-2k/",
-   photo:"https://market.navitel.ru/upload/iblock/61f/6zr9ldcy4vza8w5qehctypau7wzfiaat.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/61f/6zr9ldcy4vza8w5qehctypau7wzfiaat.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL R285 2K", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -2864,7 +3222,8 @@ const DEVICES = [
    desc:"Доступный регистратор 2K с аккумулятором и поддержкой карт до 256 ГБ. Хорошее качество записи за скромные деньги.",
    resolution:"2K 2560×1440p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~5 490 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r285-2k/",
-   photo:"https://market.navitel.ru/upload/iblock/fdb/wwccdohs4f3f483zmge3xeir7ja3nngf.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/fdb/wwccdohs4f3f483zmge3xeir7ja3nngf.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL R37 GPS", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2872,7 +3231,8 @@ const DEVICES = [
    desc:"Миниатюрный регистратор с экраном, Full HD, GPS-информер, Wi-Fi, поддержка карт до 256 ГБ. Компактно и функционально.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~4 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r37-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/924/ohs1jg33xkdwy8oggx0u42d5agxwqzg0.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/924/ohs1jg33xkdwy8oggx0u42d5agxwqzg0.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL R250 DUAL", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2880,7 +3240,8 @@ const DEVICES = [
    desc:"Регистратор с двумя камерами и поворотом задней на 360° (140° + 100°). Гибкая настройка угла задней камеры.",
    resolution:"Full HD 1920×1080p", angle:"140° + 100° (зад 360°)", screen:"с экраном", gps:"нет",
    price:"~4 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r250-dual/",
-   photo:"https://market.navitel.ru/upload/iblock/541/nqkmu1mn127k3znoc38yyu1qkkuvczdc.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/541/nqkmu1mn127k3znoc38yyu1qkkuvczdc.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL R260 NV", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2888,7 +3249,8 @@ const DEVICES = [
    desc:"Компактный Full HD регистратор с повышенной частотой 60 FPS для чёткой съёмки в движении. Угол обзора 140°.",
    resolution:"Full HD 1920×1080p @ 60fps", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~4 490 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r260-nv/",
-   photo:"https://market.navitel.ru/upload/iblock/3ad/e06hi0xv3tbuoxnrrhnpxlo6ujdx0dz3.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/3ad/e06hi0xv3tbuoxnrrhnpxlo6ujdx0dz3.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL R200 NV", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2896,7 +3258,8 @@ const DEVICES = [
    desc:"Надёжный бюджетный регистратор Full HD 140°. Простой в использовании, без лишних функций — просто запись.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~3 490 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r200-nv/",
-   photo:"https://market.navitel.ru/upload/iblock/10f/jlxec4pirybygybpfxbh96uu14tldbkl.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/10f/jlxec4pirybygybpfxbh96uu14tldbkl.webp",
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"64 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL AR250 NV", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2904,7 +3267,8 @@ const DEVICES = [
    desc:"Сверхкомпактный регистратор Full HD 140°. Минимальные размеры, незаметен на лобовом стекле.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~2 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-ar250-nv/",
-   photo:"https://market.navitel.ru/upload/iblock/6a1/m0yibh5vw07y22pp33a04qr2sdomahpa.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/6a1/m0yibh5vw07y22pp33a04qr2sdomahpa.jpg",
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"64 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
   // GPS-информеры Navitel
   {name:"NAVITEL R87 GPS", brand:"Navitel",
@@ -2913,7 +3277,8 @@ const DEVICES = [
    desc:"GPS-информер с матрицей Sony STARVIS 2, съёмка 2.7K 150°, Wi-Fi, поддержка карт до 256 ГБ. Отличная ночная съёмка.",
    resolution:"2.7K 2592×1944p", angle:"150°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~7 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r87-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/520/zisf2p1hsxb0yd7mbgc4fklz9beuav2q.jpg"},
+   photo:"https://market.navitel.ru/upload/iblock/520/zisf2p1hsxb0yd7mbgc4fklz9beuav2q.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3.7\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"NAVITEL R385 GPS", brand:"Navitel",
    type:"GPS-информер", form:"с экраном", q:2,
@@ -2921,7 +3286,8 @@ const DEVICES = [
    desc:"GPS-информер с записью 2K и углом 140°. Компактный, простой в настройке, с обновляемой базой камер.",
    resolution:"2K 2560×1440p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~5 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r385-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/866/ma7rc5ilqx5b1q01cbr0io32ilnwax39.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/866/ma7rc5ilqx5b1q01cbr0io32ilnwax39.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"NAVITEL R300 GPS", brand:"Navitel",
    type:"GPS-информер", form:"с экраном", q:1,
@@ -2929,7 +3295,8 @@ const DEVICES = [
    desc:"Компактный GPS-информер Full HD 140° с обновляемой базой камер. Доступная цена, надёжная запись.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~5 490 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-r300-gps/",
-   photo:"https://market.navitel.ru/upload/iblock/355/ri5s9nppeexb3157379sgdp7f8nypdgv.webp"},
+   photo:"https://market.navitel.ru/upload/iblock/355/ri5s9nppeexb3157379sgdp7f8nypdgv.webp",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   // ── Neoline ──
   // Комбо 3 в 1
@@ -2939,7 +3306,8 @@ const DEVICES = [
    desc:"Сигнатурный гибрид Full HD 135° с 2\" экраном, GPS/ГЛОНАСС, Wi-Fi, Sony Exmor. Распознаёт комплексы спереди и сзади.",
    resolution:"Full HD 1920×1080p", angle:"135°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~19 999 ₽", url:"https://neoline.ru/shop/gibrid-videoregistratora-s-radar-detektorom-neoline-x-cop-citysmart/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline X-COP ROADMASTER", brand:"Neoline",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2947,7 +3315,8 @@ const DEVICES = [
    desc:"Флагманский гибрид Full HD с 3.5\" IPS тач-экраном и двойным LNA PRO усилителем. Максимальная дальность обнаружения камер. GPS/ГЛОНАСС, Wi-Fi.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~27 299 ₽", url:"https://neoline.ru/shop/gibrid-videoregistratora-s-radar-detektorom-neoline-x-cop-roadmaster/",
-   photo:"https://static.tildacdn.com/tild6663-3264-4333-a637-633137363835/500x500.png"},
+   photo:"https://static.tildacdn.com/tild6663-3264-4333-a637-633137363835/500x500.png",
+   specs:{processor:null,display_type:null,screen_size:"3.5\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline DEEPSCAN WI-FI BLACK", brand:"Neoline",
    type:"комбо 3 в 1", form:"с экраном", q:1,
@@ -2955,7 +3324,8 @@ const DEVICES = [
    desc:"Сигнатурный гибрид Full HD с EXD 2.0, 2\" IPS экраном, Sony Exmor. GPS/ГЛОНАСС, Wi-Fi. Экстремальное обнаружение комплексов, суперконденсатор.",
    resolution:"Full HD 1920×1080p", angle:"135°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~22 499 ₽", url:"https://neoline.ru/shop/signaturnyy-gibrid-neoline-deepscan-wi-fi-black/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline SPECTRUM", brand:"Neoline",
    type:"комбо 3 в 1", form:"с экраном", q:3,
@@ -2963,7 +3333,8 @@ const DEVICES = [
    desc:"Флагманский 4K гибрид с EXD 2.5, 3\" IPS тач, рупорной антенной и MULTA-модулем. GPS/ГЛОНАСС, Wi-Fi, парковочный режим, суперконденсатор.",
    resolution:"4K Ultra HD 3840×2160p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~29 990 ₽", url:"https://neoline.ru/landing/spectrum/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   // Видеорегистраторы Neoline
   {name:"Neoline G-Tech X64", brand:"Neoline",
@@ -2972,7 +3343,8 @@ const DEVICES = [
    desc:"3-камерный регистратор: 2K передняя + ИК салонная + опциональная 3-я. Угол 170°+120°, GPS/ГЛОНАСС, Wi-Fi, ADAS, парковка 24/7.",
    resolution:"2K 2560×1440p + Full HD ИК", angle:"170°+120°+120°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~13 699 ₽", url:"https://neoline.ru/shop/videoregistrator-neoline-g-tech-x64/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline Flash 2K Wi-Fi Dual", brand:"Neoline",
    type:"видеорегистратор", form:"с экраном", q:2,
@@ -2980,7 +3352,8 @@ const DEVICES = [
    desc:"Двухкамерный регистратор 2K+FHD, угол 170°+120°, Wi-Fi, HDR. Компактный и незаметный, без GPS.",
    resolution:"2K 2560×1440p + Full HD", angle:"170°+120°", screen:"с экраном", gps:"нет",
    price:"~8 099 ₽", url:"https://neoline.ru/shop/neoline-flash-2k-dual/",
-   photo:"https://cdn.vseinstrumenti.ru/images/goods/oborudovanie-dlya-avtoservisa-i-garazha/avtoaksessuary/13050101/1000x1000/159630689.jpg"},
+   photo:"https://cdn.vseinstrumenti.ru/images/goods/oborudovanie-dlya-avtoservisa-i-garazha/avtoaksessuary/13050101/1000x1000/159630689.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline G-Tech X54 Dual", brand:"Neoline",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -2988,7 +3361,8 @@ const DEVICES = [
    desc:"Двухкамерный регистратор Full HD 170°+170°. GPS/ГЛОНАСС, Wi-Fi. Максимальный охват: полный обзор вперёд и назад.",
    resolution:"Full HD 1920×1080p + Full HD", angle:"170°+170°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~15 999 ₽", url:"https://neoline.ru/shop/videoregistratory/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline EasyDrive 2K Wi-Fi Dual", brand:"Neoline",
    type:"видеорегистратор", form:"регистратор-зеркало", q:2,
@@ -2996,7 +3370,8 @@ const DEVICES = [
    desc:"Зеркало-регистратор 2K+FHD, 9.66\" IPS тач, 170°+120°=290° обзор, Wi-Fi, парковочный ассистент. Крепится поверх штатного зеркала.",
    resolution:"2K 2560×1440p + Full HD", angle:"170°+120°", screen:"регистратор-зеркало", gps:"нет",
    price:"~10 715 ₽", url:"https://neoline.ru/shop/zerkalo-neoline-easydrive-2k-wi-fi-dual/",
-   photo:"https://cdn.vseinstrumenti.ru/images/goods/oborudovanie-dlya-avtoservisa-i-garazha/avtoaksessuary/16346861/1000x1000/181115213.jpg"},
+   photo:"https://cdn.vseinstrumenti.ru/images/goods/oborudovanie-dlya-avtoservisa-i-garazha/avtoaksessuary/16346861/1000x1000/181115213.jpg",
+   specs:{processor:null,display_type:null,screen_size:"9.66\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
 
   {name:"Neoline G-Tech X74", brand:"Neoline",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -3004,7 +3379,8 @@ const DEVICES = [
    desc:"Компактный регистратор Full HD 140° с GPS-модулем в магнитном креплении. Парковочный режим Supercon, суперконденсатор.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~7 490 ₽", url:"https://neoline.ru/shop/videoregistratory/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 
   {name:"Neoline G-Tech X72", brand:"Neoline",
    type:"видеорегистратор", form:"с экраном", q:1,
@@ -3012,7 +3388,8 @@ const DEVICES = [
    desc:"Компактный регистратор Full HD 140° с магнитным креплением и 1.5\" экраном. Фильтр CPL, парковочный режим Ultra.",
    resolution:"Full HD 1920×1080p", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~7 999 ₽", url:"https://neoline.ru/shop/videoregistratory/",
-   photo:""},
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:"1.5\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -3572,6 +3949,34 @@ function _renderResults(top) {
             <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
             <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${d.screen || '—'}</div></div>
             <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${d.gps || '—'}</div></div>
+          </div>
+          <div class="specs-full" id="sf-${i}-${d.brand.replace(/\s/g,'')}">
+            <button class="specs-full-toggle" onclick="this.closest('.specs-full').classList.toggle('open')">
+              📋 Все характеристики <span class="specs-full-arrow">›</span>
+            </button>
+            <div class="specs-full-body">
+              ${[
+                ["Разрешение",        d.resolution],
+                ["Угол обзора",       d.angle],
+                ["Wi-Fi",             d.specs?.wifi_gen || (d.smartphone ? "есть" : "нет")],
+                ["Процессор",         d.specs?.processor],
+                ["Тип дисплея",       d.specs?.display_type || (d.screen ? "есть" : null)],
+                ["Размер экрана",     d.specs?.screen_size],
+                ["Карта памяти (макс)",d.specs?.max_sd],
+                ["Вторая камера",     d.rear_cam ? "поддерживается" : "нет"],
+                ["Элемент питания",   d.specs?.power_element],
+                ["Тип питания",       d.specs?.power_type],
+                ["G-сенсор",          d.specs?.gsensor != null ? (d.specs.gsensor ? "есть" : "нет") : null],
+                ["Датчик движения",   d.specs?.motion   != null ? (d.specs.motion   ? "есть" : "нет") : null],
+                ["Таймлапс",          d.specs?.timelapse != null ? (d.specs.timelapse ? "есть" : "нет") : null],
+              ].map(([label, val]) => {
+                const v = val ?? null;
+                return `<div class="specs-full-row">
+                  <span class="specs-full-label">${label}</span>
+                  <span class="specs-full-val${v == null ? ' nd' : ''}">${v ?? 'н/д'}</span>
+                </div>`;
+              }).join("")}
+            </div>
           </div>
           ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
