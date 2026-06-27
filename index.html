@@ -380,12 +380,12 @@ html, body {
 
 @media (min-width: 700px) {
   .results-list { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .results-list > div:first-child { grid-column: 1 / -1; }
+  .results-list .res-section-header { grid-column: 1 / -1; }
   .answer-chips-row { max-width: 1200px; margin: 0 auto; }
 }
 @media (min-width: 1100px) {
   .results-list { grid-template-columns: 1fr 1fr 1fr; }
-  .results-list > div:first-child { grid-column: auto; }
+  .results-list .res-section-header { grid-column: 1 / -1; }
 }
 
 /* Device card */
@@ -609,6 +609,26 @@ html, body {
   background: var(--green-bg);
   color: var(--green-text);
   font-size: 14px;
+}
+.rank-pill.hidden-pill {
+  visibility: hidden;
+}
+
+/* Skip notice (mirror dashcam auto-skip) */
+.skip-notice {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--card); border: 0.5px solid var(--border);
+  border-radius: 18px; padding: 20px 18px;
+  margin: 0;
+}
+.skip-notice-icon {
+  font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px;
+}
+.skip-notice-text {
+  font-size: 15px; color: var(--text-2); line-height: 1.5;
+}
+.skip-notice-text strong {
+  display: block; color: var(--text); font-size: 15px; font-weight: 600; margin-bottom: 4px;
 }
 
 /* Answer chips */
@@ -2360,6 +2380,103 @@ const DEVICES = [
    desc:"Зеркало-комбо Full HD на Sony IMX335 с радар-детектором, задней камерой и сенсорным дисплеем 11.66\". Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
    price:"~21 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo-2ch", photo:null},
+
+  // ── SilverStone F1 ──────────────────────────────────────────────────────────
+  {name:"SilverStone F1 HYBRID S-BOT PRO Wi-Fi DE", brand:"SilverStone F1",
+   type:"комбо 3 в 1", form:"без экрана", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Сигнатурное комбо 3 в 1, Full HD, допплеровская антенна LNA, Wi-Fi приложение VideoMix. Без экрана, GPS-информирование.",
+   resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"GPS + ГЛОНАСС",
+   price:"~23 650 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-s-bot-pro-wi-fi-de/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/09/sbot_pro_wifi_de_01-300x300.jpg"},
+
+  {name:"SilverStone F1 HYBRID UNO SPORT 4K Wi-Fi LNA", brand:"SilverStone F1",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
+   desc:"Топовое сигнатурное комбо 3 в 1, запись 4K, дисплей, GPS, Wi-Fi, задняя и внутрисалонная ИК-камера. Антенна LNA.",
+   resolution:"4K 2160p", angle:"140°", screen:"дисплей", gps:"GPS + ГЛОНАСС",
+   price:"~18 690 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-uno-sport-4k-wi-fi-lna/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/ren_uspwifi_4K_01-300x300.jpg"},
+
+  {name:"SilverStone F1 HYBRID UNO SPORT Wi-Fi", brand:"SilverStone F1",
+   type:"комбо 3 в 1", form:"без экрана", q:1,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Сигнатурное комбо 3 в 1, Full HD, GPS, Wi-Fi приложение, задняя камера. Без встроенного экрана.",
+   resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"GPS + ГЛОНАСС",
+   price:"~15 390 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-uno-sport-wi-fi/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2021/02/USPWiFi_01_REN_mm-300x290.jpg"},
+
+  {name:"SilverStone F1 HYBRID X-DRIVER", brand:"SilverStone F1",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Сигнатурное комбо 3 в 1, Full HD, встроенный дисплей, GPS, угол обзора 145°. Без Wi-Fi.",
+   resolution:"Full HD 1080p", angle:"145°", screen:"дисплей", gps:"GPS + ГЛОНАСС",
+   price:"~12 490 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-x-driver/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2019/12/xDriver_01-300x200.jpg"},
+
+  {name:"SilverStone F1 Focus 2K", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный видеорегистратор 2K без экрана, угол 150°, Wi-Fi управление через приложение. Новинка 2026.",
+   resolution:"2K 1440p", angle:"150°", screen:"без экрана", gps:"нет",
+   price:"~4 090 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-focus-2k/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2k_01-300x300.jpg"},
+
+  {name:"SilverStone F1 VideoJET II 4K", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Видеорегистратор 4K без экрана, Wi-Fi приложение, компактный корпус. Отличный вариант для скрытой установки.",
+   resolution:"4K 2160p", angle:"140°", screen:"без экрана", gps:"нет",
+   price:"~6 390 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-videojet-4k/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/01/ren_vj4K_01-300x300.jpg"},
+
+  {name:"SilverStone F1 Poliscan 4K", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный видеорегистратор 4K без экрана, Wi-Fi, угол 140°. Чёткая запись в любых условиях освещения.",
+   resolution:"4K 2160p", angle:"140°", screen:"без экрана", gps:"нет",
+   price:"~7 090 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-poliskan-4k/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2025/12/ren_Poliscan4K_01-300x300.jpg"},
+
+  {name:"SilverStone F1 CityScanner 4K", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Видеорегистратор 4K с дисплеем, GPS, задняя камера, Wi-Fi, магнитное крепление. Полный набор функций.",
+   resolution:"4K 2160p", angle:"140°", screen:"дисплей", gps:"GPS встроенный",
+   price:"~9 750 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-cityscanner-4k/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/cs4k_01_01-300x300.jpg"},
+
+  {name:"SilverStone F1 Focus Duo", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Двухканальный видеорегистратор 2K без экрана, угол 150°, Wi-Fi приложение, задняя камера. Новинка 2026.",
+   resolution:"2K 1440p", angle:"150°", screen:"без экрана", gps:"нет",
+   price:"~5 100 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-focus-duo/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/02/ren_f2kDUO_04-300x300.jpg"},
+
+  {name:"SilverStone F1 Taxi 2K Wi-Fi", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Видеорегистратор 2K без экрана с Wi-Fi управлением. Компактный, надёжный, свежая модель 2026 года.",
+   resolution:"2K 1440p", angle:"140°", screen:"без экрана", gps:"нет",
+   price:"~6 490 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-taxi-2k-wi-fi/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/04/ren_Taxi2K_WiFi_01-300x300.jpg"},
+
+  {name:"SilverStone F1 INTEGRAL 2.0", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный видеорегистратор Full HD для скрытой установки, сплит-система, Wi-Fi приложение CityScan F1.",
+   resolution:"Full HD 1080p", angle:"140°", screen:"без экрана", gps:"нет",
+   price:"~8 690 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-integral-2-0/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2021/11/ren_IN2.0_01-300x300.jpg"},
+
+  {name:"SilverStone F1 VideoJET DUO", brand:"SilverStone F1",
+   type:"видеорегистратор", form:"без экрана", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный видеорегистратор Full HD, угол 150°, Wi-Fi приложение FinalCamX, крепление на 3М-скотче.",
+   resolution:"Full HD 1080p", angle:"150°", screen:"без экрана", gps:"нет",
+   price:"~4 690 ₽", url:"https://silverstonef1.ru/product/videoregistratory/silverstone-f1-videojet-duo/",
+   photo:"https://silverstonef1.ru/wp-content/uploads/2026/01/ren_vjDuo_01-300x300.jpg"},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -2457,6 +2574,18 @@ function startQuiz() {
   show("s-question");
 }
 
+// Keys that are skipped when form = "регистратор-зеркало"
+const MIRROR_SKIP_KEYS = ["magnetic", "rotation"];
+
+function isMirrorSkipQ(q) {
+  return answers.form === "регистратор-зеркало" && MIRROR_SKIP_KEYS.includes(q.key);
+}
+
+const MIRROR_SKIP_REASON = {
+  magnetic: "Регистраторы-зеркала крепятся на штатное зеркало и не используют магнитное крепление.",
+  rotation: "В зеркальных регистраторах камера интегрирована в корпус и не вращается.",
+};
+
 function renderQ() {
   const q = QS[qIdx];
   const total = QS.length;
@@ -2470,29 +2599,50 @@ function renderQ() {
   const btnBack = el("btn-back");
   const btnNext = el("btn-next");
   btnBack.disabled = qIdx === 0;
-  btnNext.disabled = !answers[q.key];
 
   const list = el("options");
   list.innerHTML = "";
-  q.opts.forEach(o => {
-    const d = document.createElement("div");
-    d.className = "opt" + (answers[q.key] === o.v ? " sel" : "");
-    d.innerHTML = `<div class="opt-text"><div class="opt-title">${o.l}</div><div class="opt-desc">${o.d}</div></div><div class="opt-radio"><div class="opt-radio-dot"></div></div>`;
-    let lastTap = 0;
-    d.onclick = () => {
-      pick(o.v);
-      const now = Date.now();
-      if (now - lastTap < 350) goNext();
-      lastTap = now;
-    };
-    list.appendChild(d);
-  });
+
+  if (isMirrorSkipQ(q)) {
+    // Auto-answer and show skip notice
+    answers[q.key] = "неважно";
+    btnNext.disabled = false;
+    const notice = document.createElement("div");
+    notice.className = "skip-notice";
+    notice.innerHTML = `
+      <div class="skip-notice-icon">💡</div>
+      <div class="skip-notice-text">
+        <strong>Вопрос неактуален для регистратора-зеркала</strong>
+        ${MIRROR_SKIP_REASON[q.key]} Нажмите «Далее», чтобы продолжить.
+      </div>`;
+    list.appendChild(notice);
+  } else {
+    btnNext.disabled = !answers[q.key];
+    q.opts.forEach(o => {
+      const d = document.createElement("div");
+      d.className = "opt" + (answers[q.key] === o.v ? " sel" : "");
+      d.innerHTML = `<div class="opt-text"><div class="opt-title">${o.l}</div><div class="opt-desc">${o.d}</div></div><div class="opt-radio"><div class="opt-radio-dot"></div></div>`;
+      let lastTap = 0;
+      d.onclick = () => {
+        pick(o.v);
+        const now = Date.now();
+        if (now - lastTap < 350) goNext();
+        lastTap = now;
+      };
+      list.appendChild(d);
+    });
+  }
 
   el("s-question").scrollTop = 0;
 }
 
 function pick(v) {
-  answers[QS[qIdx].key] = v;
+  const key = QS[qIdx].key;
+  // If changing form factor, clear mirror-skip auto-answers so they re-evaluate
+  if (key === "form" && answers[key] !== v) {
+    MIRROR_SKIP_KEYS.forEach(k => { delete answers[k]; });
+  }
+  answers[key] = v;
   el("btn-next").disabled = false;
   el("options").querySelectorAll(".opt").forEach((el, i) => {
     el.classList.toggle("sel", QS[qIdx].opts[i].v === v);
@@ -2525,7 +2675,7 @@ function showResults() {
     {t:0,    top:"Идёт поиск…",      card:"Проверяем частоты и сигналы"},
     {t:900,  top:"Идёт поиск…",      card:"Сканируем " + DEVICES.length + " устройств…"},
     {t:2000, top:"Анализируем…",     card:"Рассчитываем совпадения"},
-    {t:3100, top:"Почти готово…",    card:"Составляем топ‑3 для вас"},
+    {t:3100, top:"Почти готово…",    card:"Выбираем лучшие варианты"},
     {t:4200, top:"Готово!",          card:"Загружаем результаты"},
   ];
 
@@ -2654,8 +2804,8 @@ function _renderResults(top) {
         ? `<span class="cam-badge">📍 БАЗА КАМЕР</span>`
         : "";
 
-      const rankLabel = isExact ? "✓" : `#${i+1}`;
-      const rankClass = isExact ? "rank-pill exact-pill" : "rank-pill";
+      const rankLabel = isExact ? "✓" : "";
+      const rankClass = isExact ? "rank-pill exact-pill" : "rank-pill hidden-pill";
       const matchLabel = isExact ? "100% подходит" : `${pct}% подходит`;
 
       card.innerHTML = `
