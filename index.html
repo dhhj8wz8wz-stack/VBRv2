@@ -10,13 +10,19 @@
 
 :root {
   --blue: #007AFF;
-  --blue-bg: #EBF4FF;
+  --blue-strong: #0066D6;
+  --blue-rgb: 0,122,255;
+  --blue-bg: #EAF4FF;
+  --blue-soft: #F7FBFF;
+  --blue-border: rgba(var(--blue-rgb), .24);
   --text: #1C1C1E;
+  --text-1: #1C1C1E;
   --text-2: #6C6C70;
   --text-3: #AEAEB2;
   --border: #E5E5EA;
   --bg: #F2F2F7;
   --card: #FFFFFF;
+  --card-bg: #FFFFFF;
   --green: #34C759;
   --green-bg: #E8F8EC;
   --green-text: #1A7A37;
@@ -76,8 +82,8 @@ html, body {
   display: none;
   align-items: center; gap: 6px;
   padding: 7px 16px;
-  background: rgba(91,103,248,.1);
-  border: 1px solid rgba(91,103,248,.25);
+  background: rgba(var(--blue-rgb), .1);
+  border: 1px solid var(--blue-border);
   border-radius: 20px;
   font-size: 13px; font-weight: 600;
   color: var(--blue);
@@ -85,7 +91,7 @@ html, body {
   transition: background .15s, opacity .15s;
   white-space: nowrap;
 }
-.btn-hd-donate:hover { background: rgba(91,103,248,.18); }
+.btn-hd-donate:hover { background: rgba(var(--blue-rgb), .16); }
 .btn-hd-donate:active { opacity: .7; }
 .partner-hint {
   font-size: 11px;
@@ -190,15 +196,10 @@ html, body {
 .screen.on { display: block; }
 
 /* ── INTRO ────────────────────────────────────────── */
-:root {
-  --indigo: #5B67F8;
-  --indigo-light: #ECEEFF;
-}
-
 #s-intro {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  background: #F0F1FA;
+  background: linear-gradient(180deg, var(--blue-soft) 0%, var(--bg) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -210,7 +211,7 @@ html, body {
   content: '';
   position: absolute;
   width: 160px; height: 160px;
-  background-image: radial-gradient(circle, #BFC3F0 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(var(--blue-rgb), .24) 1.5px, transparent 1.5px);
   background-size: 14px 14px;
   opacity: .5;
   pointer-events: none;
@@ -233,7 +234,7 @@ html, body {
   border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 12px;
-  box-shadow: 0 4px 24px rgba(91,103,248,.14);
+  box-shadow: 0 4px 24px rgba(var(--blue-rgb), .14);
 }
 .intro-icon svg { width: 44px; height: 44px; fill: #1C1C1E; }
 
@@ -241,7 +242,7 @@ html, body {
   font-size: 22px; font-weight: 800;
   margin-bottom: 4px; letter-spacing: -0.3px;
 }
-.intro-title .accent { color: var(--indigo); }
+.intro-title .accent { color: var(--blue); }
 
 .intro-tagline {
   font-size: 13px; color: var(--text-2);
@@ -255,7 +256,7 @@ html, body {
   overflow: hidden; max-height: 160px; opacity: 1;
   transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
-.intro-headline .accent { color: var(--indigo); }
+.intro-headline .accent { color: var(--blue); }
 
 .intro-desc {
   font-size: 14px; color: var(--text-2);
@@ -263,16 +264,16 @@ html, body {
   overflow: hidden; max-height: 100px; opacity: 1;
   transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
-.intro-desc .accent { color: var(--indigo); font-weight: 600; }
+.intro-desc .accent { color: var(--blue); font-weight: 600; }
 
 .btn-start {
   width: 100%; height: 58px;
-  background: var(--indigo);
+  background: var(--blue);
   border: none; border-radius: 18px;
   font-size: 18px; font-weight: 700; color: white;
   cursor: pointer; letter-spacing: -0.2px;
   transition: opacity .15s, transform .1s, max-height .25s ease, margin .25s ease;
-  box-shadow: 0 6px 20px rgba(91,103,248,.38);
+  box-shadow: 0 6px 20px rgba(var(--blue-rgb), .28);
   margin-bottom: 14px;
   overflow: hidden; max-height: 80px; opacity: 1;
 }
@@ -313,7 +314,7 @@ html, body {
 }
 .intro-search-card-title {
   font-size: 14px; font-weight: 700;
-  color: var(--indigo); white-space: nowrap;
+  color: var(--blue); white-space: nowrap;
 }
 .intro-search-card-sub {
   font-size: 12px; color: var(--text-2);
@@ -329,7 +330,7 @@ html, body {
   box-sizing: border-box;
   transition: border-color .15s;
 }
-.intro-search-wrap:focus-within { border-color: var(--indigo); }
+.intro-search-wrap:focus-within { border-color: var(--blue); }
 .intro-srch-input {
   flex: 1; border: none; outline: none;
   background: transparent;
@@ -342,7 +343,7 @@ html, body {
   display: flex; align-items: center; flex-shrink: 0;
 }
 .intro-srch-arrow {
-  background: var(--indigo); border: none; cursor: pointer;
+  background: var(--blue); border: none; cursor: pointer;
   color: white; width: 30px; height: 30px; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; transition: opacity .12s;
@@ -363,17 +364,18 @@ html, body {
 }
 .icard-icon {
   width: 36px; height: 36px;
-  background: var(--indigo-light);
+  background: var(--blue-bg);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
 }
-.icard-icon svg { stroke: var(--indigo); }
+.icard-icon svg { stroke: var(--blue); }
 .icard-title { font-size: 12px; font-weight: 700; color: var(--text); }
 .icard-sub {
   font-size: 10px; color: var(--text-2);
   line-height: 1.3; text-align: center;
 }
 
+.intro-insight { display: none; }
 
 /* ── Search screen ── */
 #s-search {
@@ -383,6 +385,74 @@ html, body {
   background: var(--bg);
   overflow-y: auto;
   display: none;
+}
+
+.srch-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(255,255,255,.94);
+  border-bottom: 0.5px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.srch-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px 10px;
+}
+.srch-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+.srch-logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.srch-logo-mark svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+.srch-logo-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+.srch-logo-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-2);
+  line-height: 1.25;
+  margin-top: 1px;
+}
+.srch-close-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .srch-body {
@@ -400,7 +470,7 @@ html, body {
   gap: 6px;
 }
 .srch-input-wrap:focus-within {
-  border-color: var(--indigo);
+  border-color: var(--blue);
 }
 .srch-back-btn {
   flex-shrink: 0;
@@ -412,7 +482,7 @@ html, body {
   display: flex; align-items: center;
   transition: color .12s;
 }
-.srch-back-btn:active { color: var(--indigo); }
+.srch-back-btn:active { color: var(--blue); }
 .srch-input-icon {
   flex-shrink: 0;
   color: var(--text-3);
@@ -467,8 +537,8 @@ html, body {
 }
 .srch-match-card:active { opacity: .75; }
 .srch-match-card.is-exact {
-  border-color: var(--indigo);
-  background: var(--indigo-light);
+  border-color: var(--blue);
+  background: var(--blue-bg);
 }
 .srch-match-info { flex: 1; min-width: 0; }
 .srch-match-brand {
@@ -502,8 +572,8 @@ html, body {
   border-radius: 5px;
   padding: 1px 6px;
 }
-.srch-badge.hi { background: var(--indigo-light); color: var(--indigo); }
-.srch-match-arrow { color: var(--indigo); flex-shrink: 0; }
+.srch-badge.hi { background: var(--blue-bg); color: var(--blue); }
+.srch-match-arrow { color: var(--blue); flex-shrink: 0; }
 .srch-price {
   font-size: 12px;
   font-weight: 600;
@@ -534,7 +604,7 @@ html, body {
   flex-direction: column;
 }
 .dev-hero-header {
-  background: #1C1C1E;
+  background: var(--blue);
   padding: 14px 16px 12px;
   display: flex;
   align-items: center;
@@ -599,6 +669,41 @@ html, body {
   padding: 2px 9px;
 }
 
+.dev-no-exact {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--amber-bg);
+  border: 1px solid rgba(168,94,0,.28);
+  border-radius: 16px;
+  padding: 14px 16px;
+  color: var(--amber-text);
+}
+.dev-no-exact-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(168,94,0,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 800;
+}
+.dev-no-exact-title {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  margin-bottom: 3px;
+}
+.dev-no-exact-text {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 /* Analog cards — same structure as .dev-card but compact */
 .analog-card {
   background: var(--card);
@@ -613,7 +718,7 @@ html, body {
 }
 .analog-card:active { opacity: .72; }
 .analog-card-hdr {
-  background: #1C1C1E;
+  background: var(--blue);
   width: 6px;
   align-self: stretch;
   flex-shrink: 0;
@@ -641,6 +746,10 @@ html, body {
   background: var(--red-bg);
   border-radius: 5px;
   padding: 2px 6px;
+}
+.analog-diff.better {
+  color: var(--green-text);
+  background: var(--green-bg);
 }
 .analog-card-price {
   font-size: 14px; font-weight: 700;
@@ -772,7 +881,7 @@ html, body {
 .btn-next {
   flex: 2;
   height: 52px;
-  background: #1C1C1E;
+  background: var(--blue);
   border: none;
   border-radius: 14px;
   font-size: 16px;
@@ -833,7 +942,7 @@ html, body {
 }
 
 .dev-card-header {
-  background: #1C1C1E;
+  background: var(--blue);
   padding: 14px 16px 12px;
   display: flex; align-items: center; justify-content: space-between;
 }
@@ -968,6 +1077,7 @@ html, body {
   line-height: 1.4;
 }
 .spec-tag.has   { background: var(--green-bg);  border-color: transparent; color: var(--green-text); }
+.spec-tag.better{ background: var(--green-bg);  border-color: transparent; color: var(--green-text); }
 .spec-tag.miss  { background: var(--red-bg);    border-color: transparent; color: var(--red-text); }
 .spec-tag.extra { background: rgba(255,59,48,.06); border: 0.5px solid rgba(255,59,48,.35); color: var(--red-text); }
 .spec-tag.qual  { background: var(--amber-bg);  border-color: transparent; color: var(--amber-text); }
@@ -1008,7 +1118,7 @@ html, body {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  background: #5B67F8;
+  background: var(--blue);
   border-radius: 14px;
   padding: 14px;
   text-align: center;
@@ -1253,7 +1363,7 @@ html, body {
 .btn-restart {
   width: 100%;
   height: 54px;
-  background: #1C1C1E;
+  background: var(--blue);
   display: flex; align-items: center; justify-content: center; gap: 10px;
   border: none;
   border-radius: 16px;
@@ -1280,79 +1390,111 @@ html, body {
   gap: 0;
 }
 
-/* ── Radar ── */
-.radar-wrap {
-  position: relative;
-  width: 190px; height: 190px;
-  margin: 8px auto 16px;
-  flex-shrink: 0;
-}
-.radar-bg {
-  position: absolute; inset: 0;
-  border-radius: 50%;
+/* ── Model comparison animation ── */
+.compare-loader {
+  width: min(100%, 360px);
+  margin: 4px auto 18px;
+  padding: 18px;
   background: var(--card);
   border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 10px 36px rgba(var(--blue-rgb), .08);
 }
-.radar-ring-i {
-  position: absolute;
-  border-radius: 50%;
+.compare-track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+.compare-model {
+  position: relative;
+  min-height: 122px;
+  padding: 12px 10px 10px;
+  background: var(--bg);
   border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  animation: compare-card 3.6s ease-in-out infinite;
 }
-.ri1 { width: 66.6%; height: 66.6%; top: 16.7%; left: 16.7%; }
-.ri2 { width: 33.3%; height: 33.3%; top: 33.3%; left: 33.3%; }
-.radar-cross {
-  position: absolute; inset: 0;
-  border-radius: 50%; overflow: hidden;
-}
-.radar-cross::before, .radar-cross::after {
-  content: ''; position: absolute; background: var(--border);
-}
-.radar-cross::before { left:0; right:0; top:50%; height:1px; transform:translateY(-50%); }
-.radar-cross::after  { top:0; bottom:0; left:50%; width:1px; transform:translateX(-50%); }
-.radar-sweep-wrap {
-  position: absolute; inset: 0;
-  border-radius: 50%; overflow: hidden;
-}
-.radar-sweep-inner {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg,
-    transparent 0deg, transparent 270deg,
-    rgba(0,122,255,.06) 290deg, rgba(0,122,255,.22) 360deg);
-  animation: radar-spin 2.2s linear infinite;
-}
-@keyframes radar-spin { to { transform: rotate(360deg); } }
-.radar-needle {
-  position: absolute; top:50%; left:50%;
-  width:50%; height:1.5px;
-  transform-origin: 0% 50%;
-  background: linear-gradient(to right, rgba(0,122,255,.9), rgba(0,122,255,0));
-  border-radius: 1px;
-  animation: radar-spin 2.2s linear infinite;
-}
-.radar-dot {
+.compare-model:nth-child(2) { animation-delay: .3s; }
+.compare-model:nth-child(3) { animation-delay: .6s; }
+.compare-model::before {
+  content: '';
   position: absolute;
-  width:9px; height:9px; border-radius:50%;
-  background: var(--blue);
-  transform: translate(-50%,-50%);
-  box-shadow: 0 0 8px rgba(0,122,255,.5);
+  left: 0; right: 0; top: 0;
+  height: 4px;
+  background: var(--border);
+  animation: compare-strip 3.6s ease-in-out infinite;
 }
-.radar-dot.faded { background:var(--text-3); box-shadow:none; opacity:.45; width:7px; height:7px; }
-.rd1 { top:21%; left:29%; animation: dot-pop 3.5s ease-in-out infinite; }
-.rd2 { top:47%; left:74%; animation: dot-pop 3.5s ease-in-out infinite  .9s; }
-.rd3 { top:70%; left:26%; animation: dot-pop 3.5s ease-in-out infinite 1.8s; }
-.rd4 { top:72%; left:60%; }
-.rd5 { top:48%; left:13%; }
-@keyframes dot-pop {
-  0%,100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
-  50%     { opacity:.55; transform:translate(-50%,-50%) scale(.75); }
+.compare-model:nth-child(2)::before { animation-delay: .3s; }
+.compare-model:nth-child(3)::before { animation-delay: .6s; }
+.compare-brand {
+  width: 42px; height: 8px;
+  border-radius: 8px;
+  background: var(--text-3);
+  opacity: .45;
+  margin-bottom: 12px;
 }
-.radar-center {
-  position: absolute; top:50%; left:50%;
-  width:10px; height:10px; border-radius:50%;
+.compare-line {
+  height: 7px;
+  border-radius: 8px;
+  background: var(--border);
+  margin-bottom: 7px;
+}
+.compare-line.short { width: 64%; }
+.compare-line.mid { width: 82%; }
+.compare-score {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  height: 6px;
+  border-radius: 8px;
+  background: rgba(var(--blue-rgb), .12);
+  overflow: hidden;
+}
+.compare-score::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 64%;
+  border-radius: inherit;
   background: var(--blue);
-  transform: translate(-50%,-50%);
-  box-shadow: 0 0 12px rgba(0,122,255,.6);
+  animation: compare-score 3.6s ease-in-out infinite;
+}
+.compare-model:nth-child(2) .compare-score::after { animation-delay: .3s; }
+.compare-model:nth-child(3) .compare-score::after { animation-delay: .6s; }
+.compare-check {
+  position: absolute;
+  right: 9px; top: 10px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0;
+  transform: scale(.72);
+  animation: compare-check 3.6s ease-in-out infinite;
+}
+.compare-model:nth-child(2) .compare-check { animation-delay: .3s; }
+.compare-model:nth-child(3) .compare-check { animation-delay: .6s; }
+@keyframes compare-card {
+  0%, 18%, 100% { transform: translateY(0); border-color: var(--border); background: var(--bg); }
+  34%, 56% { transform: translateY(-8px); border-color: var(--blue-border); background: var(--blue-soft); }
+}
+@keyframes compare-strip {
+  0%, 18%, 100% { background: var(--border); }
+  34%, 56% { background: var(--blue); }
+}
+@keyframes compare-score {
+  0%, 18%, 100% { width: 42%; opacity: .55; }
+  34%, 56% { width: 92%; opacity: 1; }
+}
+@keyframes compare-check {
+  0%, 28%, 64%, 100% { opacity: 0; transform: scale(.72); }
+  36%, 54% { opacity: 1; transform: scale(1); }
 }
 
 /* ── Loading title ── */
@@ -1432,17 +1574,20 @@ html, body {
 
 /* ── Ad banner (loading) ── */
 .loading-ad {
-  width: 100%;
+  width: calc(100vw - 24px);
+  max-width: none;
   padding: 16px 0 16px;
 }
 .ad-banner-lg {
   background: var(--card);
   border: 1.5px dashed var(--border);
   border-radius: 16px;
+  min-height: clamp(280px, 34dvh, 380px);
   padding: 28px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 .ad-icon-circle {
@@ -1501,27 +1646,201 @@ html, body {
   .hd-contact-block { display: flex; }
   .hd-counter { min-width: 64px; text-align: right; flex-shrink: 0; }
 
-  /* ── Intro: centered card ── */
+  /* ── Intro: desktop command panel ── */
   #s-intro { padding: 40px 24px; }
   #s-intro::before { width: 320px; height: 320px; }
   #s-intro::after  { width: 320px; height: 320px; }
 
   .intro-inner {
-    max-width: 560px;
+    max-width: 920px;
     width: 100%;
-    padding: 52px 56px 44px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-areas:
+      "icon search"
+      "title search"
+      "tag search"
+      "headline insight"
+      "desc insight"
+      "cta insight"
+      "cards cards"
+      "footer footer";
+    column-gap: 40px;
+    row-gap: 0;
+    align-items: start;
+    padding: 36px 48px 28px;
     background: white;
-    border-radius: 32px;
-    box-shadow: 0 12px 56px rgba(91,103,248,.14);
+    border-radius: 30px;
+    box-shadow: 0 12px 56px rgba(var(--blue-rgb), .14);
+    text-align: left;
   }
-  .intro-text { width: 100%; }
-  .intro-icon { margin: 0 auto 14px; width: 80px; height: 80px; border-radius: 22px; }
-  .intro-icon svg { width: 48px; height: 48px; }
-  .intro-title { font-size: 24px; }
-  .intro-tagline { font-size: 13px; margin-bottom: 18px; }
-  .intro-headline { font-size: 36px; letter-spacing: -1px; }
-  .intro-desc { font-size: 15px; margin-bottom: 24px; }
-  .btn-start { height: 60px; font-size: 18px; border-radius: 18px; margin-bottom: 16px; }
+  .intro-icon {
+    grid-area: icon;
+    margin: 0 0 14px;
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+  }
+  .intro-icon svg { width: 42px; height: 42px; }
+  .intro-title {
+    grid-area: title;
+    font-size: 24px;
+  }
+  .intro-tagline {
+    grid-area: tag;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .intro-headline {
+    grid-area: headline;
+    font-size: 38px;
+    line-height: 1.12;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+  .intro-desc {
+    grid-area: desc;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .btn-start {
+    grid-area: cta;
+    max-width: 360px;
+    height: 60px;
+    font-size: 18px;
+    border-radius: 18px;
+    margin-bottom: 0;
+  }
+  .intro-search-card {
+    grid-area: search;
+    align-self: start;
+    margin-bottom: 0;
+    padding: 22px 20px 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 28px rgba(var(--blue-rgb), .08);
+  }
+  .intro-search-card-title { font-size: 15px; }
+  .intro-search-card-sub { font-size: 13px; margin-bottom: 14px; }
+  .intro-search-wrap { height: 50px; border-radius: 14px; }
+  .intro-srch-input { font-size: 15px; }
+  .intro-srch-arrow { width: 34px; height: 34px; border-radius: 10px; }
+  .intro-insight {
+    grid-area: insight;
+    display: block;
+    align-self: start;
+    margin-top: 12px;
+    padding: 18px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, var(--blue-soft), #fff);
+    border: 1px solid var(--blue-border);
+  }
+  .intro-insight-kicker {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .intro-insight-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .intro-insight-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .intro-insight-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.35;
+  }
+  .intro-step-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .intro-insight-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .intro-insight-bars span {
+    height: 6px;
+    width: var(--w);
+    border-radius: 999px;
+    background: rgba(var(--blue-rgb), .18);
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-insight-bars span::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 70%;
+    border-radius: inherit;
+    background: var(--blue);
+  }
+  .intro-cards {
+    grid-area: cards;
+    gap: 12px;
+    margin: 18px 0 8px;
+  }
+  .icard {
+    align-items: flex-start;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    box-shadow: none;
+  }
+  .icard-icon { width: 30px; height: 30px; }
+  .icard-title { font-size: 13px; }
+  .icard-sub { font-size: 12px; text-align: left; }
+  .intro-footer {
+    grid-area: footer;
+    margin-top: 0;
+    justify-content: center;
+  }
+  #s-intro.intro-searching .intro-inner {
+    grid-template-areas:
+      "icon search"
+      "title search"
+      "tag search"
+      "insight search"
+      "insight search"
+      "insight search";
+    align-items: start;
+  }
+  #s-intro.intro-searching .intro-headline,
+  #s-intro.intro-searching .intro-desc,
+  #s-intro.intro-searching #btn-start {
+    display: none;
+  }
+  #s-intro.intro-searching .intro-search-card {
+    align-self: start;
+  }
+  #s-intro.intro-searching .intro-insight {
+    margin-top: 28px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
   /* ── Questions ── */
   #s-question { padding-top: 88px; padding-bottom: 110px; }
@@ -1541,35 +1860,135 @@ html, body {
   .btn-back { flex: 0 0 160px; height: 56px; font-size: 16px; border-radius: 16px; }
   .btn-next { flex: 1;          height: 56px; font-size: 17px; border-radius: 16px; }
 
-  /* ── Loading: two columns ── */
+  /* ── Loading: centered comparison, ad below ── */
   #s-loading { padding-top: 82px; }
   .loading-wrap {
-    flex-direction: row;
-    align-items: flex-start;
-    max-width: 1200px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 40px 48px;
-    gap: 56px;
+    padding: 42px 48px 56px;
+    gap: 28px;
     min-height: unset;
   }
-  .loading-content { flex: 1; align-items: center; }
-  .radar-wrap { width: 260px; height: 260px; margin: 0 auto 24px; }
+  .loading-content {
+    width: 100%;
+    align-items: center;
+  }
+  .compare-loader {
+    width: min(100%, 460px);
+    margin: 0 auto 24px;
+    padding: 22px;
+    border-radius: 26px;
+  }
+  .compare-model {
+    min-height: 148px;
+    padding: 15px 13px 12px;
+    border-radius: 18px;
+  }
   .loading-title { font-size: 26px; }
   .loading-sub   { font-size: 16px; margin-bottom: 24px; }
-  .search-card { border-radius: 20px; padding: 18px 20px; }
+  .search-card {
+    max-width: 520px;
+    border-radius: 20px;
+    padding: 18px 20px;
+  }
   .search-icon-wrap { width: 48px; height: 48px; border-radius: 14px; }
   .search-icon-wrap svg { width: 24px; height: 24px; }
   .search-card-label { font-size: 16px; }
 
-  .loading-ad { width: 320px; flex-shrink: 0; padding: 0; align-self: stretch; }
+  .loading-ad {
+    width: 100%;
+    max-width: 520px;
+    flex-shrink: 0;
+    padding: 0;
+  }
   .ad-banner-lg {
-    height: 100%; min-height: 420px;
-    border-radius: 24px; padding: 40px 24px;
+    min-height: 150px;
+    border-radius: 22px;
+    padding: 28px 24px;
     justify-content: center; gap: 20px;
   }
-  .ad-icon-circle { width: 64px; height: 64px; }
-  .ad-icon-circle svg { width: 30px; height: 30px; }
-  .ad-text-lg { font-size: 16px; }
+  .ad-icon-circle { width: 54px; height: 54px; }
+  .ad-icon-circle svg { width: 26px; height: 26px; }
+  .ad-text-lg { font-size: 15px; }
+
+  /* ── Search / comparison ── */
+  #s-search {
+    padding-top: 0;
+  }
+  .srch-topbar-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 48px 12px;
+  }
+  .srch-body {
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 48px 56px;
+  }
+  #srch-results-area {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    align-items: start;
+  }
+  .srch-section-label,
+  .srch-no-results,
+  .dev-profile-back,
+  .dev-hero,
+  .dev-section-hdr {
+    grid-column: 1 / -1;
+  }
+  .srch-section-label {
+    margin: 24px 0 0;
+  }
+  .srch-match-card {
+    min-height: 96px;
+    margin-bottom: 0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    align-items: flex-start;
+  }
+  .srch-match-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .srch-price {
+    margin-top: 6px;
+  }
+  .dev-profile-back {
+    margin-bottom: 4px;
+  }
+  .dev-hero {
+    max-width: 720px;
+    width: 100%;
+    justify-self: center;
+    margin-bottom: 8px;
+  }
+  .dev-hero-body {
+    padding: 20px 24px 24px;
+  }
+  .dev-hero-specs {
+    margin-bottom: 18px;
+  }
+  .analog-card {
+    min-height: 98px;
+    margin-bottom: 0;
+    border-radius: 16px;
+  }
+  .analog-card-body {
+    padding: 14px 16px;
+  }
+  .analog-card-name {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 
   /* ── Results ── */
   #s-results { padding-top: 88px; }
@@ -1681,7 +2100,7 @@ html, body {
       <div class="intro-search-wrap">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input id="intro-srch" class="intro-srch-input" type="text"
-          placeholder="Например: 70mai M500 или INTEGO..."
+          placeholder="Например 70Mai M500 или iBOX Roadscan"
           autocomplete="off" autocorrect="off" spellcheck="false"
           oninput="onIntroSearch(this.value)">
         <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
@@ -1692,6 +2111,30 @@ html, body {
         </button>
       </div>
       <div id="intro-srch-results"></div>
+    </div>
+
+    <div class="intro-insight" id="intro-insight">
+      <div class="intro-insight-kicker">Что делает бот</div>
+      <div class="intro-insight-title">Сравнивает модели по важным признакам</div>
+      <div class="intro-insight-steps">
+        <div class="intro-insight-step">
+          <span class="intro-step-dot">1</span>
+          <span>Форм-фактор, качество съёмки и камеры</span>
+        </div>
+        <div class="intro-insight-step">
+          <span class="intro-step-dot">2</span>
+          <span>GPS, Wi‑Fi, экран и дополнительные функции</span>
+        </div>
+        <div class="intro-insight-step">
+          <span class="intro-step-dot">3</span>
+          <span>Показывает точные совпадения и близкие альтернативы</span>
+        </div>
+      </div>
+      <div class="intro-insight-bars" aria-hidden="true">
+        <span style="--w:92%"></span>
+        <span style="--w:76%"></span>
+        <span style="--w:58%"></span>
+      </div>
     </div>
 
     <!-- Feature cards -->
@@ -1725,6 +2168,22 @@ html, body {
 
 <!-- ── DEVICE PROFILE ──────────────────────────────── -->
 <div id="s-search" class="screen">
+  <div class="srch-topbar">
+    <div class="srch-topbar-inner">
+      <button class="srch-logo" onclick="handleSearchTopbarBack()" aria-label="Вернуться к поиску">
+        <span class="srch-logo-mark">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+          </svg>
+        </span>
+        <span>
+          <span class="srch-logo-title">VBR Bot</span>
+          <span class="srch-logo-sub">к выбору модели</span>
+        </span>
+      </button>
+      <div class="srch-close-hint">Назад <span>↩</span></div>
+    </div>
+  </div>
   <div class="srch-body">
     <div id="srch-results-area"></div>
   </div>
@@ -1745,24 +2204,35 @@ html, body {
   <div class="loading-wrap">
     <div class="loading-content">
 
-      <!-- Radar -->
-      <div class="radar-wrap">
-        <div class="radar-bg"></div>
-        <div class="radar-ring-i ri1"></div>
-        <div class="radar-ring-i ri2"></div>
-        <div class="radar-cross"></div>
-        <div class="radar-sweep-wrap"><div class="radar-sweep-inner"></div></div>
-        <div class="radar-needle"></div>
-        <div class="radar-dot rd1"></div>
-        <div class="radar-dot rd2"></div>
-        <div class="radar-dot rd3"></div>
-        <div class="radar-dot faded rd4"></div>
-        <div class="radar-dot faded rd5"></div>
-        <div class="radar-center"></div>
+      <!-- Model comparison -->
+      <div class="compare-loader" aria-hidden="true">
+        <div class="compare-track">
+          <div class="compare-model">
+            <div class="compare-brand"></div>
+            <div class="compare-line mid"></div>
+            <div class="compare-line short"></div>
+            <div class="compare-score"></div>
+            <div class="compare-check">✓</div>
+          </div>
+          <div class="compare-model">
+            <div class="compare-brand"></div>
+            <div class="compare-line mid"></div>
+            <div class="compare-line short"></div>
+            <div class="compare-score"></div>
+            <div class="compare-check">✓</div>
+          </div>
+          <div class="compare-model">
+            <div class="compare-brand"></div>
+            <div class="compare-line mid"></div>
+            <div class="compare-line short"></div>
+            <div class="compare-score"></div>
+            <div class="compare-check">✓</div>
+          </div>
+        </div>
       </div>
 
       <div class="loading-title">Идёт поиск…</div>
-      <div class="loading-sub" id="loading-sub">Сканирование устройств</div>
+      <div class="loading-sub" id="loading-sub">Сравниваем модели</div>
 
       <!-- Status card -->
       <div class="search-card">
@@ -1773,7 +2243,7 @@ html, body {
           </svg>
         </div>
         <div class="search-card-body">
-          <div class="search-card-label" id="loading-sub2">Проверяем частоты и сигналы</div>
+          <div class="search-card-label" id="loading-sub2">Сравниваем модели и параметры</div>
           <div class="search-dots">
             <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
             <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
@@ -2762,8 +3232,8 @@ const DEVICES = [
 
   {name:"iBOX Rover 2",                   brand:"iBox",
    type:"gps-информер",     form:"регистратор-зеркало", q:1,
-   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Обновлённый GPS-информер-зеркало с Sony Starvis и расширенной базой SpeedCam. Wi-Fi, двухканальная запись, большой дисплей заменяет штатное зеркало.",
+   magnetic:false, smartphone:true,  rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Обновлённый GPS-информер-зеркало с Sony Starvis и расширенной базой SpeedCam. Wi-Fi, двухканальная запись, сенсорный дисплей заменяет штатное зеркало.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"12\" зеркало", gps:"GPS + ГЛОНАСС",
    price:"~14 299 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/",
@@ -4401,6 +4871,7 @@ const DEVICES = [
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
 const QLABELS_Q = ["хорошее","отличное","превосходное"];
 const BOOLS = ["smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
+const PRIORITY_BRANDS = ["iBox"];
 
 // ════════════════════════════════════════════════════════
 //  STATE
@@ -4462,18 +4933,44 @@ function getTop() {
   // Сортируем по pct desc, при равном — более высокое q выше
   scored.sort((a, b) => b.pct - a.pct || b.d.q - a.d.q);
 
-  // Берём топ-2 от каждого бренда, итого не более 8 (вариант Б)
-  const brandCount = {};
-  const result = [];
-  for (const item of scored) {
-    const b = item.d.brand;
-    if (!brandCount[b]) brandCount[b] = 0;
-    if (brandCount[b] >= 2) continue;
-    brandCount[b]++;
-    result.push(item);
-    if (result.length >= 12) break;
+  return pickBrandDiverse(scored, 12, 2);
+}
+
+function pickBrandDiverse(items, limit = 12, perBrand = 2) {
+  const groups = new Map();
+  items.forEach(item => {
+    const brand = item.d.brand;
+    if (!groups.has(brand)) groups.set(brand, []);
+    groups.get(brand).push(item);
+  });
+
+  const brands = [...groups.keys()].sort((a, b) => {
+    const aa = groups.get(a)[0];
+    const bb = groups.get(b)[0];
+    return bb.pct - aa.pct || bb.d.q - aa.d.q || a.localeCompare(b);
+  });
+
+  const picked = [];
+  for (let round = 0; round < perBrand && picked.length < limit; round++) {
+    for (const brand of brands) {
+      const item = groups.get(brand)[round];
+      if (!item) continue;
+      picked.push(item);
+      if (picked.length >= limit) break;
+    }
   }
-  return result;
+  PRIORITY_BRANDS.forEach(brand => {
+    const alreadyPicked = picked.some(item => item.d.brand.toLowerCase() === brand.toLowerCase());
+    if (alreadyPicked) return;
+    const candidate = items.find(item => item.d.brand.toLowerCase() === brand.toLowerCase() && (item.pct ?? 0) >= 70);
+    if (!candidate) return;
+    if (picked.length < limit) {
+      picked.push(candidate);
+    } else if (picked.length > 0) {
+      picked[picked.length - 1] = candidate;
+    }
+  });
+  return picked;
 }
 
 // Находит устройства-апгрейды: всё то же самое, но качество съёмки выше
@@ -4741,15 +5238,14 @@ function searchDevices(query) {
 }
 
 function findAnalogs(target, allResults) {
-  // Find devices with same type+form but different brand, similar q
-  return DEVICES
+  // Find alternatives inside the same device class. Form factor is a hard boundary.
+  const candidates = DEVICES
     .filter(d => {
       if (d === target) return false;
       const sameType = d.type === target.type;
       const sameForm = d.form === target.form;
-      const closeQ   = Math.abs(d.q - target.q) <= 1;
       const inResults = allResults.some(r => r.d === d);
-      return sameType && sameForm && closeQ && !inResults;
+      return sameType && sameForm && !inResults;
     })
     .sort((a, b) => {
       // prefer same q, then different brand
@@ -4758,7 +5254,9 @@ function findAnalogs(target, allResults) {
       if (aqDiff !== bqDiff) return aqDiff - bqDiff;
       return (b.q - a.q);
     })
-    .slice(0, 6);
+    .map(d => ({d, pct: similarPct(d, target)}));
+
+  return pickBrandDiverse(candidates, 6, 1).map(x => x.d);
 }
 
 const QNAMES = {1:"Full HD", 2:"2K", 3:"4K"};
@@ -4766,6 +5264,11 @@ const FORM_SHORT = {
   "с экраном": "с экраном",
   "без экрана": "без экрана",
   "регистратор-зеркало": "зеркало"
+};
+const FORM_SECTION = {
+  "с экраном": "Похожие устройства с экраном",
+  "без экрана": "Похожие устройства без экрана",
+  "регистратор-зеркало": "Похожие зеркала"
 };
 const TYPE_SHORT = {
   "видеорегистратор": "регистратор",
@@ -4848,38 +5351,51 @@ function openDeviceFromSearch(idx) {
   // If called from an analog card (not from intro), keep origin as-is
   // lastSearchOrigin and lastSearchQuery are set by openDeviceFromIntro before this call
 
-  // 100% analogs: ALL key specs must match exactly
-  const exact = DEVICES.filter(x =>
-    x !== d &&
-    x.type      === d.type &&
-    x.form      === d.form &&
-    x.q         === d.q &&
-    x.ir_cam    === d.ir_cam &&
-    x.rear_cam  === d.rear_cam &&
-    x.smartphone=== d.smartphone &&
-    hasGPS(x)   === hasGPS(d)
-  );
+  // 100% analogs: all key specs must match exactly
+  const exact = DEVICES.filter(x => isExactAnalog(x, d));
 
-  // Similar: same type, close quality
-  const similar = DEVICES.filter(x => {
+  // Similar: same type and same form. Better resolution goes first.
+  const similarCandidates = DEVICES.filter(x => {
     if (x === d || exact.includes(x)) return false;
-    return x.type === d.type && Math.abs(x.q - d.q) <= 1;
-  }).sort((a, b) => similarPct(b, d) - similarPct(a, d)).slice(0, 10);
+    return x.type === d.type && x.form === d.form;
+  }).sort((a, b) => {
+    const aqBetter = a.q > d.q ? 1 : 0;
+    const bqBetter = b.q > d.q ? 1 : 0;
+    if (aqBetter !== bqBetter) return bqBetter - aqBetter;
+    return similarPct(b, d) - similarPct(a, d) || b.q - a.q;
+  }).map(x => ({d: x, pct: similarPct(x, d)}));
+
+  const similar = pickBrandDiverse(similarCandidates, 10, 1).map(x => x.d);
 
   renderDeviceProfile(d, exact, similar);
 }
 
 function hasGPS(d) { return !!(d.gps && d.gps !== 'нет'); }
 
+function similarSectionTitle(d) {
+  return FORM_SECTION[d.form] || "Похожие устройства";
+}
+
+function isExactAnalog(x, d) {
+  if (x === d) return false;
+  if (x.type !== d.type || x.form !== d.form || x.q !== d.q) return false;
+  if (hasGPS(x) !== hasGPS(d)) return false;
+  return BOOLS.every(k => x[k] === d[k]);
+}
+
 function similarPct(x, d) {
   let p = 0;
-  if (x.form      === d.form)       p += 25;
-  if (x.ir_cam    === d.ir_cam)     p += 20;
-  if (x.rear_cam  === d.rear_cam)   p += 15;
-  if (x.smartphone=== d.smartphone) p += 15;
-  if (hasGPS(x)   === hasGPS(d))    p += 10;
+  if (x.form      === d.form)       p += 16;
+  if (x.ir_cam    === d.ir_cam)     p += 12;
+  if (x.rear_cam  === d.rear_cam)   p += 12;
+  if (x.smartphone=== d.smartphone) p += 12;
+  if (x.magnetic  === d.magnetic)   p += 10;
+  if (x.touch     === d.touch)      p += 10;
+  if (x.rotation  === d.rotation)   p += 8;
+  if (x.remote    === d.remote)     p += 6;
+  if (hasGPS(x)   === hasGPS(d))    p += 8;
   const qDiff = Math.abs(x.q - d.q);
-  p += qDiff === 0 ? 15 : qDiff === 1 ? 7 : 0;
+  p += qDiff === 0 ? 14 : x.q > d.q ? 12 : qDiff === 1 ? 6 : 0;
   return Math.min(99, p);
 }
 
@@ -4888,23 +5404,32 @@ function getDiffs(x, d) {
   const diffs = [];
   const ql = ['','Full HD','2K','4K'];
   if (x.q !== d.q)
-    diffs.push(`${ql[x.q]} вместо ${ql[d.q]}`);
+    diffs.push({text: x.q > d.q ? `${ql[x.q]} — лучше съёмка` : `${ql[x.q]} вместо ${ql[d.q]}`, type: x.q > d.q ? 'better' : 'worse'});
   if (x.ir_cam !== d.ir_cam)
-    diffs.push(x.ir_cam ? 'есть ИК-камера' : 'нет ИК-камеры');
+    diffs.push({text: x.ir_cam ? 'есть ИК-камера' : 'нет ИК-камеры'});
   if (x.rear_cam !== d.rear_cam)
-    diffs.push(x.rear_cam ? 'есть задняя камера' : 'нет задней камеры');
+    diffs.push({text: x.rear_cam ? 'есть задняя камера' : 'нет задней камеры'});
   if (x.smartphone !== d.smartphone)
-    diffs.push(x.smartphone ? 'есть Wi-Fi' : 'нет Wi-Fi');
+    diffs.push({text: x.smartphone ? 'есть Wi-Fi' : 'нет Wi-Fi'});
+  if (x.magnetic !== d.magnetic)
+    diffs.push({text: x.magnetic ? 'есть магнит' : 'нет магнита'});
+  if (x.touch !== d.touch)
+    diffs.push({text: x.touch ? 'есть сенсор' : 'нет сенсора'});
+  if (x.rotation !== d.rotation)
+    diffs.push({text: x.rotation ? 'есть вращение' : 'нет вращения'});
   if (hasGPS(x) !== hasGPS(d))
-    diffs.push(hasGPS(x) ? 'есть GPS' : 'нет GPS');
+    diffs.push({text: hasGPS(x) ? 'есть GPS' : 'нет GPS'});
   if (x.form !== d.form)
-    diffs.push(x.form);
+    diffs.push({text: x.form});
   return diffs;
 }
 
 function renderAnalogCard(x, pct, diffs) {
   const diffHtml = diffs && diffs.length
-    ? `<div class="analog-card-diffs">${diffs.map(t => `<span class="analog-diff">${t}</span>`).join('')}</div>`
+    ? `<div class="analog-card-diffs">${diffs.map(diff => {
+        const item = typeof diff === 'string' ? {text: diff} : diff;
+        return `<span class="analog-diff${item.type === 'better' ? ' better' : ''}">${item.text}</span>`;
+      }).join('')}</div>`
     : '';
   const isDim = pct < 100;
   return `<div class="analog-card" onclick="openDeviceFromSearch(${DEVICES.indexOf(x)})">
@@ -4961,10 +5486,18 @@ function renderDeviceProfile(d, exact, similar) {
   if (exact.length > 0) {
     html += `<div class="dev-section-hdr exact">Аналогичные устройства <span class="dev-section-pct">100%</span></div>`;
     html += exact.map(a => renderAnalogCard(a, 100, [])).join('');
+  } else if (similar.length > 0) {
+    html += `<div class="dev-no-exact">
+      <div class="dev-no-exact-icon">!</div>
+      <div>
+        <div class="dev-no-exact-title">Полных аналогов не найдено</div>
+        <div class="dev-no-exact-text">Ни одна модель не совпала со всеми параметрами. Ниже показаны самые близкие варианты в той же категории.</div>
+      </div>
+    </div>`;
   }
 
   if (similar.length > 0) {
-    html += `<div class="dev-section-hdr similar">Похожие устройства</div>`;
+    html += `<div class="dev-section-hdr similar">${similarSectionTitle(d)}</div>`;
     html += similar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
   }
 
@@ -4991,6 +5524,21 @@ function backToSearchResults() {
     } else {
       document.getElementById('srch-results-area').innerHTML = '';
     }
+  }
+}
+
+function handleSearchTopbarBack() {
+  const area = document.getElementById('srch-results-area');
+  const inDeviceProfile = !!(area && area.querySelector('.dev-hero'));
+  if (inDeviceProfile) {
+    backToSearchResults();
+    return;
+  }
+  show('s-intro');
+  const inp = document.getElementById('intro-srch');
+  if (inp && lastSearchQuery) {
+    inp.value = lastSearchQuery;
+    onIntroSearch(lastSearchQuery);
   }
 }
 
@@ -5106,11 +5654,11 @@ function showResults() {
   show("s-loading");
 
   const steps = [
-    {t:0,    top:"Идёт поиск…",      card:"Проверяем частоты и сигналы"},
-    {t:900,  top:"Идёт поиск…",      card:"Сканируем " + DEVICES.length + " устройств…"},
-    {t:2000, top:"Анализируем…",     card:"Рассчитываем совпадения"},
-    {t:3100, top:"Почти готово…",    card:"Выбираем лучшие варианты"},
-    {t:4200, top:"Готово!",          card:"Загружаем результаты"},
+    {t:0,    top:"Сравниваем модели", card:"Сопоставляем ключевые параметры"},
+    {t:900,  top:"Проверяем базу",     card:"Смотрим " + DEVICES.length + " устройств"},
+    {t:2000, top:"Анализируем",        card:"Считаем процент совпадения"},
+    {t:3100, top:"Почти готово",       card:"Выбираем лучшие варианты"},
+    {t:4200, top:"Готово",             card:"Загружаем результаты"},
   ];
 
   steps.forEach(s => {
@@ -5263,7 +5811,7 @@ function _renderResults(top) {
         if (m.type === "missing") return `<span class="spec-tag miss">${MISS_LABELS[m.key] ?? "Нет: " + QLABELS_SHORT[m.key]}</span>`;
         if (m.type === "extra")   return `<span class="spec-tag extra">${EXTRA_LABELS[m.key] ?? QLABELS_SHORT[m.key] + " — есть, но вы не просили"}</span>`;
         if (m.type === "quality")  return `<span class="spec-tag qual">Качество ниже, чем вы просили</span>`;
-        if (m.type === "overspec") return `<span class="spec-tag extra">Разрешение выше запрошенного</span>`;
+        if (m.type === "overspec") return `<span class="spec-tag better">Разрешение выше запрошенного</span>`;
         return "";
       }).join("");
 
