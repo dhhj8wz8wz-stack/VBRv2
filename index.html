@@ -220,108 +220,439 @@ html, body {
 
 .intro-inner {
   text-align: center;
-  padding: 24px 24px 36px;
-  max-width: 360px;
+  padding: 24px 22px 20px;
+  max-width: 390px;
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
 .intro-icon {
-  width: 88px; height: 88px;
+  width: 76px; height: 76px;
   background: white;
-  border-radius: 24px;
+  border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
-  box-shadow: 0 4px 20px rgba(91,103,248,.12);
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 24px rgba(91,103,248,.14);
 }
-
-.intro-icon svg { width: 52px; height: 52px; fill: #1C1C1E; }
+.intro-icon svg { width: 44px; height: 44px; fill: #1C1C1E; }
 
 .intro-title {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
+  font-size: 22px; font-weight: 800;
+  margin-bottom: 4px; letter-spacing: -0.3px;
 }
 .intro-title .accent { color: var(--indigo); }
 
 .intro-tagline {
-  font-size: 14px;
-  color: var(--text-2);
+  font-size: 13px; color: var(--text-2);
   margin-bottom: 20px;
 }
 
 .intro-headline {
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.8px;
+  font-size: 32px; font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.8px;
   margin-bottom: 12px;
+  overflow: hidden; max-height: 160px; opacity: 1;
+  transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
 .intro-headline .accent { color: var(--indigo); }
 
 .intro-desc {
-  font-size: 15px;
-  color: var(--text-2);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 14px; color: var(--text-2);
+  line-height: 1.55; margin-bottom: 20px;
+  overflow: hidden; max-height: 100px; opacity: 1;
+  transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
 .intro-desc .accent { color: var(--indigo); font-weight: 600; }
 
-.btn-start { margin-bottom: 16px; }
+.btn-start {
+  width: 100%; height: 58px;
+  background: var(--indigo);
+  border: none; border-radius: 18px;
+  font-size: 18px; font-weight: 700; color: white;
+  cursor: pointer; letter-spacing: -0.2px;
+  transition: opacity .15s, transform .1s, max-height .25s ease, margin .25s ease;
+  box-shadow: 0 6px 20px rgba(91,103,248,.38);
+  margin-bottom: 14px;
+  overflow: hidden; max-height: 80px; opacity: 1;
+}
+.btn-start:active { opacity: .88; transform: scale(.98); }
 
-.intro-cards {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+/* ── Search-active state ── */
+#s-intro.intro-searching .intro-headline,
+#s-intro.intro-searching .intro-desc,
+#s-intro.intro-searching #btn-start {
+  max-height: 0 !important;
+  opacity: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+#s-intro.intro-searching #intro-srch-results {
+  max-height: calc(100dvh - 220px);
+  overflow-y: auto;
 }
 
-.icard {
-  flex: 1;
+/* ── Search card ── */
+.intro-search-card {
   background: white;
-  border-radius: 16px;
-  padding: 14px 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  border-radius: 20px;
+  padding: 18px 16px 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.intro-search-card-hdr {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 6px;
+}
+.intro-search-card-hdr::before,
+.intro-search-card-hdr::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+.intro-search-card-title {
+  font-size: 14px; font-weight: 700;
+  color: var(--indigo); white-space: nowrap;
+}
+.intro-search-card-sub {
+  font-size: 12px; color: var(--text-2);
+  margin-bottom: 12px; line-height: 1.4;
+}
+.intro-search-wrap {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg);
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  padding: 0 10px 0 12px;
+  height: 46px;
+  box-sizing: border-box;
+  transition: border-color .15s;
+}
+.intro-search-wrap:focus-within { border-color: var(--indigo); }
+.intro-srch-input {
+  flex: 1; border: none; outline: none;
+  background: transparent;
+  font-size: 14px; color: var(--text); font-family: inherit;
+}
+.intro-srch-input::placeholder { color: var(--text-3); }
+.intro-srch-clear {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-3); padding: 2px;
+  display: flex; align-items: center; flex-shrink: 0;
+}
+.intro-srch-arrow {
+  background: var(--indigo); border: none; cursor: pointer;
+  color: white; width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: opacity .12s;
+}
+.intro-srch-arrow:active { opacity: .8; }
+#intro-srch-results { margin-top: 8px; text-align: left; }
+
+/* ── Feature cards ── */
+.intro-cards {
+  display: flex; gap: 8px;
+  margin-bottom: 12px;
+}
+.icard {
+  flex: 1; background: white;
+  border-radius: 14px; padding: 12px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
   box-shadow: 0 2px 12px rgba(0,0,0,.06);
 }
-
 .icard-icon {
-  width: 44px; height: 44px;
+  width: 36px; height: 36px;
   background: var(--indigo-light);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  line-height: 1;
+}
+.icard-icon svg { stroke: var(--indigo); }
+.icard-title { font-size: 12px; font-weight: 700; color: var(--text); }
+.icard-sub {
+  font-size: 10px; color: var(--text-2);
+  line-height: 1.3; text-align: center;
 }
 
-.icard-title {
-  font-size: 13px; font-weight: 700;
+
+/* ── Search screen ── */
+#s-search {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  overflow-y: auto;
+  display: none;
+}
+
+.srch-body {
+  padding: 20px 18px 40px;
+}
+.srch-input-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--card);
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  padding: 0 12px 0 6px;
+  height: 52px;
+  transition: border-color .15s;
+  gap: 6px;
+}
+.srch-input-wrap:focus-within {
+  border-color: var(--indigo);
+}
+.srch-back-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-2);
+  padding: 6px 6px 6px 4px;
+  display: flex; align-items: center;
+  transition: color .12s;
+}
+.srch-back-btn:active { color: var(--indigo); }
+.srch-input-icon {
+  flex-shrink: 0;
+  color: var(--text-3);
+}
+.srch-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #1C1C1E;
+  font-family: inherit;
+}
+.srch-input::placeholder { color: var(--text-3); }
+.srch-clear {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-3);
+  padding: 4px;
+  display: flex; align-items: center;
+}
+
+/* Search result cards */
+.srch-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 22px 0 10px;
+}
+.srch-no-results {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.srch-match-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 0.5px solid var(--border);
+  padding: 9px 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: opacity .12s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.srch-match-card:active { opacity: .75; }
+.srch-match-card.is-exact {
+  border-color: var(--indigo);
+  background: var(--indigo-light);
+}
+.srch-match-info { flex: 1; min-width: 0; }
+.srch-match-brand {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--text-2);
+  margin-bottom: 1px;
+}
+.srch-match-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.srch-match-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 3px;
+}
+.srch-badge {
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--text-2);
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+.srch-badge.hi { background: var(--indigo-light); color: var(--indigo); }
+.srch-match-arrow { color: var(--indigo); flex-shrink: 0; }
+.srch-price {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1C1C1E;
+  margin-top: 2px;
+}
+
+/* ── Device profile view (matches dev-card style) ── */
+.dev-profile-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Hero card — same as .dev-card */
+.dev-hero {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+}
+.dev-hero-header {
+  background: #1C1C1E;
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dev-hero-header-brand {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.dev-hero-header-type {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,.35);
+}
+.dev-hero-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+.dev-hero-name {
+  font-size: 18px; font-weight: 700;
+  margin-bottom: 6px; line-height: 1.25;
   color: var(--text);
 }
-
-.icard-sub {
-  font-size: 11px;
+.dev-hero-price {
+  font-size: 20px; font-weight: 800;
+  color: var(--text);
+  margin: 4px 0 14px;
+}
+.dev-hero-specs {
+  display: flex; flex-wrap: wrap;
+  gap: 6px; margin-bottom: 16px;
+}
+.dev-hero-spec {
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 12px; font-weight: 500;
   color: var(--text-2);
-  line-height: 1.35;
-  text-align: center;
 }
 
-.btn-start {
-  width: 100%;
-  height: 58px;
-  background: var(--indigo);
-  border: none;
-  border-radius: 18px;
-  font-size: 17px;
-  font-weight: 700;
-  color: white;
-  cursor: pointer;
-  letter-spacing: -0.2px;
-  transition: opacity .15s, transform .1s;
-  box-shadow: 0 4px 16px rgba(91,103,248,.35);
+/* Section headers — same as .res-section-header */
+.dev-section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 10px;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--text-2);
 }
-.btn-start:active { opacity: .88; transform: scale(.98); }
+.dev-section-hdr::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: var(--border);
+}
+.dev-section-hdr.exact { color: var(--green-text); }
+.dev-section-hdr.similar { color: var(--text-2); }
+
+.dev-section-pct {
+  font-size: 12px; font-weight: 700;
+  color: #fff;
+  background: var(--green-text);
+  border-radius: 20px;
+  padding: 2px 9px;
+}
+
+/* Analog cards — same structure as .dev-card but compact */
+.analog-card {
+  background: var(--card);
+  border-radius: 16px;
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: opacity .12s;
+  display: flex;
+  align-items: center;
+}
+.analog-card:active { opacity: .72; }
+.analog-card-hdr {
+  background: #1C1C1E;
+  width: 6px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+.analog-card-body {
+  flex: 1; min-width: 0;
+  padding: 11px 14px;
+}
+.analog-card-brand {
+  font-size: 10px; font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase; letter-spacing: .04em;
+  margin-bottom: 2px;
+}
+.analog-card-name {
+  font-size: 15px; font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.analog-card-diffs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+.analog-diff {
+  font-size: 10px; font-weight: 500;
+  color: var(--red-text);
+  background: var(--red-bg);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+.analog-card-price {
+  font-size: 14px; font-weight: 700;
+  color: var(--text);
+}
+.analog-card-pct {
+  font-size: 13px; font-weight: 700;
+  color: var(--green-text);
+  padding-right: 14px;
+  flex-shrink: 0;
+}
+.analog-card-pct.dim { color: var(--text-3); }
 
 .intro-footer {
   margin-top: 20px;
@@ -1184,23 +1515,13 @@ html, body {
     box-shadow: 0 12px 56px rgba(91,103,248,.14);
   }
   .intro-text { width: 100%; }
-  .intro-icon { margin: 0 auto 28px; width: 96px; height: 96px; border-radius: 26px; }
-  .intro-icon svg { width: 58px; height: 58px; }
-  .intro-headline { font-size: 42px; letter-spacing: -1px; }
-  .intro-desc { font-size: 16px; margin-bottom: 28px; }
-  .btn-start { height: 66px; font-size: 19px; border-radius: 20px; margin-bottom: 0; }
-  .intro-cards {
-    flex-direction: row;
-    width: 100%;
-    gap: 10px;
-    margin-top: 28px;
-    margin-bottom: 16px;
-  }
-  .icard { flex: 1; flex-direction: column; align-items: center; text-align: center; padding: 16px 10px; }
-  .icard-icon { width: 48px; height: 48px; font-size: 22px; }
-  .icard-title { font-size: 13px; }
-  .icard-sub { font-size: 11px; }
-  .intro-footer { justify-content: center; }
+  .intro-icon { margin: 0 auto 14px; width: 80px; height: 80px; border-radius: 22px; }
+  .intro-icon svg { width: 48px; height: 48px; }
+  .intro-title { font-size: 24px; }
+  .intro-tagline { font-size: 13px; margin-bottom: 18px; }
+  .intro-headline { font-size: 36px; letter-spacing: -1px; }
+  .intro-desc { font-size: 15px; margin-bottom: 24px; }
+  .btn-start { height: 60px; font-size: 18px; border-radius: 18px; margin-bottom: 16px; }
 
   /* ── Questions ── */
   #s-question { padding-top: 88px; padding-bottom: 110px; }
@@ -1334,36 +1655,78 @@ html, body {
 <!-- ── INTRO ───────────────────────────────────────── -->
 <div id="s-intro" class="screen on">
   <div class="intro-inner">
-    <div class="intro-text">
-      <div class="intro-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-        </svg>
-      </div>
-      <div class="intro-title">VBR <span class="accent">БОТ</span></div>
-      <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
-      <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
-      <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
-      <button class="btn-start" id="btn-start">Начать подбор →</button>
+
+    <!-- Logo + title -->
+    <div class="intro-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+      </svg>
     </div>
-    <div class="intro-cards">
+    <div class="intro-title">VBR <span class="accent">БОТ</span></div>
+    <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
+
+    <!-- Headline + desc -->
+    <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
+    <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
+
+    <!-- CTA -->
+    <button class="btn-start" id="btn-start">Начать подбор →</button>
+
+    <!-- Search card -->
+    <div class="intro-search-card">
+      <div class="intro-search-card-hdr">
+        <span class="intro-search-card-title">Уже выбрали модель?</span>
+      </div>
+      <div class="intro-search-card-sub">Введите название и найдите аналогичное устройство</div>
+      <div class="intro-search-wrap">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="intro-srch" class="intro-srch-input" type="text"
+          placeholder="Например: 70mai M500 или INTEGO..."
+          autocomplete="off" autocorrect="off" spellcheck="false"
+          oninput="onIntroSearch(this.value)">
+        <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="intro-srch-arrow" id="intro-srch-arrow" onclick="document.getElementById('intro-srch').focus()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div id="intro-srch-results"></div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="intro-cards" id="intro-cards">
       <div class="icard">
-        <div class="icard-icon">⚡</div>
+        <div class="icard-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <div class="icard-title">Быстро</div>
         <div class="icard-sub">Всего несколько вопросов</div>
       </div>
       <div class="icard">
-        <div class="icard-icon">👍</div>
+        <div class="icard-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <div class="icard-title">Удобно</div>
         <div class="icard-sub">Подберем то, что нужно</div>
       </div>
       <div class="icard">
-        <div class="icard-icon">💰</div>
+        <div class="icard-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <div class="icard-title">Бесплатно</div>
         <div class="icard-sub">Без подписок и скрытых платежей</div>
       </div>
     </div>
-    <div class="intro-footer">🛡️ Конфиденциально. Никаких личных данных.</div>
+
+    <div class="intro-footer" id="intro-footer">🛡️ Конфиденциально. Никаких личных данных.</div>
+  </div>
+</div>
+
+<!-- ── DEVICE PROFILE ──────────────────────────────── -->
+<div id="s-search" class="screen">
+  <div class="srch-body">
+    <div id="srch-results-area"></div>
   </div>
 </div>
 
@@ -3518,7 +3881,7 @@ const DEVICES = [
   // GPS-информеры
   {name:"INTEGO Kite 2 FHD",                    brand:"INTEGO",
    type:"gps-информер",     form:"с экраном",  q:2,
-   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер Full HD на матрице SONY IMX307 с Wi-Fi. Угол 160°, суперконденсатор.",
    resolution:"Full HD 1920×1080 @30fps", angle:"160°", screen:"2\"", gps:"GPS + ГЛОНАСС",
    price:"~12 760 ₽",
@@ -3528,7 +3891,7 @@ const DEVICES = [
 
   {name:"INTEGO Kite 2 4K",                     brand:"INTEGO",
    type:"gps-информер",     form:"с экраном",  q:3,
-   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true,  rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"GPS-информер 4K на матрице SONY IMX415 с Wi-Fi. Угол 160°, суперконденсатор.",
    resolution:"4K UHD 3840×2160 @30fps", angle:"160°", screen:"2\"", gps:"GPS + ГЛОНАСС",
    price:"~11 815 ₽",
@@ -3646,6 +4009,393 @@ const DEVICES = [
    url:"https://store.intego.ru/products/videoregistrator-intego-basic-vx-215hd-7-104142",
    photo:"https://avatars.mds.yandex.net/get-yastore/18125838/9hxq4cng52pvbmkbx7d96k4j477wvncg/orig",
    specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
+
+  // ── 70mai ───────────────────────────────────────────
+  {name:"70mai M310",                               brand:"70mai",
+   type:"видеорегистратор", form:"без экрана",  q:1,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный 2K регистратор без экрана. SC3336P 3МП, F2.0, 130°, Wi-Fi, голос, G-сенсор, USB-C.",
+   resolution:"2K QHD 2304×1296 @30fps", angle:"130°", screen:"нет", gps:"нет",
+   price:"~2 000 ₽",
+   url:"https://70mai-russia.com/m310/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/06/70mai-m310--1024x1024.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai M310 Plus",                          brand:"70mai",
+   type:"видеорегистратор", form:"без экрана",  q:1,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"2K регистратор без экрана с WDR и ночным видением. Wi-Fi, голос, парковочный режим 24ч.",
+   resolution:"2K QHD 2304×1296 @30fps", angle:"130°", screen:"нет", gps:"нет",
+   price:"~2 200 ₽",
+   url:"https://70mai-russia.com/m310-plus/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/06/70mai-m310-plus-1024x1024.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai M300",                               brand:"70mai",
+   type:"видеорегистратор", form:"без экрана",  q:1,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный 1296P регистратор без экрана. F2.1, 140°, WDR, 3D DNR, Wi-Fi, G-сенсор.",
+   resolution:"1296P 2304×1296 @30fps", angle:"140°", screen:"нет", gps:"нет",
+   price:"~6 230 ₽",
+   url:"https://70mai-russia.com/m300/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/06/70mai-m300-1024x1024.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A410",                               brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"2.5K + 1080p двухканальный. Sony HDR, F1.55, GPS, 2\" экран, парковка 24ч. В комплекте задняя камера и 64ГБ.",
+   resolution:"2.5K 2560×1440 @30fps + 1080p задняя", angle:"125° / 130°", screen:"2\"", gps:"GPS",
+   price:"~3 040 ₽",
+   url:"https://70mai-russia.com/a410/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/06/70mai-a410-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai M500",                               brand:"70mai",
+   type:"видеорегистратор", form:"без экрана",  q:2,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"2.7K HDR регистратор без экрана со встроенной eMMC памятью. GPS+ГЛОНАСС, ADAS, 170°, голос.",
+   resolution:"2.7K 2592×1944 HDR @30fps", angle:"170°", screen:"нет", gps:"GPS + ГЛОНАСС",
+   price:"~7 090 ₽",
+   url:"https://70mai-russia.com/m500/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-m500-1024x1024.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ eMMC",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A500S Pro Plus",                     brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"2.7K + 1080p двухканальный. Sony IMX335, F1.8, 140°, GPS, ADAS, Night Owl Vision, 2\" IPS.",
+   resolution:"2.7K 2592×1944 @30fps + 1080p задняя", angle:"140° / 130°", screen:"2\"", gps:"GPS",
+   price:"~5 350 ₽",
+   url:"https://70mai-russia.com/a500s-pro-plus/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-a500s-pro-plus--1024x1024.jpg",
+   specs:{processor:"NT96580",display_type:"IPS",screen_size:"2\"",max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A510",                               brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"2.7K + 1080p двухканальный. Sony STARVIS 2 IMX675, F1.8, 140°, HDR, GPS, ADAS, Wi-Fi + BT.",
+   resolution:"2.7K 2592×1944 @30fps + 1080p задняя", angle:"140°", screen:"2\"", gps:"GPS",
+   price:"~6 500 ₽",
+   url:"https://70mai-russia.com/a510/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/01/70mai-a510-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A800S",                              brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K @30fps двухканальный. Sony IMX415 STARVIS, F1.8, 140°, GPS, ADAS, Wi-Fi 5ГГц, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 @30fps + 1080p задняя", angle:"140°", screen:"3\"", gps:"GPS",
+   price:"~8 490 ₽",
+   url:"https://70mai-russia.com/a800s/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-a800s-4k-1024x1024.jpg",
+   specs:{processor:"SigmaStar SSC8629G",display_type:"IPS",screen_size:"3\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A800SE",                             brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K двухканальный. GalaxyCore GC8613, F1.55, 140°, HDR, GPS, ADAS, Wi-Fi 6, суперконденсатор, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 @30fps + 1080p задняя", angle:"140°", screen:"3\"", gps:"GPS",
+   price:"~8 240 ₽",
+   url:"https://70mai-russia.com/a800se/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/06/70mai-a800se-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"512 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 6"}},
+
+  {name:"70mai A810 4K",                            brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K до 60fps двухканальный. Sony STARVIS 2 IMX678, F1.8, 150°, HDR, GPS, ADAS, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 @60fps + 1080p задняя", angle:"150°", screen:"3\"", gps:"GPS",
+   price:"~6 500 ₽",
+   url:"https://70mai-russia.com/a810-4k/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-a810-4k-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"70mai A810S 4K",                           brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K Sony STARVIS 2 IMX678, Night Owl Vision, F1.7, 146°, GPS, ADAS, Wi-Fi 6, суперконденсатор, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 @30fps + 1080p задняя", angle:"146° / 130°", screen:"3\"", gps:"GPS",
+   price:"~9 890 ₽",
+   url:"https://70mai-russia.com/a810s-4k/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-a810s-4k-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"512 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi 6"}},
+
+  {name:"70mai 4K Omni",                            brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:true,  ir_cam:false, remote:false,
+   desc:"4K поворотная камера 340°, Sony STARVIS 2 IMX678, 146°, GPS, Wi-Fi 6, AI Motion, суперконденсатор, 1.4\" IPS.",
+   resolution:"4K UHD 3840×2160 @60fps + 1080p задняя", angle:"146° / 130°", screen:"1.4\"", gps:"GPS",
+   price:"~17 990 ₽",
+   url:"https://70mai-russia.com/4k-omni/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/04/70mai-4k-omni-1024x1024.jpg",
+   specs:{processor:"NT98530",display_type:"IPS",screen_size:"1.4\"",max_sd:"512 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi 6"}},
+
+  {name:"70mai T800",                               brand:"70mai",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:true,  remote:false,
+   desc:"Dual 4K трёхканальный (перед+зад+салон ИК). Sony STARVIS 2 IMX678, GPS, ADAS, Wi-Fi 6, суперконденсатор, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 перед+зад, 1080p салон ИК", angle:"146° / 146° / 147°", screen:"3\"", gps:"GPS",
+   price:"~17 000 ₽",
+   url:"https://70mai-russia.com/t800/",
+   photo:"https://70-mai.ru/wp-content/uploads/2026/01/70mai-t800-1024x1024.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"512 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi 6"}},
+
+  // ── DaoCam ──────────────────────────────────────────
+  // Видеорегистраторы
+  {name:"DaoCam Uno Wi-Fi",                         brand:"DaoCam",
+   type:"видеорегистратор", form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный Full HD с Sony IMX327, магнитным креплением, суперконденсатором. 150°, 2\" IPS.",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"2\"", gps:"нет",
+   price:"~6 990 ₽",
+   url:"https://daocam.ru/product/uno-wifi",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/4.3-1-600x800-1.jpg",
+   specs:{processor:"Novatek 96672",display_type:"IPS",screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Uno GPS",                           brand:"DaoCam",
+   type:"видеорегистратор", form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Full HD с Sony IMX327, GPS, магнитным креплением и оповещениями о камерах. 150°, суперконденсатор.",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"2\"", gps:"GPS",
+   price:"~7 990 ₽",
+   url:"https://daocam.ru/product/uno-gps",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/4.4-1-600x800-1.jpg",
+   specs:{processor:"Novatek 96672",display_type:"IPS",screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Mirror Wi-Fi",                      brand:"DaoCam",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Регистратор-зеркало Full HD с GalaxyCore 2053, задней камерой, 4.55\" экраном. Аккумулятор.",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"4.55\"", gps:"нет",
+   price:"~7 490 ₽",
+   url:"https://daocam.ru/product/mirror",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/1-1.jpg",
+   specs:{processor:"Jieli 5401B",display_type:null,screen_size:"4.55\"",max_sd:"32 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Mirror 2",                          brand:"DaoCam",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Регистратор-зеркало 2K 2560×1440, SC2336, задняя камера, 4.55\" экран 864×480. Аккумулятор.",
+   resolution:"2K 2560×1440", angle:"150°", screen:"4.55\"", gps:"нет",
+   price:"~7 490 ₽",
+   url:"https://daocam.ru/product/mirror2k",
+   photo:"https://api.daocam.ru/wp-content/uploads/2026/05/1.jpg",
+   specs:{processor:"Eeasy230C",display_type:null,screen_size:"4.55\"",max_sd:"256 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Uno 3",                             brand:"DaoCam",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный 4K с Sony IMX415, GPS, CPL-фильтром. Novatek 96670, суперконденсатор, 2\" IPS.",
+   resolution:"4K UHD 3840×2160", angle:"140°", screen:"2\"", gps:"GPS",
+   price:"~11 490 ₽",
+   url:"https://daocam.ru/product/uno-3",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/11/2-1.jpg",
+   specs:{processor:"Novatek 96670",display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Uno 3 2ch",                         brand:"DaoCam",
+   type:"видеорегистратор", form:"с экраном",   q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K + задняя камера. Sony IMX415, Novatek 96670, GPS, CPL-фильтр, суперконденсатор, 2\" IPS.",
+   resolution:"4K UHD 3840×2160 + задняя камера", angle:"140°", screen:"2\"", gps:"GPS",
+   price:"~12 790 ₽",
+   url:"https://daocam.ru/product/uno-3-2ch",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/11/01-1.jpg",
+   specs:{processor:"Novatek 96670",display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  // Комбо-устройства
+  {name:"DaoCam Genom Wi-Fi",                       brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 Full HD. GalaxyCore 2053, MStar 8336, GPS, магнитное крепление, суперконденсатор, 2.31\".",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"2.31\"", gps:"GPS + база камер",
+   price:"~12 990 ₽",
+   url:"https://daocam.ru/product/daocam-genom-wi-fi-dostupnyj-videoregistrator-s-radar-detektorom-i-gps-kombo-3-v-1",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/1-600x800-1.jpg",
+   specs:{processor:"MStar 8336",display_type:null,screen_size:"2.31\"",max_sd:"64 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Genom 3",                           brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 Full HD нового поколения. GalaxyCore 2053, Novatek 96675, 170°, 3\" IPS, суперконденсатор.",
+   resolution:"Full HD 1920×1080", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~14 990 ₽",
+   url:"https://daocam.ru/product/daocam-genom-3",
+   photo:"https://api.daocam.ru/wp-content/uploads/2026/04/1.jpg",
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Genom 3 2CH",                       brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 Full HD + задняя камера. GalaxyCore 2053, Novatek 96675, 170°, 3\" IPS, суперконденсатор.",
+   resolution:"Full HD 1920×1080 + задняя камера", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~16 490 ₽",
+   url:"https://daocam.ru/product/daocam-genom-3-2ch",
+   photo:"https://api.daocam.ru/wp-content/uploads/2026/04/1-2.jpg",
+   specs:{processor:"Novatek 96675",display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Combo Wi-Fi",                       brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо с сигнатурным радар-детектором, Sony IMX307, 170°, 3\" IPS, суперконденсатор. CPL-фильтр.",
+   resolution:"Full HD 1920×1080", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~17 490 ₽",
+   url:"https://daocam.ru/product/daocam-combo-wifi-videoregistrator-s-signaturnym-radar-detektorom-i-nochnoj-semkoj",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/2.7-6-600x800-1.jpg",
+   specs:{processor:"MStar 8339",display_type:"IPS",screen_size:"3\"",max_sd:"64 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Combo Wi-Fi 2ch",                   brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:1,
+   magnetic:true,  smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо с сигнатурным радар-детектором + задняя камера. Sony IMX307, 170°, 3\" IPS, суперконденсатор.",
+   resolution:"Full HD 1920×1080 + задняя камера", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~18 990 ₽",
+   url:"https://daocam.ru/product/daocam-combo-wifi-2ch-videoregistrator-s-signaturnym-radar-detektorom-i-vtoroj-kameroj",
+   photo:"https://api.daocam.ru/wp-content/uploads/2024/09/2.7-7-600x800-1.jpg",
+   specs:{processor:"MStar 8339",display_type:"IPS",screen_size:"3\"",max_sd:"64 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Combo 3 Max 2CH",                   brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:2,
+   magnetic:true,  smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 2K + задняя камера. Sony IMX415, Novatek 96670, LNA, 170°, 3\" IPS, суперконденсатор.",
+   resolution:"2K 2560×1440 + задняя камера", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~25 990 ₽",
+   url:"https://daocam.ru/product/daocam-combo-3-max-2ch",
+   photo:"https://api.daocam.ru/wp-content/uploads/2026/04/1-5.jpg",
+   specs:{processor:"Novatek 96670",display_type:"IPS",screen_size:"3\"",max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"DaoCam Combo 3 Max",                       brand:"DaoCam",
+   type:"комбо 3 в 1",     form:"с экраном",   q:3,
+   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагманское комбо 4K. Sony IMX415, Novatek 96670, LNA, 170°, 3\" IPS 640×360, суперконденсатор.",
+   resolution:"4K UHD 3840×2160", angle:"170°", screen:"3\"", gps:"GPS + база камер",
+   price:"~24 490 ₽",
+   url:"https://daocam.ru/product/daocam-combo-3-max",
+   photo:"https://api.daocam.ru/wp-content/uploads/2026/04/1-4.jpg",
+   specs:{processor:"Novatek 96670",display_type:"IPS",screen_size:"3\"",max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  /* ── TrendVision — зеркала ─────────────────────────────── */
+  {name:"TrendVision City Mirror",            brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Бюджетное зеркало Full HD. 10\" IPS, SA230C, задняя камера 720p, парковочные линии, HDR, g-сенсор.",
+   resolution:"Full HD 1920×1080", angle:"170°/110°", screen:"10\" IPS", gps:"нет",
+   price:"~5 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-city-mirror/",
+   photo:"",
+   specs:{processor:"SA230C",display_type:"IPS",screen_size:"10\"",max_sd:"128 ГБ",power_element:"аккумулятор 400мАч",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
+
+  {name:"TrendVision Prime Mirror",           brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактное зеркало Full HD с 5\" IPS. Задняя камера + парковочные линии, HDR, g-сенсор, автопереключение на заднюю камеру.",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"5\" IPS", gps:"нет",
+   price:"~6 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-prime-mirror/",
+   photo:"",
+   specs:{processor:null,display_type:"IPS",screen_size:"5\"",max_sd:"128 ГБ",power_element:"аккумулятор 400мАч",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
+
+  {name:"TrendVision Prime Mirror (ver.2)",   brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Обновление 2025. Full HD, 5\" IPS, задняя камера с парковочными линиями, ночной режим, g-сенсор.",
+   resolution:"Full HD 1920×1080", angle:"150°", screen:"5\" IPS", gps:"нет",
+   price:"~9 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-prime-mirror-(ver.2)",
+   photo:"",
+   specs:{processor:null,display_type:"IPS",screen_size:"5\"",max_sd:"128 ГБ",power_element:null,power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
+
+  {name:"TrendVision MR-2K",                 brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало 2K QHD (GC4653). 10\" IPS, SA230L, Wi-Fi + приложение, задняя камера Full HD + парковочные линии.",
+   resolution:"2K QHD 2560×1440", angle:"170°/140°", screen:"10\" IPS", gps:"нет",
+   price:"~7 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-mr-2k/",
+   photo:"",
+   specs:{processor:"SA230L",display_type:"IPS",screen_size:"10\"",max_sd:"256 ГБ",power_element:"аккумулятор 400мАч",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"TrendVision MR-810 GT",             brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Full HD зеркало с GPS (SpeedCam). 10\" LCD, Mstar 8336N, задняя камера 720p + парковочные линии, WDR.",
+   resolution:"Full HD 1920×1080 (GC2053)", angle:"не указан", screen:"10\" LCD", gps:"GPS + база камер",
+   price:"~12 490 ₽",
+   url:"https://trendvision.ru/products/trendvision-mr-810-gt/",
+   photo:"",
+   specs:{processor:"Mstar 8336N",display_type:"LCD",screen_size:"10\"",max_sd:"128 ГБ",power_element:null,power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
+
+  {name:"TrendVision MR-1100 (AI Smart Assist)", brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"AI-ассистент (8 режимов), реальный 2K. 11.26\" LCD, SA223, GPS/ГЛОНАСС, Wi-Fi + Viidure, задняя FHD IP67.",
+   resolution:"2K QHD 2560×1440 (+ 4K интерп.)", angle:"150°/140°", screen:"11.26\" LCD", gps:"GPS/ГЛОНАСС",
+   price:"~16 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-mr-1100-(ai-smart-assist)/",
+   photo:"",
+   specs:{processor:"SA223",display_type:"LCD",screen_size:"11.26\"",max_sd:null,power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"TrendVision CarPlay Mirror",         brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Apple CarPlay / Android Auto, FM Transmitter. Реальный 2K (GC4653). ~11\" IPS, задняя FHD + парковочные линии.",
+   resolution:"2K QHD + 4K интерп. (GC4653)", angle:"150°/140°", screen:"11\" IPS", gps:"нет",
+   price:"~17 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-carplay-mirror/",
+   photo:"",
+   specs:{processor:"MStar",display_type:"IPS",screen_size:"11\"",max_sd:null,power_element:null,power_type:"Type-C",gsensor:true,motion:false,timelapse:true,wifi_gen:null}},
+
+  {name:"TrendVision MR-360",                brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:true, remote:false,
+   desc:"3 камеры одновременно: передняя 4K + салонная 2K ИК + задняя 2K. 9.66\" IPS, GPS, Wi-Fi, голосовое управление.",
+   resolution:"4K+2K+2K интерп. (три камеры)", angle:"150°+160°+110°", screen:"9.66\" IPS", gps:"GPS",
+   price:"~13 900 ₽",
+   url:"https://trendvision.ru/products/trendvision-mr-360/",
+   photo:"",
+   specs:{processor:"iCatch V36AX",display_type:"IPS",screen_size:"9.66\"",max_sd:"256 ГБ",power_element:null,power_type:null,gsensor:true,motion:false,timelapse:true,wifi_gen:"Wi-Fi"}},
+
+  {name:"TrendVision MR-4K",                 brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:3,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Реальный 4K Ultra HD, Sony STARVIS IMX415. 11\" LCD, Hi3559V, H.265, GPS SpeedCam, Wi-Fi + Viidure, суперконденсатор, CPL-фильтр в комплекте.",
+   resolution:"4K UHD 3840×2160 (реальный, Sony IMX415)", angle:"не указан", screen:"11\" LCD", gps:"GPS + SpeedCam",
+   price:"~25 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-mr-4k/",
+   photo:"",
+   specs:{processor:"Hi3559V",display_type:"LCD",screen_size:"11\"",max_sd:null,power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi"}},
+
+  {name:"TrendVision aMirror 15 Android",    brand:"TrendVision",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Android 10 + 4G LTE, CarPlay/Android Auto, FM Transmitter, Bluetooth 5.1. 11.26\" IPS, GPS-навигатор, задняя FHD IP67.",
+   resolution:"Full HD 1920×1080", angle:"140°/110°", screen:"11.26\" IPS", gps:"GPS + навигатор",
+   price:"~29 990 ₽",
+   url:"https://trendvision.ru/products/trendvision-amirror-15-android-universe/",
+   photo:"",
+   specs:{processor:"UIS8581A",display_type:"IPS",screen_size:"11.26\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi + 4G LTE"}},
+
+  /* ── 70mai — зеркало ──────────────────────────────────── */
+  {name:"70mai Rearview S500",               brand:"70mai",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Sony STARVIS 2 IMX675, 3K HDR 2592×1944, 9.35\" IPS, Wi-Fi + приложение 70mai, задняя камера RC13 IPX7, суперконденсатор. Без GPS.",
+   resolution:"3K HDR 2592×1944 (Sony IMX675)", angle:"138°", screen:"9.35\" IPS", gps:"нет",
+   price:"~11 990 ₽",
+   url:"https://www.dns-shop.ru/product/5a976f50e740ed20/videoregistrator-zerkalo-70mai-s500/",
+   photo:"https://natural.lamobile.ru/upload/resize_cache/webp/iblock/eff/b8py30wsvi0nikcc454gsrp1tjttn40w.webp",
+   specs:{processor:null,display_type:"IPS",screen_size:"9.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Micro-USB",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi 2.4ГГц"}},
+
+  /* ── Neoline — без экрана ─────────────────────────────── */
+  {name:"Neoline WowCam Wi-Fi",              brand:"Neoline",
+   type:"видеорегистратор", form:"без экрана",          q:1,
+   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Ультракомпактный регистратор, скрытый за зеркалом заднего вида. FHD, H.265, Wi-Fi, приложение Neoline Connect, суперконденсатор, оптическая стабилизация.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"без экрана", gps:"нет",
+   price:"~3 999 ₽",
+   url:"https://neoline.ru/shop/videoregistrator-neoline-wowcam-wi-fi-white/",
+   photo:"",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
 ];
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
@@ -3696,33 +4446,34 @@ function scoreDevice(dev) {
 function getTop() {
   let pool = DEVICES;
 
-  // Жёсткий фильтр по типу
+  // Жёсткий фильтр по типу (с fallback — не оставлять пустой пул)
   if (answers.type && answers.type !== "неважно") {
-    pool = pool.filter(d => d.type.toLowerCase() === answers.type.toLowerCase());
+    const narrowed = pool.filter(d => d.type.toLowerCase() === answers.type.toLowerCase());
+    pool = narrowed.length > 0 ? narrowed : pool;
   }
-  // Жёсткий фильтр по форм-фактору
+  // Жёсткий фильтр по форм-фактору (с fallback)
   if (answers.form && answers.form !== "неважно") {
     const narrowed = pool.filter(d => d.form.toLowerCase() === answers.form.toLowerCase());
     pool = narrowed.length > 0 ? narrowed : pool;
   }
 
+  // Мягкий скоринг — все устройства получают %, ничего жёстко не отсекаем
   const scored = pool.map(d => ({ d, ...scoreDevice(d) }));
+  // Сортируем по pct desc, при равном — более высокое q выше
+  scored.sort((a, b) => b.pct - a.pct || b.d.q - a.d.q);
 
-  // Лучший представитель каждого бренда (brand champion)
-  // При равном % предпочитаем точное совпадение по качеству (нет "overspec" в mm)
-  const reqQ = answers.quality ? QRANK[(answers.quality||"").toLowerCase()] : null;
-  function qExact(item) { return reqQ == null || item.d.q === reqQ; }
-  const brandBest = {};
-  scored.forEach(item => {
+  // Берём топ-2 от каждого бренда, итого не более 8 (вариант Б)
+  const brandCount = {};
+  const result = [];
+  for (const item of scored) {
     const b = item.d.brand;
-    if (!brandBest[b]) { brandBest[b] = item; return; }
-    const cur = brandBest[b];
-    if (item.pct > cur.pct) { brandBest[b] = item; return; }
-    if (item.pct === cur.pct && qExact(item) && !qExact(cur)) brandBest[b] = item;
-  });
-
-  // Возвращаем всех чемпионов, отсортированных по убыванию %
-  return Object.values(brandBest).sort((a, b) => b.pct - a.pct);
+    if (!brandCount[b]) brandCount[b] = 0;
+    if (brandCount[b] >= 2) continue;
+    brandCount[b]++;
+    result.push(item);
+    if (result.length >= 12) break;
+  }
+  return result;
 }
 
 // Находит устройства-апгрейды: всё то же самое, но качество съёмки выше
@@ -3858,14 +4609,389 @@ function getCompromises() {
 // ════════════════════════════════════════════════════════
 
 function show(id) {
-  ["s-intro","s-question","s-loading","s-results"].forEach(s => {
+  ["s-intro","s-question","s-loading","s-results","s-search"].forEach(s => {
     const el = document.getElementById(s);
+    if (!el) return;
     if (s === id) {
       el.style.display = s === "s-intro" ? "flex" : "block";
     } else {
       el.style.display = "none";
     }
   });
+}
+
+// ════════════════════════════════════════════════════════
+//  ANALOG SEARCH (inline on intro screen)
+// ════════════════════════════════════════════════════════
+
+function onIntroSearch(val) {
+  const clearBtn = document.getElementById("intro-srch-clear");
+  const resultsEl = document.getElementById("intro-srch-results");
+  const cards     = document.getElementById("intro-cards");
+  const footer    = document.getElementById("intro-footer");
+
+  if (!val.trim()) {
+    clearBtn.style.display = "none";
+    resultsEl.innerHTML = "";
+    if (cards)  cards.style.display = "";
+    if (footer) footer.style.display = "";
+    document.getElementById('s-intro').classList.remove('intro-searching');
+    return;
+  }
+
+  clearBtn.style.display = "flex";
+  if (cards)  cards.style.display = "none";
+  if (footer) footer.style.display = "none";
+  document.getElementById('s-intro').classList.add('intro-searching');
+  window.scrollTo({top: 0, behavior: 'instant'});
+
+  const hits = searchDevices(val.trim()).slice(0, 5);
+  if (!hits.length) {
+    resultsEl.innerHTML = `<div class="srch-no-results">Ничего не найдено.<br>Попробуйте другое название или бренд.</div>`;
+    return;
+  }
+  resultsEl.innerHTML = hits.map(({d}) => {
+    const idx = DEVICES.indexOf(d);
+    const qLabel = ['','Full HD','2K','4K'][d.q] || '';
+    const badges = [
+      qLabel && `<span class="srch-badge">${qLabel}</span>`,
+      d.gps && d.gps !== 'нет' ? `<span class="srch-badge">GPS</span>` : '',
+      d.ir_cam  ? `<span class="srch-badge">ИК камера</span>` : '',
+      d.rear_cam ? `<span class="srch-badge">Зад. камера</span>` : '',
+      d.smartphone ? `<span class="srch-badge">Wi-Fi</span>` : '',
+    ].filter(Boolean).join('');
+    return `<div class="srch-match-card" onclick="openDeviceFromIntro(${idx})">
+      <div class="srch-match-info">
+        <div class="srch-match-brand">${d.brand}</div>
+        <div class="srch-match-name">${d.name}</div>
+        <div class="srch-match-badges">${badges}</div>
+        <div class="srch-price">${d.price}</div>
+      </div>
+      <svg class="srch-match-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>`;
+  }).join('');
+}
+
+function clearIntroSearch() {
+  const inp = document.getElementById("intro-srch");
+  if (inp) { inp.value = ""; inp.focus(); }
+  document.getElementById('s-intro').classList.remove('intro-searching');
+  onIntroSearch("");
+}
+
+function openDeviceFromIntro(idx) {
+  // Save query so back button can restore it
+  const inp = document.getElementById("intro-srch");
+  if (inp && inp.value.trim()) lastSearchQuery = inp.value.trim();
+  lastSearchOrigin = 'intro';
+  openDeviceFromSearch(idx);
+}
+
+// s-search screen handlers (kept for back-navigation to s-search results if needed)
+function clearSearch() {
+  const inp = document.getElementById("srch-clear");
+  if (inp) inp.style.display = "none";
+  document.getElementById("srch-results-area").innerHTML = "";
+}
+
+function onSearchInput(val) {
+  // no longer used as primary search, kept for compatibility
+}
+
+function normalize(s) {
+  return s.toLowerCase()
+    .replace(/[\s\-_\.]+/g, " ")
+    .replace(/ё/g, "е")
+    .trim();
+}
+
+function searchDevices(query) {
+  const q = normalize(query);
+  const words = q.split(" ").filter(Boolean);
+
+  // Score each device
+  const scored = DEVICES.map(d => {
+    const nameN  = normalize(d.name);
+    const brandN = normalize(d.brand);
+    let score = 0;
+
+    // Exact match in name
+    if (nameN === q) score += 1000;
+    // Name starts with query
+    if (nameN.startsWith(q)) score += 500;
+    // Query is substring of name
+    if (nameN.includes(q)) score += 200;
+    // Brand exact match
+    if (brandN === q) score += 300;
+    // All words match
+    const allMatch = words.every(w => nameN.includes(w) || brandN.includes(w));
+    if (allMatch) score += 150;
+    // Partial word matches
+    words.forEach(w => {
+      if (nameN.includes(w))  score += 40;
+      if (brandN.includes(w)) score += 20;
+    });
+
+    return { d, score };
+  })
+  .filter(x => x.score > 0)
+  .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, 20);
+}
+
+function findAnalogs(target, allResults) {
+  // Find devices with same type+form but different brand, similar q
+  return DEVICES
+    .filter(d => {
+      if (d === target) return false;
+      const sameType = d.type === target.type;
+      const sameForm = d.form === target.form;
+      const closeQ   = Math.abs(d.q - target.q) <= 1;
+      const inResults = allResults.some(r => r.d === d);
+      return sameType && sameForm && closeQ && !inResults;
+    })
+    .sort((a, b) => {
+      // prefer same q, then different brand
+      const aqDiff = Math.abs(a.q - target.q);
+      const bqDiff = Math.abs(b.q - target.q);
+      if (aqDiff !== bqDiff) return aqDiff - bqDiff;
+      return (b.q - a.q);
+    })
+    .slice(0, 6);
+}
+
+const QNAMES = {1:"Full HD", 2:"2K", 3:"4K"};
+const FORM_SHORT = {
+  "с экраном": "с экраном",
+  "без экрана": "без экрана",
+  "регистратор-зеркало": "зеркало"
+};
+const TYPE_SHORT = {
+  "видеорегистратор": "регистратор",
+  "комбо 3 в 1": "комбо 3 в 1",
+  "gps-информер": "GPS-информер",
+  "4G-регистратор": "4G"
+};
+
+function makeSearchCard(item, isExact) {
+  const d = item.d || item;
+  const badges = [];
+  if (QNAMES[d.q]) badges.push({text: QNAMES[d.q], hi: d.q >= 2});
+  if (FORM_SHORT[d.form]) badges.push({text: FORM_SHORT[d.form], hi: false});
+  if (d.gps && d.gps !== "нет") badges.push({text: "GPS", hi: false});
+  if (d.smartphone) badges.push({text: "Wi-Fi", hi: false});
+  if (d.rear_cam)   badges.push({text: "2 камеры", hi: false});
+
+  const badgesHTML = badges.map(b =>
+    `<span class="srch-badge${b.hi ? " hi" : ""}">${b.text}</span>`
+  ).join("");
+
+  return `
+    <div class="srch-match-card${isExact ? " is-exact" : ""}" onclick="openDeviceFromSearch(${DEVICES.indexOf(d)})">
+      <div class="srch-match-info">
+        <div class="srch-match-brand">${d.brand}</div>
+        <div class="srch-match-name">${d.name}</div>
+        <div class="srch-match-badges">${badgesHTML}</div>
+        <div class="srch-price">${d.price || ""}</div>
+      </div>
+      <div class="srch-match-arrow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>`;
+}
+
+function renderSearchResults(results, query) {
+  const area = document.getElementById("srch-results-area");
+  if (!results || results.length === 0) {
+    area.innerHTML = query
+      ? `<div class="srch-no-results">Ничего не нашли по запросу «${query}»<br><span style="color:var(--text-3);font-size:13px">Попробуйте ввести только бренд или часть модели</span></div>`
+      : "";
+    return;
+  }
+
+  // Top match
+  const top = results[0];
+  let html = `<div class="srch-section-label">Найдено в базе</div>`;
+  results.slice(0, 5).forEach((r, i) => {
+    html += makeSearchCard(r, i === 0);
+  });
+
+  // Analogs based on best match
+  const analogs = findAnalogs(top.d, results);
+  if (analogs.length > 0) {
+    html += `<div class="srch-section-label">Похожие альтернативы</div>`;
+    analogs.forEach(a => { html += makeSearchCard({d: a}, false); });
+  }
+
+  area.innerHTML = html;
+}
+
+function _renderResultsFromItems(items, subtitle) {
+  // Temporarily inject a non-empty answers so _renderResults won't show "all don't care" screen
+  const savedAnswers = Object.assign({}, answers);
+  answers = { quality: "хорошее" };
+  _renderResults(items);
+  answers = savedAnswers;
+  // Override quiz-specific UI that _renderResults sets
+  el("chips-wrap").style.display = "none";
+  if (subtitle) el("res-sub").textContent = subtitle;
+}
+
+let lastSearchQuery = '';
+let lastSearchOrigin = 'intro'; // 'intro' or 'profile'
+
+function openDeviceFromSearch(idx) {
+  const d = DEVICES[idx];
+  if (!d) return;
+
+  // If called from an analog card (not from intro), keep origin as-is
+  // lastSearchOrigin and lastSearchQuery are set by openDeviceFromIntro before this call
+
+  // 100% analogs: ALL key specs must match exactly
+  const exact = DEVICES.filter(x =>
+    x !== d &&
+    x.type      === d.type &&
+    x.form      === d.form &&
+    x.q         === d.q &&
+    x.ir_cam    === d.ir_cam &&
+    x.rear_cam  === d.rear_cam &&
+    x.smartphone=== d.smartphone &&
+    hasGPS(x)   === hasGPS(d)
+  );
+
+  // Similar: same type, close quality
+  const similar = DEVICES.filter(x => {
+    if (x === d || exact.includes(x)) return false;
+    return x.type === d.type && Math.abs(x.q - d.q) <= 1;
+  }).sort((a, b) => similarPct(b, d) - similarPct(a, d)).slice(0, 10);
+
+  renderDeviceProfile(d, exact, similar);
+}
+
+function hasGPS(d) { return !!(d.gps && d.gps !== 'нет'); }
+
+function similarPct(x, d) {
+  let p = 0;
+  if (x.form      === d.form)       p += 25;
+  if (x.ir_cam    === d.ir_cam)     p += 20;
+  if (x.rear_cam  === d.rear_cam)   p += 15;
+  if (x.smartphone=== d.smartphone) p += 15;
+  if (hasGPS(x)   === hasGPS(d))    p += 10;
+  const qDiff = Math.abs(x.q - d.q);
+  p += qDiff === 0 ? 15 : qDiff === 1 ? 7 : 0;
+  return Math.min(99, p);
+}
+
+// Returns human-readable list of differences vs target device
+function getDiffs(x, d) {
+  const diffs = [];
+  const ql = ['','Full HD','2K','4K'];
+  if (x.q !== d.q)
+    diffs.push(`${ql[x.q]} вместо ${ql[d.q]}`);
+  if (x.ir_cam !== d.ir_cam)
+    diffs.push(x.ir_cam ? 'есть ИК-камера' : 'нет ИК-камеры');
+  if (x.rear_cam !== d.rear_cam)
+    diffs.push(x.rear_cam ? 'есть задняя камера' : 'нет задней камеры');
+  if (x.smartphone !== d.smartphone)
+    diffs.push(x.smartphone ? 'есть Wi-Fi' : 'нет Wi-Fi');
+  if (hasGPS(x) !== hasGPS(d))
+    diffs.push(hasGPS(x) ? 'есть GPS' : 'нет GPS');
+  if (x.form !== d.form)
+    diffs.push(x.form);
+  return diffs;
+}
+
+function renderAnalogCard(x, pct, diffs) {
+  const diffHtml = diffs && diffs.length
+    ? `<div class="analog-card-diffs">${diffs.map(t => `<span class="analog-diff">${t}</span>`).join('')}</div>`
+    : '';
+  const isDim = pct < 100;
+  return `<div class="analog-card" onclick="openDeviceFromSearch(${DEVICES.indexOf(x)})">
+    <div class="analog-card-hdr"></div>
+    <div class="analog-card-body">
+      <div class="analog-card-brand">${x.brand}</div>
+      <div class="analog-card-name">${x.name}</div>
+      ${diffHtml}
+      <div class="analog-card-price">${x.price}</div>
+    </div>
+    <div class="analog-card-pct${isDim ? ' dim' : ''}">${pct}%</div>
+  </div>`;
+}
+
+function renderDeviceProfile(d, exact, similar) {
+  const area = document.getElementById('srch-results-area');
+  const ql = ['','Full HD','2K','4K'];
+
+  const specChips = [
+    d.resolution ? `<span class="dev-hero-spec">${d.resolution}</span>` : '',
+    d.angle      ? `<span class="dev-hero-spec">${d.angle}</span>` : '',
+    d.screen && d.screen !== 'без экрана' ? `<span class="dev-hero-spec">${d.screen}</span>` : '',
+    hasGPS(d)    ? `<span class="dev-hero-spec">GPS</span>` : '',
+    d.smartphone ? `<span class="dev-hero-spec">Wi-Fi + приложение</span>` : '',
+    d.rear_cam   ? `<span class="dev-hero-spec">Задняя камера</span>` : '',
+    d.ir_cam     ? `<span class="dev-hero-spec">ИК-камера салона</span>` : '',
+  ].filter(Boolean).join('');
+
+  let html = `
+    <div class="dev-profile-back" onclick="backToSearchResults()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Назад к результатам
+    </div>
+    <div class="dev-hero">
+      <div class="dev-hero-header">
+        <span class="dev-hero-header-brand">${d.brand}</span>
+        <span class="dev-hero-header-type">${d.form}</span>
+      </div>
+      <div class="dev-hero-body">
+        <div class="dev-name">${d.name}</div>
+        <div class="dev-price">${d.price}</div>
+        ${specChips ? `<div class="dev-hero-specs" style="margin-top:10px">${specChips}</div>` : ''}
+        ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          На сайт производителя
+        </a>` : ''}
+        <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent((d.brand+' '+d.name+' обзор').trim())}" target="_blank" rel="noopener">
+          <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="5" fill="#FF4C00"/><path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/></svg>
+          Смотреть обзор на Rutube
+        </a>
+      </div>
+    </div>`;
+
+  if (exact.length > 0) {
+    html += `<div class="dev-section-hdr exact">Аналогичные устройства <span class="dev-section-pct">100%</span></div>`;
+    html += exact.map(a => renderAnalogCard(a, 100, [])).join('');
+  }
+
+  if (similar.length > 0) {
+    html += `<div class="dev-section-hdr similar">Похожие устройства</div>`;
+    html += similar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
+  }
+
+  show('s-search');
+  area.innerHTML = html;
+  document.getElementById('s-search').scrollTo(0, 0);
+}
+
+function backToSearchResults() {
+  if (lastSearchOrigin === 'intro') {
+    // Close s-search, restore intro with previous query
+    show('s-intro');
+    const inp = document.getElementById('intro-srch');
+    if (inp && lastSearchQuery) {
+      inp.value = lastSearchQuery;
+      onIntroSearch(lastSearchQuery);
+    }
+  } else {
+    // Came from s-search list — restore it
+    const inp = document.getElementById('srch-input');
+    if (lastSearchQuery && inp) {
+      inp.value = lastSearchQuery;
+      onSearchInput(lastSearchQuery);
+    } else {
+      document.getElementById('srch-results-area').innerHTML = '';
+    }
+  }
 }
 
 function el(id) { return document.getElementById(id); }
@@ -4031,7 +5157,7 @@ function _renderResults(top) {
   el("chips-wrap").style.display = chips ? "block" : "none";
 
   const exact    = top.filter(t => t.mm.length === 0);
-  const near     = top.filter(t => t.mm.length > 0).slice(0, 6);
+  const near     = top.filter(t => t.mm.length > 0);
   const upgrades = getUpgrades(exact);
 
   let subParts = [];
@@ -4040,7 +5166,7 @@ function _renderResults(top) {
   if (near.length > 0)     subParts.push(`<b>${near.length}</b> похожих`);
   el("res-sub").innerHTML = subParts.length
     ? subParts.join(" · ")
-    : `<b>${near.length}</b> похожих вариантов`;
+    : `Лучшие ${top.length} вариантов по совпадению`;
 
   const list = el("results-list");
   list.innerHTML = "";
