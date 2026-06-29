@@ -248,15 +248,44 @@ html, body {
   font-size: 13px; color: var(--text-2);
   margin-bottom: 20px;
 }
+.intro-db-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -6px auto 18px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8E1231, #D4263F);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(142,18,49,.22);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.intro-db-sticker::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.18);
+  flex-shrink: 0;
+}
 
 .intro-headline {
   font-size: 32px; font-weight: 800;
   line-height: 1.15; letter-spacing: -0.8px;
   margin-bottom: 12px;
-  overflow: hidden; max-height: 160px; opacity: 1;
+  overflow: hidden; max-height: 230px; opacity: 1;
   transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
 .intro-headline .accent { color: var(--blue); }
+.intro-headline-extra {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--text);
+}
 
 .intro-desc {
   font-size: 14px; color: var(--text-2);
@@ -265,24 +294,68 @@ html, body {
   transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
 }
 .intro-desc .accent { color: var(--blue); font-weight: 600; }
+.intro-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 14px;
+  max-height: 180px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height .25s ease, opacity .2s ease, margin .25s ease;
+}
 
 .btn-start {
-  width: 100%; height: 58px;
+  width: 100%; height: 52px;
   background: var(--blue);
-  border: none; border-radius: 18px;
-  font-size: 18px; font-weight: 700; color: white;
+  border: none; border-radius: 15px;
+  font-size: 16px; font-weight: 700; color: white;
   cursor: pointer; letter-spacing: -0.2px;
   transition: opacity .15s, transform .1s, max-height .25s ease, margin .25s ease;
   box-shadow: 0 6px 20px rgba(var(--blue-rgb), .28);
-  margin-bottom: 14px;
+  margin-bottom: 0;
   overflow: hidden; max-height: 80px; opacity: 1;
 }
 .btn-start:active { opacity: .88; transform: scale(.98); }
+.intro-donate {
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(142,18,49,.20);
+  background: rgba(142,18,49,.07);
+  color: #8E1231;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 750;
+}
+.intro-donate svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.intro-partners {
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.35;
+}
+.intro-partners strong {
+  color: var(--text-2);
+  font-weight: 600;
+}
 
 /* ── Search-active state ── */
 #s-intro.intro-searching .intro-headline,
 #s-intro.intro-searching .intro-desc,
-#s-intro.intro-searching #btn-start {
+#s-intro.intro-searching .intro-actions {
   max-height: 0 !important;
   opacity: 0;
   margin-top: 0;
@@ -299,7 +372,7 @@ html, body {
 .intro-search-card {
   background: white;
   border-radius: 20px;
-  padding: 18px 16px 16px;
+  padding: 16px 14px 14px;
   box-shadow: 0 2px 16px rgba(0,0,0,.07);
   margin-bottom: 14px;
   text-align: center;
@@ -327,7 +400,7 @@ html, body {
   border-radius: 12px;
   border: 1.5px solid var(--border);
   padding: 0 10px 0 12px;
-  height: 46px;
+  height: 44px;
   box-sizing: border-box;
   transition: border-color .15s;
 }
@@ -374,6 +447,267 @@ html, body {
 .icard-sub {
   font-size: 10px; color: var(--text-2);
   line-height: 1.3; text-align: center;
+}
+
+/* ── Intro redesign ───────────────────────────────── */
+#s-intro {
+  min-height: 100dvh;
+  align-items: flex-start;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(var(--blue-rgb), .12) 0 0, transparent 260px),
+    linear-gradient(180deg, #F4F9FF 0%, #FFFFFF 48%, #F6FAFF 100%);
+}
+#s-intro::before {
+  top: auto;
+  left: 28px;
+  bottom: 118px;
+  width: 150px;
+  height: 90px;
+}
+#s-intro::after {
+  top: 18px;
+  right: 18px;
+  width: 150px;
+  height: 120px;
+}
+.intro-inner {
+  max-width: 480px;
+  min-height: 100dvh;
+  padding: clamp(30px, 4.5dvh, 48px) 34px clamp(22px, 3dvh, 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+}
+.intro-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(16px, 2.8dvh, 28px);
+}
+.intro-brand-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.intro-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  margin: 0 0 12px;
+  box-shadow: 0 18px 46px rgba(var(--blue-rgb), .10);
+}
+.intro-icon svg {
+  width: 38px;
+  height: 38px;
+}
+.intro-title {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.intro-tagline {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+.intro-main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(24px, 3.6dvh, 36px);
+}
+.intro-left,
+.intro-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.intro-db-sticker {
+  margin: 0 0 clamp(22px, 3.4dvh, 34px);
+  padding: 9px 15px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #9B1234 0%, #D2234A 100%);
+  box-shadow: 0 14px 28px rgba(155,18,52,.24);
+}
+.intro-headline {
+  font-size: 25px;
+  line-height: 1.12;
+  letter-spacing: -.6px;
+  margin-bottom: 12px;
+  max-height: none;
+}
+.intro-headline span {
+  display: block;
+  white-space: nowrap;
+}
+.intro-headline-extra {
+  display: block;
+  margin: 0 0 clamp(18px, 2.7dvh, 28px);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text);
+}
+.intro-desc {
+  max-height: none;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.intro-actions {
+  width: 100%;
+  max-height: none;
+  margin-bottom: clamp(16px, 2.4dvh, 24px);
+  overflow: visible;
+}
+.intro-action-head {
+  display: none;
+}
+.btn-start {
+  height: 56px;
+  border-radius: 14px;
+  font-size: 18px;
+}
+.intro-or {
+  display: none;
+}
+.intro-search-card {
+  width: 100%;
+  margin: 0;
+  padding: 20px 16px 18px;
+  border-radius: 18px;
+  box-shadow: 0 12px 38px rgba(38,75,120,.09);
+  text-align: left;
+}
+.intro-search-card-hdr {
+  justify-content: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.intro-search-card-hdr::before,
+.intro-search-card-hdr::after {
+  display: none;
+}
+.intro-search-icon,
+.intro-action-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: var(--blue-bg);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.intro-search-icon svg,
+.intro-action-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.intro-search-card-title {
+  display: block;
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.intro-search-card-sub {
+  font-size: 13px;
+  margin: 0;
+}
+.intro-search-wrap {
+  height: 54px;
+  border-radius: 14px;
+  padding-left: 14px;
+}
+.intro-srch-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+}
+.intro-footer {
+  margin-top: clamp(24px, 3.4dvh, 36px);
+  padding-top: clamp(16px, 2.4dvh, 24px);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  row-gap: 12px;
+  column-gap: 10px;
+  font-size: 11px;
+}
+.intro-footer svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.intro-footer-link,
+.intro-footer-mail,
+.intro-footer-privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+  text-decoration: none;
+}
+.intro-footer-link.donate {
+  color: var(--text);
+}
+.intro-footer-link.donate svg {
+  color: #B11235;
+}
+.intro-footer-privacy {
+  grid-column: 1 / -1;
+  order: 2;
+  width: 100%;
+  justify-content: center;
+  color: var(--text-3);
+  text-align: center;
+  white-space: nowrap;
+}
+.intro-footer-privacy::before,
+.intro-footer-privacy::after {
+  display: none;
+}
+.intro-footer-mail {
+  grid-column: auto;
+  order: 1;
+  color: var(--text-2);
+  justify-self: end;
+}
+.intro-footer-link.donate {
+  order: 1;
+  justify-self: start;
+}
+
+@media (max-width: 390px) {
+  .intro-inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .intro-headline {
+    font-size: 23px;
+  }
+  .intro-footer {
+    font-size: 10.5px;
+    column-gap: 8px;
+  }
+  .intro-footer-privacy {
+    font-size: 10px;
+  }
 }
 
 /* ── Search screen ── */
@@ -632,6 +966,15 @@ html, body {
   font-size: 12px; font-weight: 500;
   color: var(--text-2);
 }
+.dev-profile-specs-full {
+  margin-top: 14px;
+}
+.dev-profile-specs-full .specs-full-toggle {
+  background: var(--bg);
+}
+.dev-profile-desc {
+  margin-top: 8px;
+}
 
 /* Section headers — same as .res-section-header */
 .dev-section-hdr {
@@ -648,16 +991,17 @@ html, body {
   flex: 1; height: 1px;
   background: var(--border);
 }
-.dev-section-hdr.exact { color: var(--green-text); }
+.dev-section-hdr.exact { color: var(--text); }
 .dev-section-hdr.similar { color: var(--text-2); }
-.dev-section-hdr.upgrade { color: var(--blue); }
+.dev-section-hdr.upgrade { color: var(--green-text); }
 
 .dev-section-pct {
   font-size: 12px; font-weight: 700;
-  color: #fff;
-  background: var(--green-text);
+  color: var(--green-text);
+  background: var(--green-bg);
   border-radius: 20px;
-  padding: 2px 9px;
+  padding: 3px 10px;
+  letter-spacing: 0;
 }
 
 .dev-no-exact {
@@ -698,7 +1042,7 @@ html, body {
 /* Analog cards — same structure as .dev-card but compact */
 .analog-card {
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 14px;
   border: 0.5px solid var(--border);
   overflow: hidden;
   margin-bottom: 8px;
@@ -706,17 +1050,18 @@ html, body {
   transition: opacity .12s;
   display: flex;
   align-items: center;
+  box-shadow: none;
 }
 .analog-card:active { opacity: .72; }
 .analog-card-hdr {
-  background: var(--blue);
-  width: 6px;
+  background: transparent;
+  width: 0;
   align-self: stretch;
   flex-shrink: 0;
 }
 .analog-card-body {
   flex: 1; min-width: 0;
-  padding: 11px 14px;
+  padding: 14px 16px;
 }
 .analog-card-brand {
   font-size: 10px; font-weight: 600;
@@ -747,12 +1092,18 @@ html, body {
   color: var(--text);
 }
 .analog-card-pct {
-  font-size: 13px; font-weight: 700;
+  font-size: 12px; font-weight: 700;
   color: var(--green-text);
-  padding-right: 14px;
+  background: var(--green-bg);
+  border-radius: 999px;
+  padding: 5px 10px;
+  margin-right: 10px;
   flex-shrink: 0;
 }
-.analog-card-pct.dim { color: var(--text-3); }
+.analog-card-pct.dim {
+  color: var(--text-2);
+  background: var(--bg);
+}
 .analog-card .fav-btn {
   margin-right: 10px;
   width: 32px;
@@ -1511,23 +1862,34 @@ html, body {
 .btn-site:active { background: var(--border); }
 .btn-site svg { width: 16px; height: 16px; stroke: var(--text-2); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-.btn-rutube {
-  display: flex; align-items: center; justify-content: center;
+.review-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
-  width: 100%; height: 36px;
-  background: none;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  font-size: 14px; font-weight: 500;
+  margin-top: 18px;
+  margin-bottom: 2px;
+}
+.btn-rutube,
+.btn-youtube {
+  display: flex; align-items: center; justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  height: 38px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 10px;
+  font-size: 13px; font-weight: 600;
   color: var(--text-2);
   cursor: pointer;
   text-decoration: none;
-  transition: opacity .15s;
-  margin-top: 10px;
+  transition: background .15s, opacity .15s;
 }
-.btn-rutube:active { opacity: .6; }
-.btn-rutube-logo { width: 18px; height: 18px; flex-shrink: 0; border-radius: 5px; }
+.btn-rutube:active,
+.btn-youtube:active { opacity: .65; }
+.btn-rutube-logo,
+.btn-youtube-logo { width: 18px; height: 18px; flex-shrink: 0; border-radius: 5px; }
+.btn-youtube-logo { border-radius: 4px; }
 
 /* Restart */
 .restart-wrap { padding: 14px 18px 0; }
@@ -1823,34 +2185,37 @@ html, body {
   #s-intro::after  { width: 320px; height: 320px; }
 
   .intro-inner {
-    max-width: 1120px;
+    max-width: 1040px;
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 450px) minmax(340px, 460px);
     grid-template-areas:
       "left right"
-      "cards cards"
       "footer footer";
-    column-gap: 54px;
-    row-gap: 34px;
-    align-items: start;
-    padding: 42px 50px 28px;
+    column-gap: 58px;
+    row-gap: 22px;
+    align-items: center;
+    justify-content: center;
+    padding: 46px 52px 26px;
     background: white;
     border-radius: 28px;
     box-shadow: 0 12px 56px rgba(var(--blue-rgb), .14);
-    text-align: left;
+    text-align: center;
   }
   .intro-left {
     grid-area: left;
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
   }
   .intro-right {
     grid-area: right;
     position: relative;
-    min-height: 392px;
+    min-height: 330px;
+    display: flex;
+    align-items: center;
   }
   .intro-right::before {
     display: none;
@@ -1870,32 +2235,49 @@ html, body {
   }
   .intro-tagline {
     font-size: 13px;
-    margin-bottom: 28px;
+    margin-bottom: 14px;
+  }
+  .intro-db-sticker {
+    margin: 0 0 24px;
+    padding: 9px 13px;
+    font-size: 12px;
   }
   .intro-headline {
-    font-size: 42px;
-    line-height: 1.12;
+    font-size: 38px;
+    line-height: 1.1;
     letter-spacing: -1px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .intro-desc {
     font-size: 15px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+  }
+  .intro-actions {
+    width: 330px;
+    align-items: stretch;
+    margin-bottom: 0;
   }
   .btn-start {
-    max-width: 330px;
-    height: 60px;
-    font-size: 18px;
+    height: 54px;
+    font-size: 17px;
     border-radius: 14px;
     margin-bottom: 0;
+  }
+  .intro-donate {
+    height: 44px;
+    border-radius: 13px;
+  }
+  .intro-partners {
+    text-align: center;
   }
   .intro-search-card {
     position: relative;
     z-index: 2;
-    margin-top: 80px;
+    width: 100%;
+    margin-top: 0;
     margin-bottom: 0;
-    min-height: 350px;
-    padding: 28px 28px 24px;
+    min-height: 300px;
+    padding: 22px 24px 20px;
     border: 1px solid var(--border);
     border-radius: 24px;
     box-shadow: 0 10px 34px rgba(var(--blue-rgb), .08);
@@ -1910,10 +2292,10 @@ html, body {
     content: '';
     position: absolute;
     left: 50%;
-    top: 236px;
+    top: 220px;
     transform: translate(-50%, -50%);
-    width: 330px;
-    height: 330px;
+    width: 292px;
+    height: 292px;
     border: 2px solid rgba(var(--blue-rgb), .055);
     border-radius: 50%;
     box-shadow: 0 0 0 24px rgba(var(--blue-rgb), .025);
@@ -1924,10 +2306,10 @@ html, body {
     content: '';
     position: absolute;
     left: 50%;
-    top: 250px;
+    top: 232px;
     transform: translate(-50%, -50%);
-    width: 218px;
-    height: 108px;
+    width: 198px;
+    height: 98px;
     border: 2px solid rgba(var(--blue-rgb), .15);
     border-radius: 28px;
     background:
@@ -1946,45 +2328,16 @@ html, body {
   .intro-search-card-title { font-size: 15px; }
   .intro-search-card-sub { font-size: 13px; margin-bottom: 14px; }
   .intro-search-wrap {
-    height: 54px;
+    height: 50px;
     border-radius: 14px;
     padding-left: 16px;
     background: rgba(242,242,247,.92);
     box-shadow: inset 0 1px 2px rgba(0,0,0,.03);
   }
   .intro-srch-input { font-size: 15px; }
-  .intro-srch-arrow { width: 38px; height: 38px; border-radius: 11px; }
+  .intro-srch-arrow { width: 36px; height: 36px; border-radius: 11px; }
   .intro-cards {
-    grid-area: cards;
-    gap: 16px;
-    margin: 0 0 8px;
-  }
-  .icard {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 14px;
-    row-gap: 4px;
-    align-items: center;
-    padding: 18px 22px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    box-shadow: none;
-  }
-  .icard-icon {
-    grid-row: 1 / 3;
-    width: 52px;
-    height: 52px;
-  }
-  .icard-title {
-    grid-column: 2;
-    font-size: 15px;
-    margin: 0;
-  }
-  .icard-sub {
-    grid-column: 2;
-    font-size: 13px;
-    text-align: left;
+    display: none;
   }
   .intro-footer {
     grid-area: footer;
@@ -2050,6 +2403,282 @@ html, body {
   }
   #s-intro.intro-searching .intro-search-card::before,
   #s-intro.intro-searching .intro-search-card::after {
+    display: none;
+  }
+
+  /* ── Intro redesign desktop overrides ── */
+  #s-intro {
+    padding: 40px 48px;
+    align-items: center;
+  }
+  #s-intro::before {
+    left: 28px;
+    bottom: 120px;
+    width: 178px;
+    height: 108px;
+  }
+  #s-intro::after {
+    top: 18px;
+    right: 124px;
+    width: 178px;
+    height: 150px;
+  }
+  .intro-inner {
+    max-width: 1180px;
+    min-height: min(720px, calc(100dvh - 80px));
+    padding: 30px 12px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "main"
+      "favorites"
+      "footer";
+    row-gap: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: left;
+  }
+  .intro-brand {
+    grid-area: brand;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 22px;
+    margin-bottom: 56px;
+    text-align: left;
+  }
+  .intro-brand-copy {
+    align-items: flex-start;
+  }
+  .intro-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    margin: 0;
+  }
+  .intro-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+  .intro-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .intro-tagline {
+    font-size: 14px;
+  }
+  .intro-main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: minmax(420px, 1fr) minmax(420px, 600px);
+    align-items: center;
+    gap: 74px;
+    width: 100%;
+  }
+  .intro-left,
+  .intro-right {
+    grid-area: auto;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .intro-main > .intro-left {
+    grid-column: 1;
+  }
+  .intro-main > .intro-right {
+    grid-column: 2;
+    min-width: 0;
+  }
+  .intro-db-sticker {
+    margin: 0 0 60px;
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+  .intro-headline {
+    font-size: 44px;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+    max-width: 560px;
+  }
+  .intro-headline span {
+    display: inline;
+    white-space: normal;
+  }
+  .intro-headline .accent {
+    display: block;
+  }
+  .intro-headline-extra {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+  .intro-desc {
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .intro-actions {
+    width: 100%;
+    gap: 28px;
+    margin: 0 0 36px;
+  }
+  .intro-action-head {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .intro-action-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+  }
+  .intro-action-icon svg {
+    width: 31px;
+    height: 31px;
+  }
+  .intro-action-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .intro-action-sub {
+    font-size: 16px;
+    color: var(--text-2);
+  }
+  .btn-start {
+    height: 70px;
+    border-radius: 10px;
+    font-size: 22px;
+  }
+  .intro-or {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 36px;
+    color: var(--text-2);
+    font-size: 13px;
+    font-style: normal;
+  }
+  .intro-or span {
+    height: 1px;
+    flex: 1;
+    background: var(--border);
+  }
+  .intro-or em {
+    font-style: normal;
+  }
+  .intro-search-card {
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    overflow: visible;
+  }
+  .intro-search-card::before,
+  .intro-search-card::after {
+    display: none;
+  }
+  .intro-search-card-hdr {
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+  .intro-search-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+  }
+  .intro-search-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  .intro-search-card-title {
+    font-size: 20px;
+  }
+  .intro-search-card-sub {
+    font-size: 16px;
+  }
+  .intro-search-wrap {
+    height: 70px;
+    border-radius: 10px;
+    padding: 0 16px 0 24px;
+    background: rgba(255,255,255,.54);
+  }
+  .intro-srch-input {
+    font-size: 18px;
+  }
+  .intro-srch-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+  }
+  .favorite-panel {
+    grid-area: favorites;
+    max-width: 600px;
+    margin-left: auto;
+  }
+  .intro-footer {
+    grid-area: footer;
+    margin-top: auto;
+    padding: 34px 82px 30px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr) minmax(0, 1fr);
+    column-gap: 40px;
+    row-gap: 0;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .intro-footer-link,
+  .intro-footer-mail,
+  .intro-footer-privacy {
+    width: 100%;
+    justify-content: center;
+    order: 0;
+  }
+  .intro-footer-link.donate {
+    grid-column: 1;
+    order: 0;
+    justify-content: flex-start;
+  }
+  .intro-footer-mail {
+    grid-column: 3;
+    order: 0;
+    justify-content: flex-end;
+    color: var(--text);
+  }
+  .intro-footer-privacy {
+    grid-column: 2;
+    order: 0;
+    white-space: nowrap;
+  }
+  .intro-footer-privacy::before,
+  .intro-footer-privacy::after {
+    display: none;
+  }
+  .intro-footer-privacy,
+  .intro-footer-mail {
+    border-left: 1px solid var(--border);
+  }
+  #s-intro.intro-searching .intro-inner {
+    grid-template-areas:
+      "brand"
+      "main"
+      "favorites"
+      "footer";
+  }
+  #s-intro.intro-searching .intro-left {
+    min-height: 0;
+  }
+  #s-intro.intro-searching .intro-left::before,
+  #s-intro.intro-searching .intro-left::after {
+    display: none;
+  }
+  #s-intro.intro-searching .intro-headline,
+  #s-intro.intro-searching .intro-desc,
+  #s-intro.intro-searching .intro-actions {
     display: none;
   }
 
@@ -2220,6 +2849,34 @@ html, body {
   /* ── Restart button: constrained, not full-screen-width ── */
   .btn-restart { border-radius: 20px; height: 58px; font-size: 16px; }
 }
+
+@media (max-width: 699px) {
+  .intro-footer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-areas:
+      "donate mail"
+      "privacy privacy" !important;
+    row-gap: 12px !important;
+    column-gap: 10px !important;
+  }
+  .intro-footer-link.donate {
+    grid-area: donate !important;
+    justify-self: start !important;
+    order: 0 !important;
+  }
+  .intro-footer-mail {
+    grid-area: mail !important;
+    justify-self: end !important;
+    order: 0 !important;
+  }
+  .intro-footer-privacy {
+    grid-area: privacy !important;
+    justify-self: center !important;
+    order: 0 !important;
+    width: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2252,7 +2909,7 @@ html, body {
         <div class="hd-sub">Ваш путеводитель в мире регистраторов!</div>
       </div>
     </div>
-    <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="btn-hd-donate" id="btn-hd-donate">
+    <a href="https://pay.cloudtips.ru/p/e59b49db" target="_blank" class="btn-hd-donate" id="btn-hd-donate">
       ☕ Поддержать
     </a>
     <!-- Desktop: expanded support block -->
@@ -2264,7 +2921,7 @@ html, body {
           <div class="hd-support-sub">Помогите нам развиваться</div>
         </div>
       </div>
-      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="hd-btn-donate">Отправить донат</a>
+      <a href="https://pay.cloudtips.ru/p/e59b49db" target="_blank" class="hd-btn-donate">Отправить донат</a>
     </div>
     <a href="mailto:partners@vbrbot.ru" class="hd-contact-block">
       <div class="hd-contact-icon">
@@ -2287,81 +2944,92 @@ html, body {
 <div id="s-intro" class="screen on">
   <div class="intro-inner">
 
-    <div class="intro-left">
-      <!-- Logo + title -->
+    <div class="intro-brand">
       <div class="intro-icon">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
         </svg>
       </div>
-      <div class="intro-title">VBR <span class="accent">БОТ</span></div>
-      <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
-
-      <!-- Headline + desc -->
-      <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
-      <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
-
-      <!-- CTA -->
-      <button class="btn-start" id="btn-start">Начать подбор →</button>
-    </div>
-
-    <div class="intro-right">
-      <!-- Search card -->
-      <div class="intro-search-card">
-        <div class="intro-search-card-hdr">
-          <span class="intro-search-card-title">Уже выбрали модель?</span>
-        </div>
-        <div class="intro-search-card-sub">Введите название и найдите аналогичное устройство</div>
-        <div class="intro-search-wrap">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="intro-srch" class="intro-srch-input" type="text"
-            placeholder="Например 70Mai M500 или iBOX Roadscan"
-            autocomplete="off" autocorrect="off" spellcheck="false"
-            oninput="onIntroSearch(this.value)">
-          <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-          <button class="intro-srch-arrow" id="intro-srch-arrow" onclick="document.getElementById('intro-srch').focus()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
-        <div id="intro-srch-results"></div>
-      </div>
-      <div class="favorite-panel" id="favorite-panel" style="display:none">
-        <div class="favorite-panel-title">
-          Избранное
-          <span class="favorite-panel-note">сохранено в браузере</span>
-        </div>
-        <div class="favorite-list" id="favorite-list"></div>
+      <div class="intro-brand-copy">
+        <div class="intro-title">VBR <span class="accent">БОТ</span></div>
+        <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
       </div>
     </div>
 
-    <!-- Feature cards -->
-    <div class="intro-cards" id="intro-cards">
-      <div class="icard">
-        <div class="icard-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <div class="icard-title">Быстро</div>
-        <div class="icard-sub">Всего несколько вопросов</div>
+    <div class="intro-main">
+      <div class="intro-left">
+        <div class="intro-db-sticker" id="intro-db-sticker">База обновляется</div>
+        <div class="intro-headline"><span>Подберем лучший регистратор</span><span class="accent">для ваших задач.</span></div>
+        <div class="intro-headline-extra">Быстро. Удобно. Бесплатно.</div>
+        <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
       </div>
-      <div class="icard">
-        <div class="icard-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+
+      <div class="intro-right">
+        <div class="intro-actions">
+          <div class="intro-action-head">
+            <div class="intro-action-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 18h.01"/><path d="M9.1 9a3 3 0 1 1 5.8 1.4c-.7 1.2-1.9 1.5-2.5 2.4-.3.4-.4.8-.4 1.2"/><path d="M21 11.5a8.5 8.5 0 0 1-12.2 7.7L4 20l.8-4.7A8.5 8.5 0 1 1 21 11.5z"/></svg>
+            </div>
+            <div>
+              <div class="intro-action-title">Ответьте на несколько вопросов</div>
+              <div class="intro-action-sub">и получите подборку подходящих моделей</div>
+            </div>
+          </div>
+          <button class="btn-start" id="btn-start">Начать подбор →</button>
         </div>
-        <div class="icard-title">Удобно</div>
-        <div class="icard-sub">Подберем то, что нужно</div>
-      </div>
-      <div class="icard">
-        <div class="icard-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+
+        <div class="intro-or"><span></span><em>или</em><span></span></div>
+
+        <div class="intro-search-card">
+          <div class="intro-search-card-hdr">
+            <div class="intro-search-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div>
+              <span class="intro-search-card-title">Уже выбрали модель?</span>
+              <div class="intro-search-card-sub">Введите название и найдите аналогичное устройство</div>
+            </div>
+          </div>
+          <div class="intro-search-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="intro-srch" class="intro-srch-input" type="text"
+              placeholder="Например 70Mai M500 или iBOX RoadScan 4K"
+              autocomplete="off" autocorrect="off" spellcheck="false"
+              oninput="onIntroSearch(this.value)">
+            <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <button class="intro-srch-arrow" id="intro-srch-arrow" onclick="document.getElementById('intro-srch').focus()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <div id="intro-srch-results"></div>
         </div>
-        <div class="icard-title">Бесплатно</div>
-        <div class="icard-sub">Без подписок и скрытых платежей</div>
       </div>
     </div>
 
-    <div class="intro-footer" id="intro-footer">🛡️ Конфиденциально. Никаких личных данных.</div>
+    <div class="favorite-panel" id="favorite-panel" style="display:none">
+      <div class="favorite-panel-title">
+        Избранное
+        <span class="favorite-panel-note">сохранено в браузере</span>
+      </div>
+      <div class="favorite-list" id="favorite-list"></div>
+    </div>
+
+    <div class="intro-footer" id="intro-footer">
+      <a class="intro-footer-link donate" href="https://pay.cloudtips.ru/p/e59b49db" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.2-9.2C1.2 8.3 3.3 5 6.8 5c2 0 3.4 1.1 4.2 2.2C11.8 6.1 13.2 5 15.2 5c3.5 0 5.6 3.3 4 6.8C17 16.6 12 21 12 21z"/></svg>
+        <span>Донат и поддержка</span>
+      </a>
+      <div class="intro-footer-privacy">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Конфиденциально. Никаких личных данных.</span>
+      </div>
+      <div class="intro-footer-mail">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+        <span>partners@vbrbot.ru</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2499,7 +3167,7 @@ html, body {
           <div class="support-sub">Помогите нам развиваться</div>
         </div>
       </div>
-      <a href="https://www.tbank.ru/cf/1en72EyvsVn" target="_blank" class="btn-support">
+      <a href="https://pay.cloudtips.ru/p/e59b49db" target="_blank" class="btn-support">
         Отправить донат
       </a>
       <div class="support-or">или</div>
@@ -3377,8 +4045,8 @@ const DEVICES = [
 
   {name:"iBOX F5 PRO 4K LaserScan WiFi",  brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:3,
-   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
-   desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, LNA-усилитель, сигнатурный радар, Wi-Fi, магнитное крепление.",
+   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, LNA-усилитель, сигнатурный радар, Wi-Fi, обычное крепление.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~24 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-f5-pro-4k-laserscan-wifi-signature-dual/",
@@ -5235,6 +5903,117 @@ const DEVICES = [
    photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/v/i/videoregistrator-sho-me-sfhd-600-01.png",
    specs:{processor:"JL 5201B",display_type:null,screen_size:"4.3\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
 
+  /* ── Playme — официальная российская линейка ─────────────── */
+  {name:"Playme MARK", brand:"Playme",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Сигнатурное комбо 3 в 1 с Super HD-видеозаписью, Wi-Fi, CPL-фильтром, радар-детектором и GPS-информатором.",
+   resolution:"Super HD 2304×1296", angle:"135°", screen:"дисплей", gps:"GPS-информатор",
+   price:"~19 990 ₽",
+   url:"https://playme-russia.ru/catalog/kombinirovannye-ustroystva/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:null,power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme HYPERFORCE", brand:"Playme",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Сигнатурное комбо 3 в 1 премиум-сегмента с Wi-Fi, Super HD-записью, радар-детектором и GPS-информатором.",
+   resolution:"Super HD 2304×1296", angle:"", screen:"3.16\"", gps:"GPS-информатор",
+   price:"~21 990 ₽",
+   url:"https://playme-russia.ru/catalog/kombinirovannye-ustroystva/",
+   photo:null,
+   specs:{processor:"Mstar 8339",display_type:null,screen_size:"3.16\"",max_sd:"256 ГБ",power_element:null,power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme MARK SE", brand:"Playme",
+   type:"комбо 3 в 1", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Гибридное комбо 3 в 1 с радар-детектором, Super HD-записью, Wi-Fi, CPL-фильтром и GPS-информатором.",
+   resolution:"Super HD 2304×1296", angle:"135°", screen:"3.0\"", gps:"GPS-информатор",
+   price:"~16 990 ₽",
+   url:"https://playme-russia.ru/catalog/kombinirovannye-ustroystva/",
+   photo:null,
+   specs:{processor:"Mstar 8336",display_type:null,screen_size:"3.0\"",max_sd:"128 ГБ",power_element:null,power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme SCOUT", brand:"Playme",
+   type:"комбо 3 в 1", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3 в 1 в формате зеркала: Super HD-регистратор, радар-детектор с патч-антенной, GPS-база, Wi-Fi и поддержка второй камеры.",
+   resolution:"Super HD 2304×1296", angle:"140°", screen:"5\" IPS сенсорный", gps:"GPS-информатор",
+   price:"~18 990 ₽",
+   url:"https://playme-russia.ru/product/playme-scout/",
+   photo:null,
+   specs:{processor:"MSTAR",display_type:"IPS",screen_size:"5\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 12V",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme GAME", brand:"Playme",
+   type:"видеорегистратор", form:"без экрана", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный видеорегистратор высокого разрешения с Wi-Fi и управлением через смартфон.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"", screen:"без экрана", gps:"нет",
+   price:"~3 490 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme X PRO", brand:"Playme",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:true, remote:false,
+   desc:"Двухканальный Quad HD-видеорегистратор для коммерческого транспорта с Wi-Fi, внутрисалонной камерой и поддержкой задней камеры.",
+   resolution:"2.5K 2560×1440 + Full HD салон", angle:"", screen:"без экрана", gps:"нет",
+   price:"~12 990 ₽",
+   url:"https://playme-russia.ru/product/playme-x-pro/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme FORCE PRO", brand:"Playme",
+   type:"gps-информер", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Видеорегистратор высокого разрешения с Wi-Fi, CPL-фильтром, магнитным поворотным креплением и GPS-информатором о камерах и радарах.",
+   resolution:"Super HD 2304×1296", angle:"", screen:"2\" IPS", gps:"GPS-информатор",
+   price:"~12 990 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme X SE", brand:"Playme",
+   type:"видеорегистратор", form:"без экрана", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Full HD-видеорегистратор с Wi-Fi для вывода изображения на Android-автомагнитолу.",
+   resolution:"Full HD 1920×1080 @30fps", angle:"", screen:"вывод на Android-магнитолу", gps:"нет",
+   price:"~4 490 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"64 ГБ",power_element:null,power_type:"5V USB",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme X", brand:"Playme",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный Quad HD-видеорегистратор с управлением через смартфон.",
+   resolution:"2.5K 2560×1440 @30fps", angle:"", screen:"без экрана", gps:"нет",
+   price:"~9 990 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme FORCE DUAL", brand:"Playme",
+   type:"видеорегистратор", form:"с экраном", q:2,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Двухканальный видеорегистратор с Wi-Fi, CPL-фильтром, магнитным поворотным креплением и поддержкой задней камеры.",
+   resolution:"Super HD 2304×1296 / Full HD + Full HD", angle:"", screen:"2\" IPS", gps:"нет",
+   price:"~6 990 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:"IPS",screen_size:"2\"",max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Playme FORCE 4K", brand:"Playme",
+   type:"видеорегистратор", form:"с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Флагманский 4K-видеорегистратор с Wi-Fi и GPS.",
+   resolution:"4K Ultra HD", angle:"", screen:"дисплей", gps:"GPS",
+   price:"~19 990 ₽",
+   url:"https://playme-russia.ru/catalog/videoregistratory/",
+   photo:null,
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:null,power_type:"Type-C",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
   /* ── DDPAI — российская линейка ───────────────────────── */
   {name:"DDPAI Dash Cam MINI2X 2K", brand:"DDPAI",
    type:"видеорегистратор", form:"без экрана", q:2,
@@ -5379,6 +6158,7 @@ function manufacturerSearchUrl(d) {
   if (brand === "ddpai") return `https://ddpai-russia.ru/?s=${q}`;
   if (brand === "70mai") return `https://70mai-russia.com/?s=${q}`;
   if (brand === "sho-me") return `https://sho-me.ru/catalogsearch/result/?q=${q}`;
+  if (brand === "playme") return `https://playme-russia.ru/search/?q=${q}`;
 
   return fallback;
 }
@@ -5661,28 +6441,80 @@ const COMPROMISE_HINTS = {
   smartphone: { да: "Отказаться от Wi-Fi",           нет: "Разрешить Wi-Fi" },
   magnetic:   { да: "Убрать магнитное крепление",    нет: "Разрешить магнитное крепление" },
   rear_cam:   { да: "Убрать поддержку КЗВ", нет: "Разрешить поддержку КЗВ" },
-  touch:      { да: "Убрать сенсорный экран",        нет: "Разрешить сенсорный экран" },
+  touch:      { да: "Убрать сенсорное управление",   нет: "Разрешить сенсорное управление" },
   ir_cam:     { да: "Убрать внутрисалонную камеру",  нет: "Разрешить внутрисалонную камеру" },
   remote:     { да: "Убрать 4G/удалённый доступ",    нет: "Разрешить 4G/удалённый доступ" },
 };
 
+const COMPROMISE_FLIP_HINTS = {
+  smartphone: { да: "Заменить Wi-Fi на вариант без Wi-Fi", нет: "Заменить на модель с Wi-Fi" },
+  magnetic:   { да: "Заменить магнит на обычное крепление", нет: "Заменить на магнитное крепление" },
+  rear_cam:   { да: "Заменить на вариант без поддержки КЗВ", нет: "Добавить поддержку КЗВ" },
+  touch:      { да: "Заменить сенсорное управление на физические кнопки", нет: "Заменить физические кнопки на сенсорное управление" },
+  ir_cam:     { да: "Заменить на вариант без внутрисалонной камеры", нет: "Добавить внутрисалонную камеру" },
+  remote:     { да: "Заменить на вариант без 4G", нет: "Добавить 4G/удалённый доступ" },
+};
+
+function compromisePool() {
+  let pool = DEVICES;
+  if (answers.type && answers.type !== "неважно") {
+    const narrowed = pool.filter(d => d.type.toLowerCase() === answers.type.toLowerCase());
+    pool = narrowed.length > 0 ? narrowed : pool;
+  }
+  if (answers.form && answers.form !== "неважно") {
+    const narrowed = pool.filter(d => d.form.toLowerCase() === answers.form.toLowerCase());
+    pool = narrowed.length > 0 ? narrowed : pool;
+  }
+  return pool;
+}
+
+function evaluateCompromise() {
+  const scored = compromisePool()
+    .map(d => ({ d, ...scoreDevice(d) }))
+    .sort((a, b) => b.pct - a.pct || b.d.q - a.d.q || parsePrice(a.d.price) - parsePrice(b.d.price));
+  const exact = scored.filter(t => t.mm.length === 0);
+  const strong = exact.length ? exact : scored.filter(t => t.pct >= 80);
+  const source = strong.length ? strong : scored.slice(0, 3);
+
+  return {
+    count: strong.length,
+    exactCount: exact.length,
+    bestQ: source[0]?.d.q || 0,
+    bestPct: source[0]?.pct || 0,
+    bestPrice: source[0] ? parsePrice(source[0].d.price) : Infinity,
+  };
+}
+
 function getCompromises() {
   const suggestions = [];
 
-  // Перебираем все булевы критерии — что если убрать/изменить
+  function trySuggestion({key, val, next, hint}) {
+    const saved = answers[key];
+    answers[key] = next;
+    const stats = evaluateCompromise();
+    answers[key] = saved;
+    if (stats.count <= 0) return false;
+    suggestions.push({
+      key, val, hint,
+      count: stats.count,
+      exactCount: stats.exactCount,
+      bestQ: stats.bestQ,
+      bestPct: stats.bestPct,
+      bestPrice: stats.bestPrice,
+      action: () => { answers[key] = next; }
+    });
+    return true;
+  }
+
+  // Перебираем булевы критерии: сначала пробуем конкретную замену, затем ослабление.
   for (const k of BOOLS) {
     const val = (answers[k] || "неважно").toLowerCase();
     if (!val || val === "неважно") continue;
-    const hint = COMPROMISE_HINTS[k]?.[val];
-    if (!hint) continue;
-
-    const saved = answers[k];
-    answers[k] = "неважно";
-    const top = getTop();
-    const count = top.filter(t => t.mm.length === 0).length;
-    answers[k] = saved;
-
-    if (count > 0) suggestions.push({ key: k, val: saved, hint, count, action: () => { answers[k] = "неважно"; } });
+    const relaxHint = COMPROMISE_HINTS[k]?.[val];
+    const flipHint = COMPROMISE_FLIP_HINTS[k]?.[val];
+    const opposite = val === "да" ? "нет" : "да";
+    const hasFlip = flipHint ? trySuggestion({key: k, val, next: opposite, hint: flipHint}) : false;
+    if (!hasFlip && relaxHint) trySuggestion({key: k, val, next: "неважно", hint: relaxHint});
   }
 
   // Качество: попробовать снизить на одну ступень
@@ -5693,18 +6525,23 @@ function getCompromises() {
     const lower = qDown[qVal];
     const saved = answers.quality;
     answers.quality = lower;
-    const top = getTop();
-    const count = top.filter(t => t.mm.length === 0).length;
+    const stats = evaluateCompromise();
     answers.quality = saved;
-    if (count > 0) suggestions.push({
+    if (stats.count > 0) suggestions.push({
       key: "quality", val: qVal,
       hint: `Снизить качество до ${qDownLabels[lower]}`,
-      count,
+      count: stats.count,
+      exactCount: stats.exactCount,
+      bestQ: stats.bestQ,
+      bestPct: stats.bestPct,
+      bestPrice: stats.bestPrice,
       action: () => { answers.quality = lower; }
     });
   }
 
-  return suggestions.sort((a, b) => b.count - a.count).slice(0, 3);
+  return suggestions
+    .sort((a, b) => b.exactCount - a.exactCount || b.bestQ - a.bestQ || b.bestPct - a.bestPct || b.count - a.count || a.bestPrice - b.bestPrice)
+    .slice(0, 3);
 }
 
 // ════════════════════════════════════════════════════════
@@ -5973,23 +6810,44 @@ function openDeviceFromSearch(idx) {
   // 100% analogs: all key specs must match exactly
   const exact = DEVICES.filter(x => isExactAnalog(x, d));
 
-  // Similar: same type and same form. Better resolution goes first.
+  // Similar: same form, with useful upgrades first. For regular recorders we can
+  // also show GPS-informers because they are often a stronger practical analog.
   const similarCandidates = DEVICES.filter(x => {
     if (x === d || exact.includes(x)) return false;
-    return x.type === d.type && x.form === d.form;
+    return compatibleProfileCandidate(x, d);
   }).sort((a, b) => {
-    const aqBetter = a.q > d.q ? 1 : 0;
-    const bqBetter = b.q > d.q ? 1 : 0;
-    if (aqBetter !== bqBetter) return bqBetter - aqBetter;
-    return similarPct(b, d) - similarPct(a, d) || b.q - a.q;
-  }).map(x => ({d: x, pct: similarPct(x, d)}));
+    const upgradeDelta = upgradeScore(b, d) - upgradeScore(a, d);
+    if (upgradeDelta) return upgradeDelta;
+    const typeDelta = (b.type === d.type ? 1 : 0) - (a.type === d.type ? 1 : 0);
+    if (typeDelta) return typeDelta;
+    return similarPct(b, d) - similarPct(a, d) || b.q - a.q || primaryAngle(b) - primaryAngle(a);
+  }).map(x => ({d: x, pct: similarPct(x, d) + upgradeScore(x, d)}));
 
   const similar = pickBrandDiverse(similarCandidates, 10, 1).map(x => x.d);
 
   renderDeviceProfile(d, exact, similar);
 }
 
-function hasGPS(d) { return !!(d.gps && d.gps !== 'нет'); }
+function hasGPS(d) { return !!(isKnownSpecValue(d.gps) && d.gps !== 'нет'); }
+
+function primaryAngle(d) {
+  const nums = String(d.angle || '').match(/\d+/g);
+  if (!nums) return 0;
+  const normalAngles = nums.map(Number).filter(n => n >= 80 && n <= 220);
+  return Math.max(...(normalAngles.length ? normalAngles : nums.map(Number)));
+}
+
+function seededShuffle(items, seedText) {
+  let seed = 0;
+  for (const ch of String(seedText || '')) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+  const arr = items.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const j = seed % (i + 1);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
 function radarAntenna(d) {
   const txt = `${d.name || ""} ${d.desc || ""} ${d.gps || ""}`.toLowerCase();
@@ -6015,6 +6873,34 @@ function radarAntennaRank(d) {
   if (antenna === "horn") return 2;
   if (antenna === "patch") return 1;
   return 0;
+}
+
+function compatibleProfileCandidate(x, d) {
+  if (x.form !== d.form) return false;
+  if (d.type === "комбо 3 в 1") return x.type === d.type;
+  if (d.type === "4G-регистратор") return x.type === d.type || x.type === "видеорегистратор";
+  if (d.type === "видеорегистратор") return x.type === "видеорегистратор" || x.type === "gps-информер";
+  if (d.type === "gps-информер") return x.type === "gps-информер" || x.type === "видеорегистратор";
+  return x.type === d.type;
+}
+
+function upgradeScore(x, d) {
+  let score = 0;
+  if (x.q > d.q) score += 40;
+  if (x.q < d.q) score -= 35 * (d.q - x.q);
+  const xAngle = primaryAngle(x);
+  const dAngle = primaryAngle(d);
+  if (xAngle && dAngle && xAngle > dAngle) score += Math.min(30, xAngle - dAngle);
+  if (radarAntennaRank(x) > radarAntennaRank(d)) score += 14;
+  if (hasLNA(x) && !hasLNA(d)) score += 8;
+  if (x.rear_cam && !d.rear_cam) score += 6;
+  if (x.smartphone && !d.smartphone) score += 5;
+  if (x.magnetic && !d.magnetic) score += 4;
+  return score;
+}
+
+function isBetterAlternative(x, d) {
+  return upgradeScore(x, d) > 0;
 }
 
 function similarSectionTitle(d) {
@@ -6053,6 +6939,10 @@ function getDiffs(x, d) {
   const ql = ['','Full HD','2K','4K'];
   if (x.q !== d.q)
     diffs.push({text: x.q > d.q ? `${ql[x.q]} — лучше съёмка` : `${ql[x.q]} вместо ${ql[d.q]}`, type: x.q > d.q ? 'better' : 'worse'});
+  const xAngle = primaryAngle(x);
+  const dAngle = primaryAngle(d);
+  if (xAngle && dAngle && xAngle !== dAngle)
+    diffs.push({text: xAngle > dAngle ? `Угол обзора шире: ${xAngle}°` : `Угол обзора уже: ${xAngle}°`, type: xAngle > dAngle ? 'better' : 'worse'});
   if (x.ir_cam !== d.ir_cam)
     diffs.push({text: x.ir_cam ? 'есть внутрисалонная камера' : 'нет внутрисалонной камеры'});
   if (x.rear_cam !== d.rear_cam)
@@ -6077,6 +6967,8 @@ function getDiffs(x, d) {
   }
   if (hasGPS(x) !== hasGPS(d))
     diffs.push({text: hasGPS(x) ? 'есть GPS' : 'нет GPS'});
+  if (x.type !== d.type)
+    diffs.push({text: TYPE_SHORT[x.type] || x.type});
   if (x.form !== d.form)
     diffs.push({text: x.form});
   return diffs;
@@ -6146,8 +7038,8 @@ function renderAnalogCard(x, pct, diffs) {
       }).join('')}</div>`
     : '';
   const explanation = diffs && diffs.length
-    ? `<div class="analog-card-explain">Отличия от выбранной модели показаны ниже.</div>`
-    : `<div class="analog-card-explain">Совпадает по ключевым параметрам выбранной модели.</div>`;
+    ? `<div class="analog-card-explain">Есть отличия от выбранной модели.</div>`
+    : `<div class="analog-card-explain">Полное совпадение по ключевым параметрам.</div>`;
   const isDim = pct < 100;
   return `<div class="analog-card" onclick="openDeviceFromSearch(${DEVICES.indexOf(x)})">
     <div class="analog-card-hdr"></div>
@@ -6163,16 +7055,112 @@ function renderAnalogCard(x, pct, diffs) {
   </div>`;
 }
 
+function isKnownSpecValue(v) {
+  return v != null && String(v).trim() !== "" && String(v).trim().toLowerCase() !== "н/д";
+}
+
+function boolSpec(v) {
+  return v ? "есть" : "нет";
+}
+
+function reviewLinksHTML(d) {
+  const query = encodeURIComponent((d.brand + " " + d.name + " обзор").trim());
+  return `<div class="review-links">
+    <a class="btn-rutube" href="https://rutube.ru/search/?query=${query}" target="_blank" rel="noopener">
+      <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="5" fill="#FF4C00"/><path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/></svg>
+      Обзор на Rutube
+    </a>
+    <a class="btn-youtube" href="https://www.youtube.com/results?search_query=${query}" target="_blank" rel="noopener">
+      <svg class="btn-youtube-logo" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="18" rx="5" fill="#FF0033"/><path d="M10 5.4v7.2L16 9l-6-3.6z" fill="white"/></svg>
+      Обзор на YouTube
+    </a>
+  </div>`;
+}
+
+function positiveFeatureTagsHTML(d) {
+  const specsData = [
+    {k:"smartphone", l:"Wi-Fi"},
+    {k:"magnetic",   l:"Магнит"},
+    {k:"rear_cam",   l:"Поддержка КЗВ"},
+    {k:"touch",      l:"Сенсорное управление"},
+    {k:"rotation",   l:"Вращение"},
+    {k:"ir_cam",     l:"Внутрисалонная камера"},
+    {k:"remote",     l:"4G/удалённо"},
+  ];
+  const featureTags = specsData
+    .filter(s => d[s.k])
+    .map(s => `<span class="spec-tag has">✓ ${s.l}</span>`);
+  const antenna = radarAntenna(d);
+  if (antenna) featureTags.push(`<span class="spec-tag ${antenna === "horn" ? "better" : "qual"}">${radarAntennaLabel(d)}</span>`);
+  if (hasLNA(d)) featureTags.push(`<span class="spec-tag has">✓ LNA-усилитель</span>`);
+  return featureTags.join("");
+}
+
+function deviceSpecGridHTML(d) {
+  return `<div class="dev-specs-grid">
+    <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${isKnownSpecValue(d.resolution) ? d.resolution : '—'}</div></div>
+    <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${isKnownSpecValue(d.angle) ? d.angle : '—'}</div></div>
+    <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${isKnownSpecValue(d.screen) ? d.screen : '—'}</div></div>
+    <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${isKnownSpecValue(d.gps) ? d.gps : '—'}</div></div>
+  </div>`;
+}
+
+function deviceFullSpecsHTML(d, idSuffix = "") {
+  const antenna = radarAntennaLabel(d);
+  const rows = [
+    ["Тип устройства", TYPE_SHORT[d.type] || d.type],
+    ["Форм-фактор", d.form],
+    ["Разрешение", d.resolution],
+    ["Угол обзора", d.angle],
+    ["Экран", d.screen],
+    ["GPS", d.gps],
+    ["Wi-Fi", d.specs?.wifi_gen || boolSpec(d.smartphone)],
+    ["Магнитное крепление", boolSpec(d.magnetic)],
+    ["Поддержка КЗВ", boolSpec(d.rear_cam)],
+    ["Сенсорное управление", boolSpec(d.touch)],
+    ["Вращение камеры", boolSpec(d.rotation)],
+    ["Внутрисалонная камера", boolSpec(d.ir_cam)],
+    ["4G/удалённый доступ", boolSpec(d.remote)],
+    ["Радарная часть", antenna],
+    ["LNA-усилитель", (antenna || hasLNA(d)) ? boolSpec(hasLNA(d)) : null],
+    ["Процессор", d.specs?.processor],
+    ["Тип дисплея", d.specs?.display_type],
+    ["Размер экрана", d.specs?.screen_size],
+    ["Карта памяти", d.specs?.max_sd],
+    ["Элемент питания", d.specs?.power_element],
+    ["Тип питания", d.specs?.power_type],
+    ["G-сенсор", d.specs?.gsensor != null ? boolSpec(d.specs.gsensor) : null],
+    ["Датчик движения", d.specs?.motion != null ? boolSpec(d.specs.motion) : null],
+    ["Таймлапс", d.specs?.timelapse != null ? boolSpec(d.specs.timelapse) : null],
+  ].filter(([, val]) => isKnownSpecValue(val));
+
+  if (!rows.length) return "";
+
+  return `<div class="specs-full dev-profile-specs-full" id="profile-specs-${idSuffix}">
+    <button class="specs-full-toggle" onclick="this.closest('.specs-full').classList.toggle('open')">
+      📋 Все характеристики <span class="specs-full-arrow">›</span>
+    </button>
+    <div class="specs-full-body">
+      ${rows.map(([label, val]) => `<div class="specs-full-row">
+        <span class="specs-full-label">${label}</span>
+        <span class="specs-full-val">${val}</span>
+      </div>`).join("")}
+    </div>
+  </div>`;
+}
+
 function renderDeviceProfile(d, exact, similar) {
   const area = document.getElementById('srch-results-area');
   const ql = ['','Full HD','2K','4K'];
-  const betterSimilar = similar.filter(a => a.q > d.q);
-  const regularSimilar = similar.filter(a => a.q <= d.q);
+  const exactShown = seededShuffle(exact, d.name).slice(0, 3);
+  const betterSimilar = similar.filter(a => isBetterAlternative(a, d));
+  const regularSimilar = similar.filter(a => !isBetterAlternative(a, d));
+  const profileTags = positiveFeatureTagsHTML(d);
 
   const specChips = [
-    d.resolution ? `<span class="dev-hero-spec">${d.resolution}</span>` : '',
-    d.angle      ? `<span class="dev-hero-spec">${d.angle}</span>` : '',
-    d.screen && d.screen !== 'без экрана' ? `<span class="dev-hero-spec">${d.screen}</span>` : '',
+    isKnownSpecValue(d.resolution) ? `<span class="dev-hero-spec">${d.resolution}</span>` : '',
+    isKnownSpecValue(d.angle) ? `<span class="dev-hero-spec">${d.angle}</span>` : '',
+    isKnownSpecValue(d.screen) && d.screen !== 'без экрана' ? `<span class="dev-hero-spec">${d.screen}</span>` : '',
     hasGPS(d)    ? `<span class="dev-hero-spec">GPS</span>` : '',
     radarAntennaLabel(d) ? `<span class="dev-hero-spec">${radarAntennaLabel(d)}</span>` : '',
     hasLNA(d) ? `<span class="dev-hero-spec">LNA-усилитель</span>` : '',
@@ -6200,20 +7188,21 @@ function renderDeviceProfile(d, exact, similar) {
           ${favoriteButtonHTML(d)}
         </div>
         ${specChips ? `<div class="dev-hero-specs" style="margin-top:10px">${specChips}</div>` : ''}
+        ${d.desc ? `<div class="dev-desc dev-profile-desc">${d.desc}</div>` : ''}
+        ${profileTags ? `<div class="specs-row">${profileTags}</div>` : ''}
+        ${deviceSpecGridHTML(d)}
+        ${deviceFullSpecsHTML(d, DEVICES.indexOf(d))}
         ${d.url ? `<a class="btn-site" href="${manufacturerSearchUrl(d)}" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           Найти на сайте производителя
         </a>` : ''}
-        <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent((d.brand+' '+d.name+' обзор').trim())}" target="_blank" rel="noopener">
-          <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="5" fill="#FF4C00"/><path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/></svg>
-          Смотреть обзор на Rutube
-        </a>
+        ${reviewLinksHTML(d)}
       </div>
     </div>`;
 
   if (exact.length > 0) {
     html += `<div class="dev-section-hdr exact">Полные аналоги <span class="dev-section-pct">100%</span></div>`;
-    html += exact.map(a => renderAnalogCard(a, 100, [])).join('');
+    html += exactShown.map(a => renderAnalogCard(a, 100, [])).join('');
   } else if (similar.length > 0) {
     html += `<div class="dev-no-exact">
       <div class="dev-no-exact-icon">!</div>
@@ -6225,7 +7214,7 @@ function renderDeviceProfile(d, exact, similar) {
   }
 
   if (betterSimilar.length > 0) {
-    html += `<div class="dev-section-hdr upgrade">Лучше по съемке</div>`;
+    html += `<div class="dev-section-hdr upgrade">Похожие, но лучше</div>`;
     html += betterSimilar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
   }
 
@@ -6457,7 +7446,7 @@ function _renderResults(top) {
   const upgrades = getUpgrades(exact);
 
   let subParts = [];
-  if (exact.length > 0)    subParts.push(`<b>${exact.length}</b> точных`);
+  if (exact.length > 0)    subParts.push(`<b>${exact.length}</b> на 100%`);
   if (upgrades.length > 0) subParts.push(`<b>${upgrades.length}</b> с апгрейдом`);
   if (near.length > 0)     subParts.push(`<b>${near.length}</b> похожих`);
   el("res-sub").innerHTML = subParts.length
@@ -6532,7 +7521,7 @@ function _renderResults(top) {
         header.textContent = "Лучше по съемке";
       } else {
         header.className = `res-section-header ${isExact ? "exact" : "near"}`;
-        header.textContent = isExact ? "Полные аналоги" : "Похожие варианты";
+        header.textContent = isExact ? "Подходит на 100%" : "Похожие варианты";
       }
       list.appendChild(header);
     }
@@ -6630,12 +7619,7 @@ function _renderResults(top) {
           }
           ${explainHtml}
           <div class="specs-row">${specTags}${radarTags}${missTags}</div>
-          <div class="dev-specs-grid">
-            <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${d.resolution || '—'}</div></div>
-            <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
-            <div class="spec-cell"><div class="spec-cell-label">Экран</div><div class="spec-cell-val">${d.screen || '—'}</div></div>
-            <div class="spec-cell"><div class="spec-cell-label">GPS</div><div class="spec-cell-val">${d.gps || '—'}</div></div>
-          </div>
+          ${deviceSpecGridHTML(d)}
           <div class="specs-full" id="sf-${i}-${d.brand.replace(/\s/g,'')}">
             <button class="specs-full-toggle" onclick="this.closest('.specs-full').classList.toggle('open')">
               📋 Все характеристики <span class="specs-full-arrow">›</span>
@@ -6670,13 +7654,7 @@ function _renderResults(top) {
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             Найти на сайте производителя
           </a>` : ''}
-          <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent(d.name + ' обзор')}" target="_blank" rel="noopener">
-            <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="18" height="18" rx="5" fill="#FF4C00"/>
-              <path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/>
-            </svg>
-            Смотреть обзор на Rutube
-          </a>
+          ${reviewLinksHTML(d)}
         </div>
       </div>
     `;
@@ -6703,14 +7681,17 @@ function _renderResults(top) {
     if (compromises.length > 0) {
       const cWrap = document.createElement("div");
       cWrap.className = "compromise-wrap";
-      cWrap.innerHTML = `<div class="compromise-title">💡 Попробуйте изменить один параметр</div>`;
+      cWrap.innerHTML = `<div class="compromise-title">💡 Что можно изменить</div>`;
       compromises.forEach(s => {
-        const row = document.createElement("div");
-        row.className = "compromise-row";
-        row.innerHTML = `
-          <div class="compromise-text">${s.hint}</div>
-          <div class="compromise-count">+${s.count} ${s.count === 1 ? "вариант" : s.count < 5 ? "варианта" : "вариантов"}</div>
-          <button class="compromise-btn">Попробовать</button>`;
+      const row = document.createElement("div");
+      row.className = "compromise-row";
+      const countText = s.exactCount > 0
+        ? `+${s.exactCount} ${pluralRu(s.exactCount, "вариант", "варианта", "вариантов")} на 100%`
+        : `${s.count} ${pluralRu(s.count, "похожий вариант", "похожих варианта", "похожих вариантов")}`;
+      row.innerHTML = `
+        <div class="compromise-text">${s.hint}</div>
+          <div class="compromise-count">${countText}</div>
+        <button class="compromise-btn">Показать</button>`;
         row.querySelector(".compromise-btn").addEventListener("click", () => {
           s.action();
           sortMode = "match";
@@ -6768,11 +7749,28 @@ function goHome() {
   show("s-intro");
 }
 
+function pluralRu(n, one, few, many) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+  return many;
+}
+
+function renderIntroDbSticker() {
+  const sticker = document.getElementById("intro-db-sticker");
+  if (!sticker) return;
+  const brandCount = new Set(DEVICES.map(d => String(d.brand || "").trim().toLowerCase()).filter(Boolean)).size;
+  const deviceCount = DEVICES.length;
+  sticker.textContent = `${brandCount} ${pluralRu(brandCount, "бренд", "бренда", "брендов")} · ${deviceCount} ${pluralRu(deviceCount, "устройство", "устройства", "устройств")}`;
+}
+
 // ════════════════════════════════════════════════════════
 //  TELEGRAM INIT
 // ════════════════════════════════════════════════════════
 
 document.getElementById("btn-start").addEventListener("click", startQuiz);
+renderIntroDbSticker();
 renderFavoritePanel();
 
 if (window.Telegram?.WebApp) {
