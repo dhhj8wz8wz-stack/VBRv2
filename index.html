@@ -293,6 +293,7 @@ html, body {
   max-height: calc(100dvh - 220px);
   overflow-y: auto;
 }
+#s-intro.intro-searching .favorite-panel { display: none !important; }
 
 /* ── Search card ── */
 .intro-search-card {
@@ -375,8 +376,6 @@ html, body {
   line-height: 1.3; text-align: center;
 }
 
-.intro-insight { display: none; }
-
 /* ── Search screen ── */
 #s-search {
   position: fixed;
@@ -419,8 +418,9 @@ html, body {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: var(--blue);
-  color: #fff;
+  background: #fff;
+  color: #1C1C1E;
+  box-shadow: 0 10px 28px rgba(0, 122, 255, .10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -445,16 +445,6 @@ html, body {
   line-height: 1.25;
   margin-top: 1px;
 }
-.srch-close-hint {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--blue);
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
 .srch-body {
   padding: 20px 18px 40px;
 }
@@ -660,6 +650,7 @@ html, body {
 }
 .dev-section-hdr.exact { color: var(--green-text); }
 .dev-section-hdr.similar { color: var(--text-2); }
+.dev-section-hdr.upgrade { color: var(--blue); }
 
 .dev-section-pct {
   font-size: 12px; font-weight: 700;
@@ -762,6 +753,17 @@ html, body {
   flex-shrink: 0;
 }
 .analog-card-pct.dim { color: var(--text-3); }
+.analog-card .fav-btn {
+  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+}
+.analog-card-explain {
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.35;
+  margin: 3px 0 5px;
+}
 
 .intro-footer {
   margin-top: 20px;
@@ -973,6 +975,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   margin-bottom: 12px;
 }
 
@@ -990,6 +993,7 @@ html, body {
   font-weight: 600;
   padding: 5px 13px;
   border-radius: 20px;
+  margin-left: auto;
 }
 .match-pill.hi  { background: var(--green-bg); color: var(--green-text); }
 .match-pill.mid { background: var(--amber-bg); color: var(--amber-text); }
@@ -1081,6 +1085,173 @@ html, body {
 .spec-tag.miss  { background: var(--red-bg);    border-color: transparent; color: var(--red-text); }
 .spec-tag.extra { background: rgba(255,59,48,.06); border: 0.5px solid rgba(255,59,48,.35); color: var(--red-text); }
 .spec-tag.qual  { background: var(--amber-bg);  border-color: transparent; color: var(--amber-text); }
+.match-explain {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.match-explain-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.match-explain-label {
+  min-width: 70px;
+  font-weight: 700;
+  color: var(--text);
+}
+.match-explain-text { color: var(--text-2); }
+.match-explain-row.bad .match-explain-label { color: var(--red-text); }
+.match-explain-row.good .match-explain-label { color: var(--green-text); }
+.match-explain-row.upgrade .match-explain-label { color: var(--blue); }
+
+.fav-btn {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color .12s, background .12s, border-color .12s, transform .12s;
+}
+.fav-tooltip {
+  position: fixed;
+  background: #1C1C1E;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity .12s, transform .12s;
+  z-index: 10000;
+  max-width: calc(100vw - 24px);
+}
+.fav-tooltip.on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.fav-btn svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fav-btn.active {
+  color: var(--blue);
+  background: var(--blue-bg);
+  border-color: rgba(var(--blue-rgb), .28);
+}
+.fav-btn.active svg { fill: rgba(var(--blue-rgb), .18); }
+.fav-btn:active { transform: scale(.94); }
+.favorite-panel {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.84);
+  box-shadow: 0 8px 24px rgba(var(--blue-rgb), .06);
+}
+.favorite-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+}
+.favorite-panel-note {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.favorite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.favorite-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+.favorite-item-main { flex: 1 1 auto; min-width: 0; display: block; }
+.favorite-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  line-height: 1.25;
+}
+.favorite-item-arrow {
+  color: var(--blue);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.favorite-remove {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg);
+  color: var(--text-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+.favorite-remove:hover {
+  background: var(--red-bg);
+  color: var(--red-text);
+}
+.favorite-empty {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-3);
+  padding: 2px 0;
+}
 
 /* Support section */
 .support-section {
@@ -1652,165 +1823,169 @@ html, body {
   #s-intro::after  { width: 320px; height: 320px; }
 
   .intro-inner {
-    max-width: 920px;
+    max-width: 1120px;
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
     grid-template-areas:
-      "icon search"
-      "title search"
-      "tag search"
-      "headline insight"
-      "desc insight"
-      "cta insight"
+      "left right"
       "cards cards"
       "footer footer";
-    column-gap: 40px;
-    row-gap: 0;
+    column-gap: 54px;
+    row-gap: 34px;
     align-items: start;
-    padding: 36px 48px 28px;
+    padding: 42px 50px 28px;
     background: white;
-    border-radius: 30px;
+    border-radius: 28px;
     box-shadow: 0 12px 56px rgba(var(--blue-rgb), .14);
     text-align: left;
   }
+  .intro-left {
+    grid-area: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .intro-right {
+    grid-area: right;
+    position: relative;
+    min-height: 392px;
+  }
+  .intro-right::before {
+    display: none;
+  }
+  .intro-right::after {
+    display: none;
+  }
   .intro-icon {
-    grid-area: icon;
-    margin: 0 0 14px;
-    width: 72px;
-    height: 72px;
-    border-radius: 22px;
+    margin: 0 0 20px;
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
   }
   .intro-icon svg { width: 42px; height: 42px; }
   .intro-title {
-    grid-area: title;
     font-size: 24px;
   }
   .intro-tagline {
-    grid-area: tag;
     font-size: 13px;
-    margin-bottom: 18px;
+    margin-bottom: 28px;
   }
   .intro-headline {
-    grid-area: headline;
-    font-size: 38px;
+    font-size: 42px;
     line-height: 1.12;
     letter-spacing: -1px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .intro-desc {
-    grid-area: desc;
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
   .btn-start {
-    grid-area: cta;
-    max-width: 360px;
+    max-width: 330px;
     height: 60px;
     font-size: 18px;
-    border-radius: 18px;
+    border-radius: 14px;
     margin-bottom: 0;
   }
   .intro-search-card {
-    grid-area: search;
-    align-self: start;
+    position: relative;
+    z-index: 2;
+    margin-top: 80px;
     margin-bottom: 0;
-    padding: 22px 20px 20px;
+    min-height: 350px;
+    padding: 28px 28px 24px;
     border: 1px solid var(--border);
-    box-shadow: 0 8px 28px rgba(var(--blue-rgb), .08);
+    border-radius: 24px;
+    box-shadow: 0 10px 34px rgba(var(--blue-rgb), .08);
+    background: rgba(255,255,255,.88);
+    overflow: hidden;
+  }
+  .intro-search-card > * {
+    position: relative;
+    z-index: 3;
+  }
+  .intro-search-card::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 236px;
+    transform: translate(-50%, -50%);
+    width: 330px;
+    height: 330px;
+    border: 2px solid rgba(var(--blue-rgb), .055);
+    border-radius: 50%;
+    box-shadow: 0 0 0 24px rgba(var(--blue-rgb), .025);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .intro-search-card::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 250px;
+    transform: translate(-50%, -50%);
+    width: 218px;
+    height: 108px;
+    border: 2px solid rgba(var(--blue-rgb), .15);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 50% 56%, rgba(var(--blue-rgb), .16) 0 15px, transparent 16px),
+      radial-gradient(circle at 50% 56%, transparent 0 34px, rgba(var(--blue-rgb), .14) 35px 36px, transparent 37px),
+      radial-gradient(circle at 88% 26%, rgba(var(--blue-rgb), .18) 0 8px, transparent 9px),
+      radial-gradient(circle at 10% 86%, rgba(var(--blue-rgb), .14) 0 8px, transparent 9px),
+      linear-gradient(rgba(var(--blue-rgb), .08), rgba(var(--blue-rgb), .08)) 50% 96px / 96px 8px no-repeat,
+      linear-gradient(rgba(var(--blue-rgb), .07), rgba(var(--blue-rgb), .07)) 50% 0 / 92px 14px no-repeat,
+      linear-gradient(rgba(var(--blue-rgb), .07), rgba(var(--blue-rgb), .07)) 50% 12px / 54px 16px no-repeat;
+    box-shadow: 0 18px 48px rgba(var(--blue-rgb), .04);
+    opacity: .78;
+    pointer-events: none;
+    z-index: 1;
   }
   .intro-search-card-title { font-size: 15px; }
   .intro-search-card-sub { font-size: 13px; margin-bottom: 14px; }
-  .intro-search-wrap { height: 50px; border-radius: 14px; }
+  .intro-search-wrap {
+    height: 54px;
+    border-radius: 14px;
+    padding-left: 16px;
+    background: rgba(242,242,247,.92);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.03);
+  }
   .intro-srch-input { font-size: 15px; }
-  .intro-srch-arrow { width: 34px; height: 34px; border-radius: 10px; }
-  .intro-insight {
-    grid-area: insight;
-    display: block;
-    align-self: start;
-    margin-top: 12px;
-    padding: 18px;
-    border-radius: 20px;
-    background: linear-gradient(180deg, var(--blue-soft), #fff);
-    border: 1px solid var(--blue-border);
-  }
-  .intro-insight-kicker {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 6px;
-  }
-  .intro-insight-title {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1.25;
-    margin-bottom: 14px;
-  }
-  .intro-insight-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
-  .intro-insight-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    font-size: 12px;
-    color: var(--text-2);
-    line-height: 1.35;
-  }
-  .intro-step-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 11px;
-    font-weight: 800;
-  }
-  .intro-insight-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 16px;
-  }
-  .intro-insight-bars span {
-    height: 6px;
-    width: var(--w);
-    border-radius: 999px;
-    background: rgba(var(--blue-rgb), .18);
-    position: relative;
-    overflow: hidden;
-  }
-  .intro-insight-bars span::after {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 70%;
-    border-radius: inherit;
-    background: var(--blue);
-  }
+  .intro-srch-arrow { width: 38px; height: 38px; border-radius: 11px; }
   .intro-cards {
     grid-area: cards;
-    gap: 12px;
-    margin: 18px 0 8px;
+    gap: 16px;
+    margin: 0 0 8px;
   }
   .icard {
-    align-items: flex-start;
-    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 14px;
+    row-gap: 4px;
+    align-items: center;
+    padding: 18px 22px;
     border: 1px solid var(--border);
+    border-radius: 14px;
     box-shadow: none;
   }
-  .icard-icon { width: 30px; height: 30px; }
-  .icard-title { font-size: 13px; }
-  .icard-sub { font-size: 12px; text-align: left; }
+  .icard-icon {
+    grid-row: 1 / 3;
+    width: 52px;
+    height: 52px;
+  }
+  .icard-title {
+    grid-column: 2;
+    font-size: 15px;
+    margin: 0;
+  }
+  .icard-sub {
+    grid-column: 2;
+    font-size: 13px;
+    text-align: left;
+  }
   .intro-footer {
     grid-area: footer;
     margin-top: 0;
@@ -1818,13 +1993,51 @@ html, body {
   }
   #s-intro.intro-searching .intro-inner {
     grid-template-areas:
-      "icon search"
-      "title search"
-      "tag search"
-      "insight search"
-      "insight search"
-      "insight search";
+      "left right";
     align-items: start;
+  }
+  #s-intro.intro-searching .intro-left {
+    min-height: 392px;
+  }
+  #s-intro.intro-searching .intro-right::before,
+  #s-intro.intro-searching .intro-right::after {
+    display: none;
+  }
+  #s-intro.intro-searching .intro-left::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 338px;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 178px;
+    border: 2px solid rgba(var(--blue-rgb), .1);
+    border-radius: 38px;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(var(--blue-rgb), .1) 0 38px, transparent 39px),
+      radial-gradient(circle at 50% 50%, rgba(var(--blue-rgb), .16) 0 14px, transparent 15px),
+      linear-gradient(rgba(var(--blue-rgb), .08), rgba(var(--blue-rgb), .08)) 50% 142px / 116px 8px no-repeat,
+      linear-gradient(rgba(var(--blue-rgb), .06), rgba(var(--blue-rgb), .06)) 50% 24px / 168px 8px no-repeat;
+    box-shadow: 0 18px 48px rgba(var(--blue-rgb), .05);
+    opacity: .78;
+    pointer-events: none;
+  }
+  #s-intro.intro-searching .intro-left::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 338px;
+    transform: translate(-50%, -50%);
+    width: 74px;
+    height: 74px;
+    border: 2px solid rgba(var(--blue-rgb), .14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 18px rgba(var(--blue-rgb), .03),
+      136px -44px 0 -30px rgba(var(--blue-rgb), .13),
+      -138px 50px 0 -32px rgba(var(--blue-rgb), .12);
+    opacity: .8;
+    pointer-events: none;
   }
   #s-intro.intro-searching .intro-headline,
   #s-intro.intro-searching .intro-desc,
@@ -1832,14 +2045,12 @@ html, body {
     display: none;
   }
   #s-intro.intro-searching .intro-search-card {
-    align-self: start;
+    margin-top: 0;
+    min-height: auto;
   }
-  #s-intro.intro-searching .intro-insight {
-    margin-top: 28px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  #s-intro.intro-searching .intro-search-card::before,
+  #s-intro.intro-searching .intro-search-card::after {
+    display: none;
   }
 
   /* ── Questions ── */
@@ -2012,6 +2223,7 @@ html, body {
 </style>
 </head>
 <body>
+<div class="fav-tooltip" id="fav-tooltip"></div>
 
 <!-- ── HEADER (hidden on intro) ───────────────────── -->
 <div id="header" style="display:none">
@@ -2075,65 +2287,52 @@ html, body {
 <div id="s-intro" class="screen on">
   <div class="intro-inner">
 
-    <!-- Logo + title -->
-    <div class="intro-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-      </svg>
-    </div>
-    <div class="intro-title">VBR <span class="accent">БОТ</span></div>
-    <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
-
-    <!-- Headline + desc -->
-    <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
-    <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
-
-    <!-- CTA -->
-    <button class="btn-start" id="btn-start">Начать подбор →</button>
-
-    <!-- Search card -->
-    <div class="intro-search-card">
-      <div class="intro-search-card-hdr">
-        <span class="intro-search-card-title">Уже выбрали модель?</span>
+    <div class="intro-left">
+      <!-- Logo + title -->
+      <div class="intro-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 8a2 2 0 0 1 2-2h1l1-2h8l1 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm8 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+        </svg>
       </div>
-      <div class="intro-search-card-sub">Введите название и найдите аналогичное устройство</div>
-      <div class="intro-search-wrap">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="intro-srch" class="intro-srch-input" type="text"
-          placeholder="Например 70Mai M500 или iBOX Roadscan"
-          autocomplete="off" autocorrect="off" spellcheck="false"
-          oninput="onIntroSearch(this.value)">
-        <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <button class="intro-srch-arrow" id="intro-srch-arrow" onclick="document.getElementById('intro-srch').focus()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
-      </div>
-      <div id="intro-srch-results"></div>
+      <div class="intro-title">VBR <span class="accent">БОТ</span></div>
+      <div class="intro-tagline">Ваш путеводитель в мире видеорегистраторов</div>
+
+      <!-- Headline + desc -->
+      <div class="intro-headline">Подберем лучший<br>регистратор<br><span class="accent">для ваших задач.</span></div>
+      <div class="intro-desc">Ответьте на несколько вопросов —<br><span class="accent">VBR БОТ</span> сравнит модели и покажет те,<br>которые подходят именно вам.</div>
+
+      <!-- CTA -->
+      <button class="btn-start" id="btn-start">Начать подбор →</button>
     </div>
 
-    <div class="intro-insight" id="intro-insight">
-      <div class="intro-insight-kicker">Что делает бот</div>
-      <div class="intro-insight-title">Сравнивает модели по важным признакам</div>
-      <div class="intro-insight-steps">
-        <div class="intro-insight-step">
-          <span class="intro-step-dot">1</span>
-          <span>Форм-фактор, качество съёмки и камеры</span>
+    <div class="intro-right">
+      <!-- Search card -->
+      <div class="intro-search-card">
+        <div class="intro-search-card-hdr">
+          <span class="intro-search-card-title">Уже выбрали модель?</span>
         </div>
-        <div class="intro-insight-step">
-          <span class="intro-step-dot">2</span>
-          <span>GPS, Wi‑Fi, экран и дополнительные функции</span>
+        <div class="intro-search-card-sub">Введите название и найдите аналогичное устройство</div>
+        <div class="intro-search-wrap">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="intro-srch" class="intro-srch-input" type="text"
+            placeholder="Например 70Mai M500 или iBOX Roadscan"
+            autocomplete="off" autocorrect="off" spellcheck="false"
+            oninput="onIntroSearch(this.value)">
+          <button id="intro-srch-clear" class="intro-srch-clear" onclick="clearIntroSearch()" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <button class="intro-srch-arrow" id="intro-srch-arrow" onclick="document.getElementById('intro-srch').focus()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
         </div>
-        <div class="intro-insight-step">
-          <span class="intro-step-dot">3</span>
-          <span>Показывает точные совпадения и близкие альтернативы</span>
-        </div>
+        <div id="intro-srch-results"></div>
       </div>
-      <div class="intro-insight-bars" aria-hidden="true">
-        <span style="--w:92%"></span>
-        <span style="--w:76%"></span>
-        <span style="--w:58%"></span>
+      <div class="favorite-panel" id="favorite-panel" style="display:none">
+        <div class="favorite-panel-title">
+          Избранное
+          <span class="favorite-panel-note">сохранено в браузере</span>
+        </div>
+        <div class="favorite-list" id="favorite-list"></div>
       </div>
     </div>
 
@@ -2181,7 +2380,6 @@ html, body {
           <span class="srch-logo-sub">к выбору модели</span>
         </span>
       </button>
-      <div class="srch-close-hint">Назад <span>↩</span></div>
     </div>
   </div>
   <div class="srch-body">
@@ -2192,7 +2390,7 @@ html, body {
 <!-- ── QUESTIONS ──────────────────────────────────── -->
 <div id="s-question" class="screen">
   <div class="q-body">
-    <div class="q-label"  id="q-label">Вопрос 1 из 10</div>
+    <div class="q-label"  id="q-label">Вопрос 1 из 8</div>
     <div class="q-title"  id="q-title"></div>
     <div class="q-subtitle" id="q-sub"></div>
     <div class="options"  id="options"></div>
@@ -2383,11 +2581,11 @@ const QS = [
     ]
   },
   {
-    key:"rear_cam", title:"Нужна камера заднего вида?",
-    sub:"Поддержка подключения дополнительной внешней камеры",
+    key:"rear_cam", title:"Нужна поддержка КЗВ?",
+    sub:"Поддержка подключения дополнительной внешней камеры (подразумевается поддержка задней камеры, а не ее наличие в комплектации)",
     opts:[
-      {l:"Да",      d:"Хочу контролировать обстановку сзади", v:"да"},
-      {l:"Нет",     d:"Достаточно записи только спереди",     v:"нет"},
+      {l:"Да",      d:"Хочу возможность подключить заднюю камеру", v:"да"},
+      {l:"Нет",     d:"Поддержка КЗВ не нужна",                    v:"нет"},
       {l:"Неважно", d:"Не принципиально",                     v:"неважно"},
     ]
   },
@@ -2401,17 +2599,8 @@ const QS = [
     ]
   },
   {
-    key:"rotation", title:"Нужно вращение камеры?",
-    sub:"Возможность менять направление и угол съёмки",
-    opts:[
-      {l:"Да",      d:"Хочу гибко менять угол и направление", v:"да"},
-      {l:"Нет",     d:"Фиксированное положение устраивает",   v:"нет"},
-      {l:"Неважно", d:"Не принципиально",                     v:"неважно"},
-    ]
-  },
-  {
-    key:"ir_cam", title:"Нужна ИК-камера салона?",
-    sub:"Встроенная инфракрасная камера для съёмки внутри авто",
+    key:"ir_cam", title:"Нужна внутрисалонная камера?",
+    sub:"Встроенная камера для съёмки внутри авто",
     opts:[
       {l:"Да",      d:"Хочу вести запись салона, в том числе ночью", v:"да"},
       {l:"Нет",     d:"Запись салона не нужна",                      v:"нет"},
@@ -2423,22 +2612,21 @@ const QS = [
 const QLABELS = {
   type:"Тип устройства", form:"Форм-фактор", quality:"Качество съёмки",
   smartphone:"Управление со смартфона", magnetic:"Магнитное крепление",
-  rear_cam:"Камера заднего вида", touch:"Сенсорное управление",
-  rotation:"Вращение камеры", ir_cam:"ИК-камера салона", remote:"Удалённое управление"
+  rear_cam:"Поддержка КЗВ", touch:"Сенсорное управление",
+  ir_cam:"Внутрисалонная камера", remote:"Удалённое управление"
 };
 const QLABELS_SHORT = {
   quality:"Качество", smartphone:"Wi-Fi", magnetic:"Магнит",
-  rear_cam:"Задн. камера", touch:"Сенсор. упр.",
-  rotation:"Вращение", ir_cam:"Салонная камера", remote:"4G/удалённо"
+  rear_cam:"Поддержка КЗВ", touch:"Сенсор. упр.",
+  ir_cam:"Салонная камера", remote:"4G/удалённо"
 };
 
 // Фразы для красных чипов (нет нужного)
 const MISS_LABELS = {
   smartphone: "Нет Wi-Fi / приложения",
   magnetic:   "Нет магнитного крепления",
-  rear_cam:   "Нет задней камеры",
+  rear_cam:   "Нет поддержки КЗВ",
   touch:      "Нет сенсорного управления",
-  rotation:   "Нет вращения камеры",
   ir_cam:     "Нет салонной камеры",
   remote:     "Нет 4G-управления",
 };
@@ -2446,9 +2634,8 @@ const MISS_LABELS = {
 const EXTRA_LABELS = {
   smartphone: "Wi-Fi — есть, но вы не просили",
   magnetic:   "Магнитное крепление — есть, но вы не просили",
-  rear_cam:   "Задняя камера — есть, но вы не просили",
+  rear_cam:   "Поддержка КЗВ — есть, но вы не просили",
   touch:      "Сенсорное управление — есть, но вы не просили",
-  rotation:   "Вращение камеры — есть, но вы не просили",
   ir_cam:     "Салонная камера — есть, но вы не просили",
   remote:     "4G-управление — есть, но вы не просили",
 };
@@ -2522,7 +2709,7 @@ const DEVICES = [
   {name:"iBox Flip 2K WiFi Dual",           brand:"iBox",
    type:"видеорегистратор", form:"с экраном",   q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
-   desc:"Компактный регистратор 2K с поворотной ИК-камерой для записи салона. Поддержка камеры заднего вида и подключения третьей камеры.",
+   desc:"Компактный регистратор 2K с поворотной внутрисалонной камерой. Поддержка камеры заднего вида и подключения третьей камеры.",
    resolution:"2K 2560×1440 @30fps", angle:"130°", screen:"1.5\" экран", gps:"нет",
    price:"~8 500 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-ibox-flip-2k-wifi-dual-dvukhkanalnyy-s-vozmozhnostyu-podklyucheniya-tretey/",
@@ -2531,7 +2718,7 @@ const DEVICES = [
   {name:"iBox Flip GPS Dual",               brand:"iBox",
    type:"видеорегистратор", form:"с экраном",   q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:true,  ir_cam:true,  remote:false,
-   desc:"Компактный регистратор с поворотной ИК-камерой салона, GPS и двухканальной записью. Работает автономно без мобильного приложения.",
+   desc:"Компактный регистратор с поворотной внутрисалонной камерой, GPS и двухканальной записью. Работает автономно без мобильного приложения.",
    resolution:"Full HD 1920×1080 @30fps", angle:"130°", screen:"1.5\" экран", gps:"GPS встроенный",
    price:"~6 500 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/dvukhkanalnyy-videoregistrator-ibox-flip-gps-dual/",
@@ -2582,7 +2769,7 @@ const DEVICES = [
   {name:"TrendVision Phantom 3CH GPS", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
-   desc:"3-канальный регистратор: 4K фронт + 2K салон с ИК-подсветкой (130°) + Full HD сзади. Wi-Fi, GPS-штамп координат и скорости.",
+   desc:"3-канальный регистратор: 4K фронт + 2K салонная камера (130°) + Full HD сзади. Wi-Fi, GPS-штамп координат и скорости.",
    resolution:"2K нативное / 4K интерп.", angle:"170°+170°+120°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~11 990 ₽",
    url:"https://trendvision.ru/products/trendvision-phantom-3ch-gps/",
@@ -2672,8 +2859,8 @@ const DEVICES = [
 
   {name:"Mio MiVue i127", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
-   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Премиальное комбо 3 в 1: 2K QHD, Sony Starvis, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA.",
+   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:true, ir_cam:false, remote:false,
+   desc:"Премиальное комбо 3 в 1: 2K QHD, Sony Starvis, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка КЗВ, OTA.",
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~20 000 ₽",
    url:"https://www.mio.com/ru/mivue-i127",
@@ -2683,7 +2870,7 @@ const DEVICES = [
   {name:"Mio MiVue i150", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:false, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Стильное компактное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка задней камеры, база сигнатур радаров.",
+   desc:"Стильное компактное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка КЗВ, база сигнатур радаров.",
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~10 500 ₽",
    url:"https://www.mio.com/ru/mivue-i150",
@@ -2693,7 +2880,7 @@ const DEVICES = [
   {name:"Mio MiVue i157", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Высокотехнологичное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA-обновления.",
+   desc:"Высокотехнологичное комбо 3 в 1: 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка КЗВ, OTA-обновления.",
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~13 000 ₽",
    url:"https://www.mio.com/ru/mivue-i157",
@@ -2703,7 +2890,7 @@ const DEVICES = [
   {name:"Mio MiVue i170", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:false, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Стильное комбо 3 в 1 с Sony Starvis: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка задней камеры, Автодория, SmartAlert.",
+   desc:"Стильное комбо 3 в 1 с Sony Starvis: 2K QHD, 3\" IPS сенсорный экран, магнитное крепление, поддержка КЗВ, Автодория, SmartAlert.",
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~11 500 ₽",
    url:"https://www.mio.com/ru/mivue-i170",
@@ -2713,7 +2900,7 @@ const DEVICES = [
   {name:"Mio MiVue i177", brand:"Mio",
    type:"комбо 3 в 1", form:"с экраном", q:2,
    magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Флагманское комбо 3 в 1: Sony Starvis, 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка задней камеры, OTA.",
+   desc:"Флагманское комбо 3 в 1: Sony Starvis, 2K QHD, 3\" IPS сенсорный экран, Wi-Fi+BT, магнитное крепление, поддержка КЗВ, OTA.",
    resolution:"2K 2560×1440 @30fps", angle:"135°", screen:"3\" IPS сенсорный", gps:"GPS встроенный",
    price:"~14 500 ₽",
    url:"https://www.mio.com/ru/mivue-i177",
@@ -2733,7 +2920,7 @@ const DEVICES = [
 
   {name:"Mio MiVue 818", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:2,
-   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 8-й серии с Wi-Fi и Bluetooth. 2K QHD, функция «Моя парковка», Автодория, OTA-обновления через MiVue Pro.",
    resolution:"2K 2560×1440 @30fps", angle:"140°", screen:"2.7\"", gps:"GPS встроенный",
    price:"~9 500 ₽",
@@ -2754,7 +2941,7 @@ const DEVICES = [
   /* ── Mio 9 серия (GPS-информеры, 4K) ─────────────── */
   {name:"Mio MiVue 910W", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:3,
-   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"GPS-информер 9-й серии: 4K Sony Starvis, 3.2\" экран, Wi-Fi, суперконденсатор, OTA-обновления, формат SuperMP4 (H.265), скрытая установка.",
    resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
    price:"~10 500 ₽",
@@ -2764,7 +2951,7 @@ const DEVICES = [
 
   {name:"Mio MiVue 910WD", brand:"Mio",
    type:"gps-информер", form:"с экраном", q:3,
-   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
    desc:"4K GPS-информер с задней Full HD камерой. Sony Starvis спереди, 3.2\" экран, Wi-Fi, суперконденсатор, OTA-обновления, SuperMP4 (H.265).",
    resolution:"4K 3840×2160 @30fps", angle:"н/д", screen:"3.2\"", gps:"GPS встроенный",
    price:"~14 000 ₽",
@@ -2805,7 +2992,7 @@ const DEVICES = [
   {name:"TrendVision Proof Ultra", brand:"TrendVision",
    type:"видеорегистратор", form:"с экраном", q:3,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
-   desc:"Мощный 4K регистратор с 3-канальной записью: фронт + поворотная ИК-камера салона + задняя камера. Wi-Fi, GPS, широкий угол.",
+   desc:"Мощный 4K регистратор с 3-канальной записью: фронт + поворотная внутрисалонная камера + задняя камера. Wi-Fi, GPS, широкий угол.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS+ГЛОНАСС",
    price:"~12 990 ₽",
    url:"https://trendvision.ru/products/trendvision-proof-ultra/",
@@ -2935,7 +3122,7 @@ const DEVICES = [
   {name:"TrendVision Prime", brand:"TrendVision",
    type:"видеорегистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
-   desc:"Компактный регистратор без экрана с ИК-ночной камерой. Скрытая установка, Full HD, работает без смартфона.",
+   desc:"Компактный регистратор без экрана с ночной внутрисалонной камерой. Скрытая установка, Full HD, работает без смартфона.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~6 490 ₽",
    url:"https://trendvision.ru/products/trendvision-prime/",
@@ -2945,7 +3132,7 @@ const DEVICES = [
   {name:"TrendVision Prime (ver.2)", brand:"TrendVision",
    type:"видеорегистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
-   desc:"Обновлённая версия Prime: компактный регистратор без экрана с ИК-камерой. Улучшенная электроника, то же удобство скрытой установки.",
+   desc:"Обновлённая версия Prime: компактный регистратор без экрана с внутрисалонной камерой. Улучшенная электроника, то же удобство скрытой установки.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"без экрана", gps:"нет",
    price:"~6 490 ₽",
    url:"https://trendvision.ru/products/trendvision-prime-(ver.2)/",
@@ -3108,7 +3295,7 @@ const DEVICES = [
   {name:"TrendVision SafeCube 4G", brand:"TrendVision",
    type:"4G-регистратор", form:"без экрана", q:1,
    magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:true,
-   desc:"Автономная 4G-камера наблюдения: два объектива (140° + x6 зум), ИК-подсветка до 5м, аппаратный датчик движения. Аккумулятор до 10 суток. Склад, гараж, дача.",
+   desc:"Автономная 4G-камера наблюдения: два объектива (140° + x6 зум), ночная подсветка до 5м, аппаратный датчик движения. Аккумулятор до 10 суток. Склад, гараж, дача.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"нет", gps:"нет",
    price:"~8 990 ₽",
    url:"https://trendvision.ru/products/trendvision-safecube-4g/",
@@ -3160,7 +3347,7 @@ const DEVICES = [
   {name:"iBOX RoadScan PRO 4K",           brand:"iBox",
    type:"gps-информер",     form:"с экраном", q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
-   desc:"Флагманский GPS-информер 4K от iBox. Максимальная база камер, магнитное крепление, Wi-Fi, расширенный режим парковки и поддержка задней камеры.",
+   desc:"Флагманский GPS-информер 4K от iBox. Максимальная база камер, магнитное крепление, Wi-Fi, расширенный режим парковки и поддержка КЗВ.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~14 990 ₽",
    url:"https://iboxstore.ru/catalog/videoregistratory/videoregistrator-gps-informer-ibox-roadscan-pro-4k/",
@@ -3171,7 +3358,7 @@ const DEVICES = [
   {name:"iBOX iCON 2 LaserVision WiFi",   brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
-   desc:"Флагманское комбо iBox с лазерным детектором LaserVision и сигнатурным радаром. Super HD, магнитное крепление, Wi-Fi, съёмка 60к/с, база камер SpeedCam.",
+   desc:"Флагманское комбо iBox с лазерным детектором LaserVision, сигнатурным радаром и ПАТЧ-антенной. Super HD, магнитное крепление, Wi-Fi, съёмка 60к/с, база камер SpeedCam.",
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~19 299 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-icon-2-laservision/",
@@ -3191,7 +3378,7 @@ const DEVICES = [
   {name:"iBOX F5 PRO 4K LaserScan WiFi",  brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:3,
    magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
-   desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, сигнатурный радар, Wi-Fi, магнитное крепление.",
+   desc:"Топовое комбо iBox с 4K-съёмкой и лазерным LaserScan. Рупорная антенна дальнего обнаружения, LNA-усилитель, сигнатурный радар, Wi-Fi, магнитное крепление.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~24 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/videoregistrator-s-signaturnym-radar-detektorom-ibox-f5-pro-4k-laserscan-wifi-signature-dual/",
@@ -3254,7 +3441,7 @@ const DEVICES = [
   {name:"iBOX iCON WiFi",                 brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Комбо 3 в 1 с Sony Starvis, сигнатурным радаром и Wi-Fi. Full HD, база SpeedCam, поддержка задней камеры.",
+   desc:"Комбо 3 в 1 с Sony Starvis, сигнатурным радаром, ПАТЧ-антенной и Wi-Fi. Full HD, база SpeedCam, поддержка КЗВ.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~17 899 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
@@ -3264,7 +3451,7 @@ const DEVICES = [
   {name:"iBOX iCON LaserVision WiFi",     brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Комбо 3 в 1 с лазерным LaserVision 2.0 и сигнатурным радаром. Super HD, Sony Starvis, Wi-Fi, база SpeedCam, поддержка задней камеры.",
+   desc:"Комбо 3 в 1 с лазерным LaserVision 2.0, сигнатурным радаром и ПАТЧ-антенной. Super HD, Sony Starvis, Wi-Fi, база SpeedCam, поддержка КЗВ.",
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~19 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
@@ -3274,7 +3461,7 @@ const DEVICES = [
   {name:"iBOX iCON Dual",                 brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:1,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Двухканальное комбо 3 в 1 с Sony Starvis, сигнатурным радаром и задней камерой. Full HD, база SpeedCam, Wi-Fi.",
+   desc:"Двухканальное комбо 3 в 1 с Sony Starvis, сигнатурным радаром, ПАТЧ-антенной и задней камерой. Full HD, база SpeedCam, Wi-Fi.",
    resolution:"Full HD 1920×1080 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 599 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
@@ -3314,19 +3501,9 @@ const DEVICES = [
   {name:"iBOX F5+ WiFi",                  brand:"iBox",
    type:"комбо 3 в 1",      form:"с экраном", q:2,
    magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Комбо 3 в 1 Super HD с рупорной антенной дальнего обнаружения и Wi-Fi. Сигнатурный радар, база SpeedCam, поддержка задней камеры.",
+   desc:"Комбо 3 в 1 Super HD с рупорной антенной дальнего обнаружения и Wi-Fi. Сигнатурный радар, база SpeedCam, поддержка КЗВ.",
    resolution:"Super HD 2304×1296 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
    price:"~16 199 ₽",
-   url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
-   photo:null,
-   specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
-
-  {name:"iBOX F5 PRO 4K Контроль",        brand:"iBox",
-   type:"комбо 3 в 1",      form:"с экраном", q:3,
-   magnetic:false, smartphone:true,  rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:true,
-   desc:"Новинка: комбо 3 в 1 с 4K и технологией iBOX Контроль — удалённый доступ и автообновление базы SpeedCam через SIM. Детальная 4K съёмка.",
-   resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС",
-   price:"~26 999 ₽",
    url:"https://iboxstore.ru/catalog/kombo-ustroystva/",
    photo:null,
    specs:{processor:null,display_type:null,screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
@@ -3551,7 +3728,7 @@ const DEVICES = [
 
   {name:"Roadgid Premier 4 Pro", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:3,
-   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Премиальное комбо 4K на Sony IMX678 с сигнатурным радар-детектором и LNA-усилителем сигналов. Wi-Fi, магнитное крепление.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
    price:"~24 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier-4pro", photo:null,
@@ -3559,7 +3736,7 @@ const DEVICES = [
 
   {name:"Roadgid Premier 4 Pro 2CH", brand:"Roadgid",
    type:"комбо 3 в 1", form:"с экраном", q:3,
-   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
    desc:"Флагманское комбо 4K на Sony IMX678 с сигнатурным радар-детектором, LNA-усилителем и задней Full HD камерой. Wi-Fi, магнит.",
    resolution:"4K 3840×2160 @30fps", angle:"170°", screen:"3.5\" IPS", gps:"GPS + сигнатурный радар",
    price:"~26 990 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-premier4pro-2ch", photo:null,
@@ -3623,8 +3800,8 @@ const DEVICES = [
 
   {name:"Roadgid Blick Combo", brand:"Roadgid",
    type:"комбо 3 в 1", form:"регистратор-зеркало", q:2,
-   magnetic:false, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Зеркало-комбо 2K на Sony IMX335 с радар-детектором. Сенсорный дисплей 11.66\", Wi-Fi. Первое сенсорное зеркало с радар-детектором.",
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-комбо 2K на Sony IMX335 с радар-детектором. Сенсорный дисплей 11.66\", Wi-Fi, поддержка КЗВ.",
    resolution:"2K 2560×1440 @30fps", angle:"170°", screen:"11.66\" сенсорный", gps:"GPS встроенный",
    price:"~20 490 ₽", url:"https://roadgid.ru/shop/gibrid/roadgid-blickcombo", photo:null,
    specs:{processor:"Novatek 96565",display_type:null,screen_size:'11.66"',max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"DC 3.5",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
@@ -3660,8 +3837,8 @@ const DEVICES = [
 
   {name:"SilverStone F1 HYBRID UNO SPORT 4K Wi-Fi LNA", brand:"SilverStone F1",
    type:"комбо 3 в 1", form:"с экраном", q:3,
-   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:true, remote:false,
-   desc:"Топовое сигнатурное комбо 3 в 1, запись 4K, дисплей, GPS, Wi-Fi, задняя и внутрисалонная ИК-камера. Антенна LNA.",
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Топовое сигнатурное комбо 3 в 1: 4K, дисплей, GPS/ГЛОНАСС, Wi-Fi, поддержка КЗВ и подключения салонной камеры. ПАТЧ-антенна с LNA-усилителем.",
    resolution:"4K 2160p", angle:"140°", screen:"дисплей", gps:"GPS + ГЛОНАСС",
    price:"~18 690 ₽", url:"https://silverstonef1.ru/product/kombo-ustrojstva/silverstone-f1-hybrid-uno-sport-4k-wi-fi-lna/",
    photo:"https://silverstonef1.ru/wp-content/uploads/2023/12/ren_uspwifi_4K_01-300x300.jpg",
@@ -3910,9 +4087,9 @@ const DEVICES = [
   // Комбо 3 в 1 — сигнатурные без LNA
   {name:"Inspector GlobuS", brand:"Inspector",
    type:"комбо 3 в 1", form:"с экраном", q:2,
-   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Топовое сигнатурное комбо с задней камерой 170°, 2K съёмка, дисплей 3.0\" IPS, GPS/ГЛОНАСС, Wi-Fi. Сделано в Южной Корее.",
-   resolution:"2K 2560×1440p", angle:"155° + 170° (зад)", screen:"3.0\" IPS", gps:"GPS + ГЛОНАСС",
+   magnetic:true, smartphone:true, rear_cam:false, touch:true, rotation:true, ir_cam:true, remote:false,
+   desc:"Топовое двухканальное сигнатурное комбо с дополнительной Full HD камерой для салона, 2K съёмкой, 3.0\" IPS тач-дисплеем, Wi-Fi и магнитным креплением 360°. Сделано в Южной Корее.",
+   resolution:"2K 2560×1440p + Full HD салон", angle:"155° + 170° (салон)", screen:"3.0\" IPS сенсорный", gps:"GPS + ГЛОНАСС + GALILEO",
    price:"~29 990 ₽", url:"https://www.rd-inspector.ru/catalog/signaturnye-combo/inspector-globus/",
    photo:"https://www.rd-inspector.ru/upload/iblock/b01/hh649iz9nic372uza9chddbi6j7zsu7c/iq-pro.jpg",
    specs:{processor:"iCatch CR1A-S",display_type:"IPS",screen_size:"3\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
@@ -4070,8 +4247,8 @@ const DEVICES = [
   {name:"NAVITEL RS3 DUO WIDE", brand:"Navitel",
    type:"видеорегистратор", form:"с экраном", q:1,
    magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:true, remote:false,
-   desc:"Регистратор с двумя камерами 240°: фронтальная + ИК-камера в салон. Ультраширокий обзор, ночная съёмка салона.",
-   resolution:"Full HD 1920×1080p", angle:"240° + 240° (салон ИК)", screen:"с экраном", gps:"нет",
+   desc:"Регистратор с двумя камерами 240°: фронтальная + внутрисалонная камера. Ультраширокий обзор, ночная съёмка салона.",
+   resolution:"Full HD 1920×1080p", angle:"240° + 240° (салон)", screen:"с экраном", gps:"нет",
    price:"~14 990 ₽", url:"https://market.navitel.ru/catalog/videoregistratory-i-komboustroystva/videoregistratory/navitel-rs3-duo-wide/",
    photo:"https://market.navitel.ru/upload/iblock/f72/5b9ekmjs5xfcmdg6083yvypfvtgxa8oo.webp",
    specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"аккумулятор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:null}},
@@ -4234,8 +4411,8 @@ const DEVICES = [
 
   {name:"Neoline SPECTRUM", brand:"Neoline",
    type:"комбо 3 в 1", form:"с экраном", q:3,
-   magnetic:false, smartphone:true, rear_cam:false, touch:true, rotation:false, ir_cam:false, remote:false,
-   desc:"Флагманский 4K гибрид с EXD 2.5, 3\" IPS тач, рупорной антенной и MULTA-модулем. GPS/ГЛОНАСС, Wi-Fi, парковочный режим, суперконденсатор.",
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:true, ir_cam:false, remote:false,
+   desc:"Флагманский 4K гибрид с EXD 2.5, 3\" IPS тач, увеличенной рупорной антенной, двойным LNA и MULTA-модулем. GPS/ГЛОНАСС, Wi-Fi, подключение второй камеры, парковочный режим, суперконденсатор.",
    resolution:"4K Ultra HD 3840×2160p", angle:"140°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~29 990 ₽", url:"https://neoline.ru/landing/spectrum/",
    photo:"",
@@ -4245,8 +4422,8 @@ const DEVICES = [
   {name:"Neoline G-Tech X64", brand:"Neoline",
    type:"видеорегистратор", form:"с экраном", q:2,
    magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:true, remote:false,
-   desc:"3-камерный регистратор: 2K передняя + ИК салонная + опциональная 3-я. Угол 170°+120°, GPS/ГЛОНАСС, Wi-Fi, ADAS, парковка 24/7.",
-   resolution:"2K 2560×1440p + Full HD ИК", angle:"170°+120°+120°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
+   desc:"3-камерный регистратор: 2K передняя + внутрисалонная + опциональная 3-я. Угол 170°+120°, GPS/ГЛОНАСС, Wi-Fi, ADAS, парковка 24/7.",
+   resolution:"2K 2560×1440p + Full HD салон", angle:"170°+120°+120°", screen:"с экраном", gps:"GPS + ГЛОНАСС",
    price:"~13 699 ₽", url:"https://neoline.ru/shop/videoregistrator-neoline-g-tech-x64/",
    photo:"",
    specs:{processor:null,display_type:null,screen_size:null,max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:null,gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
@@ -4300,8 +4477,8 @@ const DEVICES = [
   // Комбо 3 в 1
   {name:"INTEGO VX-1300S 4K LNA",               brand:"INTEGO",
    type:"комбо 3 в 1",      form:"с экраном",  q:3,
-   magnetic:false, smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Флагманское комбо с матрицей SONY IMX415 (4K), сигнатурным радаром и LNA-усилителем слабых сигналов. Wi-Fi, GPS, угол 160°.",
+   magnetic:true, smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Флагманское комбо с матрицей SONY IMX415 (4K), сигнатурным радаром и LNA-усилителем слабых сигналов. Wi-Fi, GPS, магнитное крепление, поддержка КЗВ VX-050 и режима парковки, угол 160°.",
    resolution:"4K UHD 3840×2160 @30fps", angle:"160°", screen:"2\"", gps:"GPS + ГЛОНАСС",
    price:"~19 283 ₽",
    url:"https://store.intego.ru/products/intego-videoregistrator-c-signaturnym-radar-detektorom-vx-1300s-4k-lna-4-105957",
@@ -4423,7 +4600,7 @@ const DEVICES = [
   {name:"INTEGO Basic VX-315DUAL",              brand:"INTEGO",
    type:"видеорегистратор", form:"с экраном",  q:1,
    magnetic:false, smartphone:false, rear_cam:true,  touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Трёхканальный Full HD регистратор с салонной камерой и картой 32 ГБ в комплекте. Поддержка опциональной задней камеры.",
+   desc:"Трёхканальный Full HD регистратор с салонной камерой и картой 32 ГБ в комплекте. Поддержка опциональной КЗВ.",
    resolution:"Full HD 1920×1080 @30fps", angle:"140°", screen:"с экраном", gps:"нет",
    price:"~3 883 ₽",
    url:"https://store.intego.ru/products/videoregistrator-intego-basic-vx-315dual-s-salonnoiy-kameroiy-kartoiy-pamyati-microsd-32-gb-v-komplekte-i-opcionalnoiy-kameroiy-zadnego-vida-s-zapisy-treh-kanalov-video-odnovremenno-3-105941",
@@ -4604,8 +4781,8 @@ const DEVICES = [
   {name:"70mai T800",                               brand:"70mai",
    type:"видеорегистратор", form:"с экраном",   q:3,
    magnetic:false, smartphone:true,  rear_cam:true,  touch:false, rotation:false, ir_cam:true,  remote:false,
-   desc:"Dual 4K трёхканальный (перед+зад+салон ИК). Sony STARVIS 2 IMX678, GPS, ADAS, Wi-Fi 6, суперконденсатор, 3\" IPS.",
-   resolution:"4K UHD 3840×2160 перед+зад, 1080p салон ИК", angle:"146° / 146° / 147°", screen:"3\"", gps:"GPS",
+   desc:"Dual 4K трёхканальный (перед+зад+салон). Sony STARVIS 2 IMX678, GPS, ADAS, Wi-Fi 6, суперконденсатор, 3\" IPS.",
+   resolution:"4K UHD 3840×2160 перед+зад, 1080p салон", angle:"146° / 146° / 147°", screen:"3\"", gps:"GPS",
    price:"~17 000 ₽",
    url:"https://70mai-russia.com/t800/",
    photo:"https://70-mai.ru/wp-content/uploads/2026/01/70mai-t800-1024x1024.jpg",
@@ -4736,8 +4913,8 @@ const DEVICES = [
 
   {name:"DaoCam Combo 3 Max",                       brand:"DaoCam",
    type:"комбо 3 в 1",     form:"с экраном",   q:3,
-   magnetic:true,  smartphone:true,  rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
-   desc:"Флагманское комбо 4K. Sony IMX415, Novatek 96670, LNA, 170°, 3\" IPS 640×360, суперконденсатор.",
+   magnetic:true,  smartphone:true,  rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Флагманское комбо 4K. Sony IMX415, Novatek 96670, LNA, 170°, 3\" IPS 640×360, поддержка КЗВ, магнитное крепление, суперконденсатор.",
    resolution:"4K UHD 3840×2160", angle:"170°", screen:"3\"", gps:"GPS + база камер",
    price:"~24 490 ₽",
    url:"https://daocam.ru/product/daocam-combo-3-max",
@@ -4818,7 +4995,7 @@ const DEVICES = [
   {name:"TrendVision MR-360",                brand:"TrendVision",
    type:"видеорегистратор", form:"регистратор-зеркало", q:2,
    magnetic:false, smartphone:true,  rear_cam:true,  touch:true, rotation:false, ir_cam:true, remote:false,
-   desc:"3 камеры одновременно: передняя 4K + салонная 2K ИК + задняя 2K. 9.66\" IPS, GPS, Wi-Fi, голосовое управление.",
+   desc:"3 камеры одновременно: передняя 4K + салонная 2K + задняя 2K. 9.66\" IPS, GPS, Wi-Fi, голосовое управление.",
    resolution:"4K+2K+2K интерп. (три камеры)", angle:"150°+160°+110°", screen:"9.66\" IPS", gps:"GPS",
    price:"~13 900 ₽",
    url:"https://trendvision.ru/products/trendvision-mr-360/",
@@ -4853,8 +5030,291 @@ const DEVICES = [
    resolution:"3K HDR 2592×1944 (Sony IMX675)", angle:"138°", screen:"9.35\" IPS", gps:"нет",
    price:"~11 990 ₽",
    url:"https://www.dns-shop.ru/product/5a976f50e740ed20/videoregistrator-zerkalo-70mai-s500/",
-   photo:"https://natural.lamobile.ru/upload/resize_cache/webp/iblock/eff/b8py30wsvi0nikcc454gsrp1tjttn40w.webp",
-   specs:{processor:null,display_type:"IPS",screen_size:"9.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Micro-USB",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi 2.4ГГц"}},
+  photo:"https://natural.lamobile.ru/upload/resize_cache/webp/iblock/eff/b8py30wsvi0nikcc454gsrp1tjttn40w.webp",
+  specs:{processor:null,display_type:"IPS",screen_size:"9.35\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"Micro-USB",gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi 2.4ГГц"}},
+
+  /* ── Sho-Me — комбо 3-в-1 ───────────────────────── */
+  {name:"Sho-Me Combo Mirage WiFi DUO", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с 4K-записью, второй камерой в комплекте, LNA-усилителем, чувствительной ПАТЧ-антенной, Wi-Fi, TPMS и встроенной памятью 32 ГБ.",
+   resolution:"4K + вторая камера", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~14 990 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-mirage-wifi",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/8/0/80.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"встроенная память 32 ГБ",power_element:null,power_type:"сквозное питание",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Slim WiFi", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с 4K-записью, сенсорным управлением, входом для второй камеры, магнитным креплением со сквозным питанием, Wi-Fi и встроенной памятью 32 ГБ.",
+   resolution:"4K", angle:"н/д", screen:"сенсорный дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~13 590 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-slim-wifi",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/1/_/1_12.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"встроенная память 32 ГБ",power_element:null,power_type:"магнитное крепление со сквозным питанием",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Raptor WiFi", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с процессором Ambarella A12 A35, Wi-Fi, обновлением через приложение, быстросъемным креплением со сквозным питанием, парковочным режимом и управлением жестами.",
+   resolution:"Full HD", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~11 690 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-raptor-wifi",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/1/_/1_10.png",
+   specs:{processor:"Ambarella A12 A35",display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:"сквозное питание",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Vision Pro", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с 4K-записью, рупорной антенной, выходом для подключения второй камеры, Wi-Fi, встроенной памятью 32 ГБ, быстросъемным креплением и парковочным режимом.",
+   resolution:"4K", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~12 990 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-vision-pro",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/m/a/main_1.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"встроенная память 32 ГБ",power_element:null,power_type:"сквозное питание",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Mirror WiFi DUO", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-комбо 3-в-1 с Wi-Fi, улучшенным алгоритмом обработки сигналов, дополнительным выходом на камеру заднего вида и обновлением через приложение.",
+   resolution:"Full HD", angle:"н/д", screen:"зеркало", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~11 290 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/sho-me-combo-mirror-wifi-duo",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-combo-mirror-wifi-duo-01_1_1.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Mini WiFi Pro", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактное комбо 3-в-1 с сигнатурными режимами, Wi-Fi, магнитным креплением со сквозным питанием, обновлением через приложение и парковочным режимом.",
+   resolution:"Full HD", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~11 490 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-mini-wifi-pro",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/8/_/8.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:"магнитное крепление со сквозным питанием",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo Note WiFi DUO", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с Wi-Fi, сигнатурными режимами, отключением диапазонов, обновлением баз и ПО через приложение или карту памяти; вторая камера поддерживается.",
+   resolution:"Full HD", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~11 390 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-note-wifi-duo",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/_/1/_1_1.png",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me Combo 5 MStar", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с GPS/ГЛОНАСС-приемником, обновляемой базой камер, процессором MStar 8336, сигнатурным радар-детектором и приемником лазерных излучений.",
+   resolution:"Full HD", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~10 000 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-note-5-mstar",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-combo-5-mstar-01.jpg",
+   specs:{processor:"MStar 8336",display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me Combo №1 WiFi", brand:"Sho-Me",
+   type:"комбо 3 в 1", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Комбо 3-в-1 с GPS/ГЛОНАСС, Wi-Fi, обновляемыми базами камер, процессором Ambarella A12 A35, сигнатурным радар-детектором и приемником лазерных излучений.",
+   resolution:"Full HD", angle:"н/д", screen:"дисплей", gps:"GPS/ГЛОНАСС + база камер",
+   price:"~11 490 ₽",
+   url:"https://sho-me.ru/katalog/signaturnyye-combo-ustroystva-3v1/kupit-combo-1-wifi",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-combo-1-wifi-01.jpg",
+   specs:{processor:"Ambarella A12 A35",display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  /* ── Sho-Me — видеорегистраторы ─────────────────── */
+  {name:"Sho-Me FHD 975", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный видеорегистратор с процессором MStar 8629, дисплеем 3.59\", второй камерой в комплекте и встроенным Wi-Fi.",
+   resolution:"Full HD + вторая камера", angle:"н/д", screen:"3.59\"", gps:"нет",
+   price:"~5 790 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-975",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/f/h/fhd-2.jpg",
+   specs:{processor:"MStar 8629",display_type:null,screen_size:"3.59\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me FHD 1000 TAXI", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:true, remote:false,
+   desc:"Регистратор для такси с процессором Allwinner 851S3, дисплеем 3.16\", GPS-модулем, интегрированной салонной камерой и Wi-Fi.",
+   resolution:"Full HD + салонная камера", angle:"н/д", screen:"3.16\"", gps:"GPS-модуль",
+   price:"~4 190 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-976",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/f/h/fhd1000_taxi_photo-site.jpg",
+   specs:{processor:"Allwinner 851S3",display_type:null,screen_size:"3.16\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me FHD 375", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:true, remote:false,
+   desc:"Трехканальный регистратор с процессором Allwinner 851S3, дисплеем 2.45\", интегрированной салонной камерой и дополнительной камерой заднего обзора.",
+   resolution:"Full HD + салонная + задняя", angle:"н/д", screen:"2.45\"", gps:"нет",
+   price:"~2 990 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-977",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-fhd-375-photo2.jpg",
+   specs:{processor:"Allwinner 851S3",display_type:null,screen_size:"2.45\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me A15 GPS/GLONASS Wi-Fi 4K", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"4K-видеорегистратор с процессором MStar 8629, дисплеем 3\", GPS/ГЛОНАСС, Wi-Fi, входом для второй камеры и датчиком жестов.",
+   resolution:"4K", angle:"н/д", screen:"3\"", gps:"GPS/ГЛОНАСС",
+   price:"~7 690 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-a15-gps-glonass-wifi-4k",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/a/1/a15.jpg",
+   specs:{processor:"MStar 8629",display_type:null,screen_size:"3\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me A12 GPS/GLONASS WiFi", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Видеорегистратор с процессором Ambarella A12, дисплеем 2.7\", GPS/ГЛОНАСС и встроенным Wi-Fi.",
+   resolution:"Full HD", angle:"н/д", screen:"2.7\"", gps:"GPS/ГЛОНАСС",
+   price:"~6 590 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-a12-gps-glonass-wifi",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-videorigistrator-a12-gps-glonass-wifi.jpg",
+   specs:{processor:"Ambarella A12",display_type:null,screen_size:"2.7\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me SFHD 590", brand:"Sho-Me",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-регистратор с камерой заднего вида, процессором JL5401, сенсором CS2363, дисплеем 9.66\" и Wi-Fi для просмотра видео.",
+   resolution:"Full HD + задняя камера", angle:"н/д", screen:"9.66\"", gps:"нет",
+   price:"~3 790 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-590",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-videoregistrator-fhd-590-01.jpg",
+   specs:{processor:"JL5401",display_type:null,screen_size:"9.66\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:"Wi-Fi"}},
+
+  {name:"Sho-Me FHD 925", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Видеорегистратор с камерой заднего вида, процессором JL5601, G-сенсором и задней камерой 640×480p.",
+   resolution:"Full HD + задняя 640×480p", angle:"н/д", screen:"дисплей", gps:"нет",
+   price:"~2 990 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-925",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-videoregistrator-fhd-925-00.jpg",
+   specs:{processor:"JL5601",display_type:null,screen_size:null,max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me SFHD-700", brand:"Sho-Me",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-регистратор с двумя камерами, процессором GP2247, сенсором GC1054 и экраном 4.5\".",
+   resolution:"Full HD + задняя камера", angle:"н/д", screen:"4.5\"", gps:"нет",
+   price:"~1 690 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-sfhd-700",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/7/0/700-01.jpg",
+   specs:{processor:"GP2247",display_type:null,screen_size:"4.5\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me FHD 825", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Видеорегистратор с двумя камерами, процессором JL5212B+SC1243, сенсором H42 и экраном 1.54\".",
+   resolution:"Full HD + задняя камера", angle:"н/д", screen:"1.54\"", gps:"нет",
+   price:"~2 690 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-825",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/8/2/825-01_1.jpg",
+   specs:{processor:"JL5212B+SC1243",display_type:null,screen_size:"1.54\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me FHD-325", brand:"Sho-Me",
+   type:"видеорегистратор", form:"с экраном", q:1,
+   magnetic:false, smartphone:false, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Full HD видеорегистратор с процессором General Plus 1247, экраном 2.4\" и углом обзора 120°.",
+   resolution:"Full HD", angle:"120°", screen:"2.4\"", gps:"нет",
+   price:"~2 190 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-fhd-325",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/s/h/sho-me-videoregistrator-fhd-325-01.jpg",
+   specs:{processor:"General Plus 1247",display_type:null,screen_size:"2.4\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  {name:"Sho-Me SFHD 600", brand:"Sho-Me",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:1,
+   magnetic:false, smartphone:false, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-регистратор с камерой заднего вида для парковки, процессором JL 5201B и дисплеем 4.3\".",
+   resolution:"Full HD + задняя камера", angle:"н/д", screen:"4.3\"", gps:"нет",
+   price:"~3 890 ₽",
+   url:"https://sho-me.ru/katalog/videoregistrator-avtomobilnyy/kupit-videoregistrator-sho-me-sfhd-600",
+   photo:"https://sho-me.ru/media/catalog/product/cache/f72bed58e8d6de93feb37803e88c598c/v/i/videoregistrator-sho-me-sfhd-600-01.png",
+   specs:{processor:"JL 5201B",display_type:null,screen_size:"4.3\"",max_sd:null,power_element:null,power_type:null,gsensor:true,motion:false,timelapse:false,wifi_gen:null}},
+
+  /* ── DDPAI — российская линейка ───────────────────────── */
+  {name:"DDPAI Dash Cam MINI2X 2K", brand:"DDPAI",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Компактный регистратор 2K QHD с NightVIS 2.0, Wi-Fi 5 ГГц, Bluetooth 5.0, голосовым управлением, AOV-парковкой и поддержкой πLink.",
+   resolution:"2K 2560×1440 @30fps", angle:"123°", screen:"без экрана", gps:"нет",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-mini2x/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-mini2x-2k.jpg",
+   specs:{processor:"Rockchip RV1106G",display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
+
+  {name:"DDPAI Dash Cam Mola E3", brand:"DDPAI",
+   type:"видеорегистратор", form:"регистратор-зеркало", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:true, rotation:false, ir_cam:false, remote:false,
+   desc:"Зеркало-регистратор с 9.35\" сенсорным IPS-дисплеем, передней 2K камерой и задней Full HD камерой. Wi-Fi, WDR/HDR и парковочный мониторинг.",
+   resolution:"2K 2560×1440 + Full HD задняя", angle:"120° / 130°", screen:"9.35\" IPS сенсорный", gps:"нет",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-mola-e3/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-mola-e3.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"9.35\"",max_sd:"256 ГБ",power_element:"аккумулятор 470 мАч",power_type:"12-24 В",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi 2.4 ГГц"}},
+
+  {name:"DDPAI Dash Cam Z40", brand:"DDPAI",
+   type:"видеорегистратор", form:"с экраном", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Регистратор 3K/1944p на Sony IMX335 с 2\" IPS-дисплеем, Wi-Fi, GPS, D2Save 2 ГБ, суперконденсатором и опциональной задней камерой Full HD.",
+   resolution:"3K 2592×1944", angle:"140°", screen:"2\" IPS", gps:"GPS встроенный",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-z40/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-z40.jpg",
+   specs:{processor:"SigmaStar",display_type:"IPS",screen_size:"2\"",max_sd:"128 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 2.4 ГГц"}},
+
+  {name:"DDPAI Dash Cam MINI5 4K", brand:"DDPAI",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:true, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный 4K-регистратор на Sony IMX415 со встроенной eMMC-памятью 64 ГБ, Wi-Fi 5 ГГц, GPS в креплении, ADAS и суперконденсатором.",
+   resolution:"4K 3840×2160 @30fps", angle:"140°", screen:"без экрана", gps:"GPS в креплении",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-mini5/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-mini5-4k.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"встроенная eMMC 64 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
+
+  {name:"DDPAI Dash Cam Z50 Pro 4K", brand:"DDPAI",
+   type:"видеорегистратор", form:"с экраном", q:3,
+   magnetic:true, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Двухканальный 4K-регистратор с задней Full HD камерой, 3\" IPS-дисплеем, Wi-Fi 6, GPS/ГЛОНАСС/BDS, суперконденсатором и поддержкой 4G-модуля.",
+   resolution:"4K 3840×2160 + Full HD задняя", angle:"143° / 124°", screen:"3\" IPS", gps:"GPS + ГЛОНАСС + BDS",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-z50-pro/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-z50-pro-4k.jpg",
+   specs:{processor:null,display_type:"IPS",screen_size:"3\"",max_sd:"512 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 6"}},
+
+  {name:"DDPAI Dash Cam MINI Pro 3K", brand:"DDPAI",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:false, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Компактный регистратор 3K с углом 145°, Wi-Fi 2.4 ГГц, голосовым управлением, датчиком удара и парковочным режимом через отдельный комплект питания.",
+   resolution:"3K 2880×1620", angle:"145°", screen:"без экрана", gps:"нет",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-mini-pro-3k/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-mini-pro-3k.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"256 ГБ",power_element:null,power_type:"Micro-USB",gsensor:true,motion:true,timelapse:false,wifi_gen:"Wi-Fi 2.4 ГГц"}},
+
+  {name:"DDPAI Dash Cam N3 Pro", brand:"DDPAI",
+   type:"видеорегистратор", form:"без экрана", q:2,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:true, ir_cam:false, remote:false,
+   desc:"Двухканальный регистратор с раздельной конструкцией: передняя 2.5K камера, задняя Full HD, встроенный GPS, Wi-Fi, суперконденсатор и парковочный режим.",
+   resolution:"2.5K 2560×1600 + Full HD задняя", angle:"135-140° / 125°", screen:"без экрана", gps:"GPS встроенный",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-n3-pro/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-n3-pro.jpg",
+   specs:{processor:"SigmaStar 8629Q",display_type:null,screen_size:null,max_sd:"128-512 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 2.4 ГГц"}},
+
+  {name:"DDPAI Dash Cam N5 Dual", brand:"DDPAI",
+   type:"видеорегистратор", form:"без экрана", q:3,
+   magnetic:false, smartphone:true, rear_cam:true, touch:false, rotation:false, ir_cam:false, remote:false,
+   desc:"Двухканальный регистратор с передней 4K камерой, задней Full HD камерой, eMMC 32 ГБ, Wi-Fi 5 ГГц, GPS/ГЛОНАСС/BeiDou и AI-парковкой с радаром.",
+   resolution:"4K 3840×2160 + Full HD задняя", angle:"140° / 125°", screen:"без экрана", gps:"GPS + ГЛОНАСС + BeiDou",
+   price:"цена не указана",
+   url:"https://ddpai-russia.ru/videoregistrator-ddpai-n5-dual/",
+   photo:"https://ddpai-russia.ru/wp-content/uploads/2026/03/videoregistrator-ddpai-dash-cam-n5-dual.jpg",
+   specs:{processor:null,display_type:null,screen_size:null,max_sd:"eMMC 32 ГБ + microSD 512 ГБ",power_element:"суперконденсатор",power_type:"USB Type-C",gsensor:true,motion:true,timelapse:true,wifi_gen:"Wi-Fi 5 ГГц"}},
 
   /* ── Neoline — без экрана ─────────────────────────────── */
   {name:"Neoline WowCam Wi-Fi",              brand:"Neoline",
@@ -4870,8 +5330,9 @@ const DEVICES = [
 
 const QRANK = {хорошее:1, отличное:2, превосходное:3};
 const QLABELS_Q = ["хорошее","отличное","превосходное"];
-const BOOLS = ["smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
+const BOOLS = ["smartphone","magnetic","rear_cam","touch","ir_cam","remote"];
 const PRIORITY_BRANDS = ["iBox"];
+const FAVORITES_KEY = "vbrbot_favorites_v1";
 
 // ════════════════════════════════════════════════════════
 //  STATE
@@ -4879,6 +5340,152 @@ const PRIORITY_BRANDS = ["iBox"];
 
 let qIdx = 0;
 let answers = {};
+let favorites = loadFavorites();
+
+function loadFavorites() {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveFavorites() {
+  try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } catch(e) {}
+}
+
+function deviceKey(d) {
+  return `${d.brand}::${d.name}`;
+}
+
+function manufacturerSearchUrl(d) {
+  const q = encodeURIComponent((d.name || "").trim());
+  const brand = String(d.brand || "").toLowerCase();
+  const fallback = d.url || `https://www.google.com/search?q=${q}`;
+
+  if (brand === "ibox") return `https://iboxstore.ru/search/?q=${q}`;
+  if (brand === "roadgid") return `https://roadgid.ru/?s=${q}&post_type=product`;
+  if (brand === "trendvision") return fallback;
+  if (brand === "silverstone f1") return `https://silverstonef1.ru/?s=${q}`;
+  if (brand === "inspector") return `https://www.rd-inspector.ru/search/?q=${q}`;
+  if (brand === "navitel") return `https://market.navitel.ru/search/?q=${q}`;
+  if (brand === "neoline") return `https://neoline.ru/shop/?q=${q}`;
+  if (brand === "mio") return `https://www.mio.com/ru/catalogsearch/result/?q=${q}`;
+  if (brand === "fujida") return `https://fujida.su/search/?q=${q}`;
+  if (brand === "intego") return `https://store.intego.ru/search?q=${q}`;
+  if (brand === "daocam") return `https://daocam.ru/?s=${q}`;
+  if (brand === "ddpai") return `https://ddpai-russia.ru/?s=${q}`;
+  if (brand === "70mai") return `https://70mai-russia.com/?s=${q}`;
+  if (brand === "sho-me") return `https://sho-me.ru/catalogsearch/result/?q=${q}`;
+
+  return fallback;
+}
+
+function isFavorite(d) {
+  return favorites.includes(deviceKey(d));
+}
+
+function favoriteButtonHTML(d, extraClass = "") {
+  const active = isFavorite(d);
+  return `<button class="fav-btn ${active ? "active" : ""} ${extraClass}" onclick="toggleFavoriteByIndex(event, ${DEVICES.indexOf(d)})" onmouseenter="showFavTooltip(event)" onmouseleave="hideFavTooltip()" onfocus="showFavTooltip(event)" onblur="hideFavTooltip()" aria-label="${active ? "Убрать из избранного" : "Добавить в избранное"}" title="${active ? "В избранном" : "Добавить в избранное"}" data-tooltip="${active ? "Убрать из избранного" : "Добавить в избранное"}">
+    <svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8 6.8 19.5l1-5.8-4.2-4.1 5.8-.8L12 3.5z"/></svg>
+  </button>`;
+}
+
+function showFavTooltip(event) {
+  const btn = event.currentTarget;
+  const tip = document.getElementById("fav-tooltip");
+  if (!btn || !tip) return;
+  tip.textContent = btn.getAttribute("data-tooltip") || "";
+  tip.classList.add("on");
+
+  const r = btn.getBoundingClientRect();
+  const pad = 12;
+  const top = Math.max(pad, r.top - tip.offsetHeight - 8);
+  let left = r.left + r.width / 2;
+  const half = tip.offsetWidth / 2;
+  left = Math.max(pad + half, Math.min(window.innerWidth - pad - half, left));
+
+  tip.style.left = `${left}px`;
+  tip.style.top = `${top}px`;
+}
+
+function hideFavTooltip() {
+  const tip = document.getElementById("fav-tooltip");
+  if (tip) tip.classList.remove("on");
+}
+
+function toggleFavoriteByIndex(event, idx) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  const d = DEVICES[idx];
+  if (!d) return;
+  const key = deviceKey(d);
+  favorites = favorites.includes(key)
+    ? favorites.filter(x => x !== key)
+    : [key, ...favorites].slice(0, 24);
+  saveFavorites();
+  refreshFavoriteUI();
+  if (event) showFavTooltip(event);
+}
+
+function removeFavoriteByIndex(event, idx) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  const d = DEVICES[idx];
+  if (!d) return;
+  const key = deviceKey(d);
+  favorites = favorites.filter(x => x !== key);
+  saveFavorites();
+  refreshFavoriteUI();
+}
+
+function refreshFavoriteUI() {
+  document.querySelectorAll(".fav-btn").forEach(btn => {
+    const match = btn.getAttribute("onclick")?.match(/,\s*(\d+)\)/);
+    if (!match) return;
+    const d = DEVICES[Number(match[1])];
+    if (!d) return;
+    const active = isFavorite(d);
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-label", active ? "Убрать из избранного" : "Добавить в избранное");
+    btn.setAttribute("title", active ? "В избранном" : "Добавить в избранное");
+    btn.setAttribute("data-tooltip", active ? "Убрать из избранного" : "Добавить в избранное");
+  });
+  renderFavoritePanel();
+}
+
+function renderFavoritePanel() {
+  const panel = document.getElementById("favorite-panel");
+  const list = document.getElementById("favorite-list");
+  if (!panel || !list) return;
+  const devices = favorites
+    .map(key => DEVICES.find(d => deviceKey(d) === key))
+    .filter(Boolean);
+  panel.style.display = devices.length ? "block" : "none";
+  list.innerHTML = devices.length ? devices.slice(0, 5).map(d => {
+    const idx = DEVICES.indexOf(d);
+    return `<div class="favorite-item" onclick="openFavoriteDevice(${idx})" role="button" tabindex="0">
+      <span class="favorite-item-main">
+        <span class="favorite-item-name">${d.name}</span>
+      </span>
+      <span class="favorite-item-arrow">›</span>
+      <button class="favorite-remove" onclick="removeFavoriteByIndex(event, ${idx})" aria-label="Удалить из избранного" title="Удалить">×</button>
+    </div>`;
+  }).join("") : `<div class="favorite-empty">Пока ничего не сохранено.</div>`;
+}
+
+function openFavoriteDevice(idx) {
+  lastSearchOrigin = "intro";
+  lastSearchQuery = "";
+  openDeviceFromSearch(idx);
+}
 
 // ════════════════════════════════════════════════════════
 //  SCORING
@@ -5053,10 +5660,9 @@ function sortItems(items) {
 const COMPROMISE_HINTS = {
   smartphone: { да: "Отказаться от Wi-Fi",           нет: "Разрешить Wi-Fi" },
   magnetic:   { да: "Убрать магнитное крепление",    нет: "Разрешить магнитное крепление" },
-  rear_cam:   { да: "Убрать заднюю камеру",          нет: "Разрешить заднюю камеру" },
+  rear_cam:   { да: "Убрать поддержку КЗВ", нет: "Разрешить поддержку КЗВ" },
   touch:      { да: "Убрать сенсорный экран",        нет: "Разрешить сенсорный экран" },
-  rotation:   { да: "Убрать вращение объектива",     нет: "Разрешить вращение объектива" },
-  ir_cam:     { да: "Убрать ИК-камеру",              нет: "Разрешить ИК-камеру" },
+  ir_cam:     { да: "Убрать внутрисалонную камеру",  нет: "Разрешить внутрисалонную камеру" },
   remote:     { да: "Убрать 4G/удалённый доступ",    нет: "Разрешить 4G/удалённый доступ" },
 };
 
@@ -5144,17 +5750,23 @@ function onIntroSearch(val) {
 
   const hits = searchDevices(val.trim()).slice(0, 5);
   if (!hits.length) {
-    resultsEl.innerHTML = `<div class="srch-no-results">Ничего не найдено.<br>Попробуйте другое название или бренд.</div>`;
+    resultsEl.innerHTML = `<div class="srch-no-results">
+      Ничего не найдено.<br>
+      <span style="color:var(--text-3);font-size:13px">Попробуйте бренд, часть модели или начните подбор по вопросам.</span>
+    </div>`;
     return;
   }
   resultsEl.innerHTML = hits.map(({d}) => {
     const idx = DEVICES.indexOf(d);
     const qLabel = ['','Full HD','2K','4K'][d.q] || '';
+    const antennaLabel = radarAntennaLabel(d);
     const badges = [
       qLabel && `<span class="srch-badge">${qLabel}</span>`,
       d.gps && d.gps !== 'нет' ? `<span class="srch-badge">GPS</span>` : '',
-      d.ir_cam  ? `<span class="srch-badge">ИК камера</span>` : '',
-      d.rear_cam ? `<span class="srch-badge">Зад. камера</span>` : '',
+      antennaLabel ? `<span class="srch-badge hi">${antennaLabel}</span>` : '',
+      hasLNA(d) ? `<span class="srch-badge">LNA</span>` : '',
+      d.ir_cam  ? `<span class="srch-badge">Внутрисалонная</span>` : '',
+      d.rear_cam ? `<span class="srch-badge">Поддержка КЗВ</span>` : '',
       d.smartphone ? `<span class="srch-badge">Wi-Fi</span>` : '',
     ].filter(Boolean).join('');
     return `<div class="srch-match-card" onclick="openDeviceFromIntro(${idx})">
@@ -5164,9 +5776,11 @@ function onIntroSearch(val) {
         <div class="srch-match-badges">${badges}</div>
         <div class="srch-price">${d.price}</div>
       </div>
+      ${favoriteButtonHTML(d)}
       <svg class="srch-match-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </div>`;
   }).join('');
+  refreshFavoriteUI();
 }
 
 function clearIntroSearch() {
@@ -5280,11 +5894,14 @@ const TYPE_SHORT = {
 function makeSearchCard(item, isExact) {
   const d = item.d || item;
   const badges = [];
+  const antennaLabel = radarAntennaLabel(d);
   if (QNAMES[d.q]) badges.push({text: QNAMES[d.q], hi: d.q >= 2});
   if (FORM_SHORT[d.form]) badges.push({text: FORM_SHORT[d.form], hi: false});
   if (d.gps && d.gps !== "нет") badges.push({text: "GPS", hi: false});
+  if (antennaLabel) badges.push({text: antennaLabel, hi: radarAntenna(d) === "horn"});
+  if (hasLNA(d)) badges.push({text: "LNA", hi: false});
   if (d.smartphone) badges.push({text: "Wi-Fi", hi: false});
-  if (d.rear_cam)   badges.push({text: "2 камеры", hi: false});
+  if (d.rear_cam)   badges.push({text: "Поддержка КЗВ", hi: false});
 
   const badgesHTML = badges.map(b =>
     `<span class="srch-badge${b.hi ? " hi" : ""}">${b.text}</span>`
@@ -5298,6 +5915,7 @@ function makeSearchCard(item, isExact) {
         <div class="srch-match-badges">${badgesHTML}</div>
         <div class="srch-price">${d.price || ""}</div>
       </div>
+      ${favoriteButtonHTML(d)}
       <div class="srch-match-arrow">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </div>
@@ -5308,7 +5926,7 @@ function renderSearchResults(results, query) {
   const area = document.getElementById("srch-results-area");
   if (!results || results.length === 0) {
     area.innerHTML = query
-      ? `<div class="srch-no-results">Ничего не нашли по запросу «${query}»<br><span style="color:var(--text-3);font-size:13px">Попробуйте ввести только бренд или часть модели</span></div>`
+      ? `<div class="srch-no-results">Ничего не нашли по запросу «${query}»<br><span style="color:var(--text-3);font-size:13px">Попробуйте ввести только бренд, часть модели или пройти подбор по вопросам</span></div>`
       : "";
     return;
   }
@@ -5328,6 +5946,7 @@ function renderSearchResults(results, query) {
   }
 
   area.innerHTML = html;
+  refreshFavoriteUI();
 }
 
 function _renderResultsFromItems(items, subtitle) {
@@ -5372,6 +5991,32 @@ function openDeviceFromSearch(idx) {
 
 function hasGPS(d) { return !!(d.gps && d.gps !== 'нет'); }
 
+function radarAntenna(d) {
+  const txt = `${d.name || ""} ${d.desc || ""} ${d.gps || ""}`.toLowerCase();
+  if (/рупор/.test(txt)) return "horn";
+  if (/патч|patch/.test(txt)) return "patch";
+  return null;
+}
+
+function hasLNA(d) {
+  const txt = `${d.name || ""} ${d.desc || ""} ${d.gps || ""}`.toLowerCase();
+  return /\blna\b/.test(txt);
+}
+
+function radarAntennaLabel(d) {
+  const antenna = radarAntenna(d);
+  if (antenna === "horn") return "Рупорная антенна";
+  if (antenna === "patch") return "ПАТЧ-антенна";
+  return null;
+}
+
+function radarAntennaRank(d) {
+  const antenna = radarAntenna(d);
+  if (antenna === "horn") return 2;
+  if (antenna === "patch") return 1;
+  return 0;
+}
+
 function similarSectionTitle(d) {
   return FORM_SECTION[d.form] || "Похожие устройства";
 }
@@ -5380,6 +6025,8 @@ function isExactAnalog(x, d) {
   if (x === d) return false;
   if (x.type !== d.type || x.form !== d.form || x.q !== d.q) return false;
   if (hasGPS(x) !== hasGPS(d)) return false;
+  if (radarAntenna(x) && radarAntenna(d) && radarAntenna(x) !== radarAntenna(d)) return false;
+  if ((radarAntenna(x) || radarAntenna(d)) && hasLNA(x) !== hasLNA(d)) return false;
   return BOOLS.every(k => x[k] === d[k]);
 }
 
@@ -5391,9 +6038,10 @@ function similarPct(x, d) {
   if (x.smartphone=== d.smartphone) p += 12;
   if (x.magnetic  === d.magnetic)   p += 10;
   if (x.touch     === d.touch)      p += 10;
-  if (x.rotation  === d.rotation)   p += 8;
   if (x.remote    === d.remote)     p += 6;
   if (hasGPS(x)   === hasGPS(d))    p += 8;
+  if (radarAntenna(x) && radarAntenna(d)) p += radarAntenna(x) === radarAntenna(d) ? 8 : radarAntennaRank(x) > radarAntennaRank(d) ? 6 : 2;
+  if ((radarAntenna(x) || radarAntenna(d)) && hasLNA(x) === hasLNA(d)) p += 4;
   const qDiff = Math.abs(x.q - d.q);
   p += qDiff === 0 ? 14 : x.q > d.q ? 12 : qDiff === 1 ? 6 : 0;
   return Math.min(99, p);
@@ -5406,22 +6054,88 @@ function getDiffs(x, d) {
   if (x.q !== d.q)
     diffs.push({text: x.q > d.q ? `${ql[x.q]} — лучше съёмка` : `${ql[x.q]} вместо ${ql[d.q]}`, type: x.q > d.q ? 'better' : 'worse'});
   if (x.ir_cam !== d.ir_cam)
-    diffs.push({text: x.ir_cam ? 'есть ИК-камера' : 'нет ИК-камеры'});
+    diffs.push({text: x.ir_cam ? 'есть внутрисалонная камера' : 'нет внутрисалонной камеры'});
   if (x.rear_cam !== d.rear_cam)
-    diffs.push({text: x.rear_cam ? 'есть задняя камера' : 'нет задней камеры'});
+    diffs.push({text: x.rear_cam ? 'есть поддержка КЗВ' : 'нет поддержки КЗВ'});
   if (x.smartphone !== d.smartphone)
     diffs.push({text: x.smartphone ? 'есть Wi-Fi' : 'нет Wi-Fi'});
   if (x.magnetic !== d.magnetic)
     diffs.push({text: x.magnetic ? 'есть магнит' : 'нет магнита'});
   if (x.touch !== d.touch)
-    diffs.push({text: x.touch ? 'есть сенсор' : 'нет сенсора'});
-  if (x.rotation !== d.rotation)
-    diffs.push({text: x.rotation ? 'есть вращение' : 'нет вращения'});
+    diffs.push({text: x.touch ? 'есть сенсорное управление' : 'нет сенсорного управления'});
+  const xAntenna = radarAntenna(x);
+  const dAntenna = radarAntenna(d);
+  if (xAntenna && dAntenna && xAntenna !== dAntenna) {
+    const betterAntenna = radarAntennaRank(x) > radarAntennaRank(d);
+    diffs.push({
+      text: betterAntenna ? 'Рупорная антенна мощнее' : 'ПАТЧ-антенна слабее',
+      type: betterAntenna ? 'better' : 'worse'
+    });
+  }
+  if ((xAntenna || dAntenna) && hasLNA(x) !== hasLNA(d)) {
+    diffs.push({text: hasLNA(x) ? 'LNA-усилитель' : 'без LNA-усилителя', type: hasLNA(x) ? 'better' : 'worse'});
+  }
   if (hasGPS(x) !== hasGPS(d))
     diffs.push({text: hasGPS(x) ? 'есть GPS' : 'нет GPS'});
   if (x.form !== d.form)
     diffs.push({text: x.form});
   return diffs;
+}
+
+function describeSpecValue(key, val) {
+  const yesNo = val ? "есть" : "нет";
+  const map = {
+    smartphone: val ? "Wi-Fi и приложение" : "без Wi-Fi",
+    magnetic:   val ? "магнитное крепление" : "без магнита",
+    rear_cam:   val ? "поддержка КЗВ" : "без поддержки КЗВ",
+    touch:      val ? "сенсорное управление" : "кнопочное управление",
+    rotation:   val ? "вращение камеры" : "камера не вращается",
+    ir_cam:     val ? "внутрисалонная камера" : "без внутрисалонной камеры",
+    remote:     val ? "4G/удаленный доступ" : "без 4G"
+  };
+  return map[key] || yesNo;
+}
+
+function buildMatchExplanation(item, isExact, isUpgrade = false) {
+  const d = item.d;
+  const mm = item.mm || [];
+  const reqQ = answers.quality && answers.quality !== "неважно"
+    ? QRANK[answers.quality.toLowerCase()] : null;
+  const qText = {1:"Full HD", 2:"2K", 3:"4K"};
+  const matched = [];
+
+  if (answers.type && answers.type !== "неважно") matched.push(TYPE_SHORT[d.type] || d.type);
+  if (answers.form && answers.form !== "неважно") matched.push(FORM_SHORT[d.form] || d.form);
+  if (reqQ && d.q === reqQ) matched.push(qText[d.q]);
+  if (reqQ && d.q > reqQ) matched.push(`${qText[d.q]} лучше запрошенного`);
+
+  BOOLS.forEach(k => {
+    const a = (answers[k] || "неважно").toLowerCase();
+    if (a === "неважно") return;
+    const ok = a === "да" ? d[k] : !d[k];
+    if (ok) matched.push(describeSpecValue(k, d[k]));
+  });
+
+  const differences = mm.map(m => {
+    if (m.type === "missing") return MISS_LABELS[m.key] || `нет ${QLABELS_SHORT[m.key]}`;
+    if (m.type === "extra") return EXTRA_LABELS[m.key] || `${QLABELS_SHORT[m.key]} есть, но не просили`;
+    if (m.type === "quality") return "съемка ниже запрошенной";
+    if (m.type === "overspec") return "съемка лучше запрошенной";
+    return null;
+  }).filter(Boolean);
+
+  if (isUpgrade) {
+    return `<div class="match-explain">
+      <div class="match-explain-row good"><span class="match-explain-label">Совпало</span><span class="match-explain-text">${matched.slice(0, 6).join(", ") || "ключевые параметры"}</span></div>
+      <div class="match-explain-row bad"><span class="match-explain-label">Отличается</span><span class="match-explain-text">съемка лучше запрошенной</span></div>
+    </div>`;
+  }
+
+  return `<div class="match-explain">
+    <div class="match-explain-row good"><span class="match-explain-label">Совпало</span><span class="match-explain-text">${matched.slice(0, 6).join(", ") || "основные параметры"}</span></div>
+    ${differences.length ? `<div class="match-explain-row bad"><span class="match-explain-label">Отличается</span><span class="match-explain-text">${differences.slice(0, 4).join(", ")}</span></div>` : ''}
+    ${isExact ? `<div class="match-explain-row good"><span class="match-explain-label">Итог</span><span class="match-explain-text">полное совпадение по выбранным критериям</span></div>` : ''}
+  </div>`;
 }
 
 function renderAnalogCard(x, pct, diffs) {
@@ -5431,31 +6145,40 @@ function renderAnalogCard(x, pct, diffs) {
         return `<span class="analog-diff${item.type === 'better' ? ' better' : ''}">${item.text}</span>`;
       }).join('')}</div>`
     : '';
+  const explanation = diffs && diffs.length
+    ? `<div class="analog-card-explain">Отличия от выбранной модели показаны ниже.</div>`
+    : `<div class="analog-card-explain">Совпадает по ключевым параметрам выбранной модели.</div>`;
   const isDim = pct < 100;
   return `<div class="analog-card" onclick="openDeviceFromSearch(${DEVICES.indexOf(x)})">
     <div class="analog-card-hdr"></div>
     <div class="analog-card-body">
       <div class="analog-card-brand">${x.brand}</div>
       <div class="analog-card-name">${x.name}</div>
+      ${explanation}
       ${diffHtml}
       <div class="analog-card-price">${x.price}</div>
     </div>
     <div class="analog-card-pct${isDim ? ' dim' : ''}">${pct}%</div>
+    ${favoriteButtonHTML(x)}
   </div>`;
 }
 
 function renderDeviceProfile(d, exact, similar) {
   const area = document.getElementById('srch-results-area');
   const ql = ['','Full HD','2K','4K'];
+  const betterSimilar = similar.filter(a => a.q > d.q);
+  const regularSimilar = similar.filter(a => a.q <= d.q);
 
   const specChips = [
     d.resolution ? `<span class="dev-hero-spec">${d.resolution}</span>` : '',
     d.angle      ? `<span class="dev-hero-spec">${d.angle}</span>` : '',
     d.screen && d.screen !== 'без экрана' ? `<span class="dev-hero-spec">${d.screen}</span>` : '',
     hasGPS(d)    ? `<span class="dev-hero-spec">GPS</span>` : '',
+    radarAntennaLabel(d) ? `<span class="dev-hero-spec">${radarAntennaLabel(d)}</span>` : '',
+    hasLNA(d) ? `<span class="dev-hero-spec">LNA-усилитель</span>` : '',
     d.smartphone ? `<span class="dev-hero-spec">Wi-Fi + приложение</span>` : '',
-    d.rear_cam   ? `<span class="dev-hero-spec">Задняя камера</span>` : '',
-    d.ir_cam     ? `<span class="dev-hero-spec">ИК-камера салона</span>` : '',
+    d.rear_cam   ? `<span class="dev-hero-spec">Поддержка КЗВ</span>` : '',
+    d.ir_cam     ? `<span class="dev-hero-spec">Внутрисалонная камера</span>` : '',
   ].filter(Boolean).join('');
 
   let html = `
@@ -5469,12 +6192,17 @@ function renderDeviceProfile(d, exact, similar) {
         <span class="dev-hero-header-type">${d.form}</span>
       </div>
       <div class="dev-hero-body">
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <div style="flex:1;min-width:0;">
         <div class="dev-name">${d.name}</div>
         <div class="dev-price">${d.price}</div>
+          </div>
+          ${favoriteButtonHTML(d)}
+        </div>
         ${specChips ? `<div class="dev-hero-specs" style="margin-top:10px">${specChips}</div>` : ''}
-        ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
+        ${d.url ? `<a class="btn-site" href="${manufacturerSearchUrl(d)}" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          На сайт производителя
+          Найти на сайте производителя
         </a>` : ''}
         <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent((d.brand+' '+d.name+' обзор').trim())}" target="_blank" rel="noopener">
           <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" rx="5" fill="#FF4C00"/><path d="M5 4h4.5C11.4 4 13 5.3 13 7.2c0 1.4-.8 2.4-2 2.8l2.2 4H11l-2-3.7H7v3.7H5V4zm2 4.5h2.3c.8 0 1.7-.4 1.7-1.3S10.1 5.9 9.3 5.9H7v2.6z" fill="white"/></svg>
@@ -5484,7 +6212,7 @@ function renderDeviceProfile(d, exact, similar) {
     </div>`;
 
   if (exact.length > 0) {
-    html += `<div class="dev-section-hdr exact">Аналогичные устройства <span class="dev-section-pct">100%</span></div>`;
+    html += `<div class="dev-section-hdr exact">Полные аналоги <span class="dev-section-pct">100%</span></div>`;
     html += exact.map(a => renderAnalogCard(a, 100, [])).join('');
   } else if (similar.length > 0) {
     html += `<div class="dev-no-exact">
@@ -5496,13 +6224,27 @@ function renderDeviceProfile(d, exact, similar) {
     </div>`;
   }
 
-  if (similar.length > 0) {
+  if (betterSimilar.length > 0) {
+    html += `<div class="dev-section-hdr upgrade">Лучше по съемке</div>`;
+    html += betterSimilar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
+  }
+
+  if (regularSimilar.length > 0) {
     html += `<div class="dev-section-hdr similar">${similarSectionTitle(d)}</div>`;
-    html += similar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
+    html += regularSimilar.map(a => renderAnalogCard(a, similarPct(a, d), getDiffs(a, d))).join('');
+  } else if (exact.length === 0 && betterSimilar.length === 0) {
+    html += `<div class="dev-no-exact">
+      <div class="dev-no-exact-icon">?</div>
+      <div>
+        <div class="dev-no-exact-title">Похожих вариантов пока нет</div>
+        <div class="dev-no-exact-text">В базе не нашлось моделей того же типа и форм-фактора. Можно попробовать поиск по бренду или пройти подбор по вопросам.</div>
+      </div>
+    </div>`;
   }
 
   show('s-search');
   area.innerHTML = html;
+  refreshFavoriteUI();
   document.getElementById('s-search').scrollTo(0, 0);
 }
 
@@ -5556,17 +6298,23 @@ function startQuiz() {
   show("s-question");
 }
 
-// Keys that are skipped when form = "регистратор-зеркало"
-const MIRROR_SKIP_KEYS = ["magnetic", "rotation"];
+const FORM_SKIP_KEYS = ["magnetic", "touch"];
 
-function isMirrorSkipQ(q) {
-  return answers.form === "регистратор-зеркало" && MIRROR_SKIP_KEYS.includes(q.key);
+function getSkipNotice(q) {
+  if (answers.form === "регистратор-зеркало" && q.key === "magnetic") {
+    return {
+      title: "Вопрос неактуален для регистратора-зеркала",
+      text: "Регистраторы-зеркала крепятся на штатное зеркало и не используют магнитное крепление."
+    };
+  }
+  if (answers.form === "без экрана" && q.key === "touch") {
+    return {
+      title: "Вопрос неактуален для компактных устройств",
+      text: "Так как вы выбрали устройство без экрана."
+    };
+  }
+  return null;
 }
-
-const MIRROR_SKIP_REASON = {
-  magnetic: "Регистраторы-зеркала крепятся на штатное зеркало и не используют магнитное крепление.",
-  rotation: "В зеркальных регистраторах камера интегрирована в корпус и не вращается.",
-};
 
 function renderQ() {
   const q = QS[qIdx];
@@ -5585,7 +6333,8 @@ function renderQ() {
   const list = el("options");
   list.innerHTML = "";
 
-  if (isMirrorSkipQ(q)) {
+  const skipNotice = getSkipNotice(q);
+  if (skipNotice) {
     // Auto-answer and show skip notice
     answers[q.key] = "неважно";
     btnNext.disabled = false;
@@ -5594,8 +6343,8 @@ function renderQ() {
     notice.innerHTML = `
       <div class="skip-notice-icon">💡</div>
       <div class="skip-notice-text">
-        <strong>Вопрос неактуален для регистратора-зеркала</strong>
-        ${MIRROR_SKIP_REASON[q.key]} Нажмите «Далее», чтобы продолжить.
+        <strong>${skipNotice.title}</strong>
+        ${skipNotice.text} Нажмите «Далее», чтобы продолжить.
       </div>`;
     list.appendChild(notice);
   } else {
@@ -5620,9 +6369,9 @@ function renderQ() {
 
 function pick(v) {
   const key = QS[qIdx].key;
-  // If changing form factor, clear mirror-skip auto-answers so they re-evaluate
+  // If changing form factor, clear auto-skip answers so they re-evaluate
   if (key === "form" && answers[key] !== v) {
-    MIRROR_SKIP_KEYS.forEach(k => { delete answers[k]; });
+    FORM_SKIP_KEYS.forEach(k => { delete answers[k]; });
   }
   answers[key] = v;
   el("btn-next").disabled = false;
@@ -5691,10 +6440,9 @@ function _renderResults(top) {
     {k:"quality",    fn: v => ({хорошее:"Full HD", отличное:"2K", превосходное:"4K"}[v] || null)},
     {k:"smartphone", fn: v => v === "да" ? "Wi-Fi" : v === "нет" ? "без Wi-Fi" : null},
     {k:"magnetic",   fn: v => v === "да" ? "Магнит" : v === "нет" ? "без магнита" : null},
-    {k:"rear_cam",   fn: v => v === "да" ? "Задняя камера" : v === "нет" ? "1 камера" : null},
+    {k:"rear_cam",   fn: v => v === "да" ? "Поддержка КЗВ" : v === "нет" ? "Без поддержки КЗВ" : null},
     {k:"touch",      fn: v => v === "да" ? "Сенсорное управление" : v === "нет" ? "Физические кнопки" : null},
-    {k:"rotation",   fn: v => v === "да" ? "Вращение" : v === "нет" ? "фиксирован" : null},
-    {k:"ir_cam",     fn: v => v === "да" ? "ИК-камера" : v === "нет" ? "Без внутрисалонной камеры" : null},
+    {k:"ir_cam",     fn: v => v === "да" ? "Внутрисалонная камера" : v === "нет" ? "Без внутрисалонной камеры" : null},
     {k:"remote",     fn: v => v === "да" ? "4G/удалённо" : v === "нет" ? "без 4G" : null},
   ];
   const chips = chipDefs
@@ -5744,7 +6492,7 @@ function _renderResults(top) {
   }
 
   // ── Всё «неважно» ────────────────────────────────
-  const scoredKeys = ["quality","smartphone","magnetic","rear_cam","touch","rotation","ir_cam","remote"];
+  const scoredKeys = ["quality","smartphone","magnetic","rear_cam","touch","ir_cam","remote"];
   const allDontCare = scoredKeys.every(k => !answers[k] || answers[k] === "неважно");
   if (allDontCare) {
     const lazy = document.createElement("div");
@@ -5781,10 +6529,10 @@ function _renderResults(top) {
       const header = document.createElement("div");
       if (isUpgrade) {
         header.className = "res-section-header upgrade";
-        header.textContent = "📸 Такой же, но снимает лучше";
+        header.textContent = "Лучше по съемке";
       } else {
         header.className = `res-section-header ${isExact ? "exact" : "near"}`;
-        header.textContent = isExact ? "✓ Точное совпадение" : "~ Похожие варианты";
+        header.textContent = isExact ? "Полные аналоги" : "Похожие варианты";
       }
       list.appendChild(header);
     }
@@ -5796,7 +6544,7 @@ function _renderResults(top) {
       const specsData = [
         {k:"smartphone", l:"Wi-Fi"},
         {k:"magnetic",   l:"Магнит"},
-        {k:"rear_cam",   l:"Задн. камера"},
+        {k:"rear_cam",   l:"Поддержка КЗВ"},
         {k:"touch",      l:"Сенсорное управление"},
         {k:"rotation",   l:"Вращение"},
         {k:"ir_cam",     l:"Внутрисалонная камера"},
@@ -5806,6 +6554,11 @@ function _renderResults(top) {
         .filter(s => d[s.k])
         .map(s => `<span class="spec-tag has">✓ ${s.l}</span>`)
         .join("");
+      const antenna = radarAntenna(d);
+      const radarTags = [
+        antenna ? `<span class="spec-tag ${antenna === "horn" ? "better" : "qual"}">${radarAntennaLabel(d)}</span>` : "",
+        hasLNA(d) ? `<span class="spec-tag has">✓ LNA-усилитель</span>` : "",
+      ].join("");
 
       const missTags = mm.map(m => {
         if (m.type === "missing") return `<span class="spec-tag miss">${MISS_LABELS[m.key] ?? "Нет: " + QLABELS_SHORT[m.key]}</span>`;
@@ -5832,6 +6585,7 @@ function _renderResults(top) {
       const matchLabel = isUpgrade ? `⬆ ${QLABELS_BADGE[d.q] || ""} апгрейд`
                        : isExact   ? "100% подходит"
                                    : `${pct}% подходит`;
+      const explainHtml = buildMatchExplanation(item, isExact, isUpgrade);
 
       card.innerHTML = `
       <div class="dev-card-header">
@@ -5842,6 +6596,7 @@ function _renderResults(top) {
         <div class="dev-meta">
           <div class="${rankClass}">${rankLabel}</div>
           <div class="match-pill ${isExact ? "hi" : mc}">${matchLabel}</div>
+          ${favoriteButtonHTML(d)}
         </div>
         <div class="card-toggle">
           <div style="flex:1;min-width:0;">
@@ -5873,7 +6628,8 @@ function _renderResults(top) {
                 </div>
               </div>`
           }
-          <div class="specs-row">${specTags}${missTags}</div>
+          ${explainHtml}
+          <div class="specs-row">${specTags}${radarTags}${missTags}</div>
           <div class="dev-specs-grid">
             <div class="spec-cell"><div class="spec-cell-label">Разрешение</div><div class="spec-cell-val">${d.resolution || '—'}</div></div>
             <div class="spec-cell"><div class="spec-cell-label">Угол обзора</div><div class="spec-cell-val">${d.angle || '—'}</div></div>
@@ -5893,7 +6649,9 @@ function _renderResults(top) {
                 ["Тип дисплея",       d.specs?.display_type || (d.screen ? "есть" : null)],
                 ["Размер экрана",     d.specs?.screen_size],
                 ["Карта памяти (макс)",d.specs?.max_sd],
-                ["Вторая камера",     d.rear_cam ? "поддерживается" : "нет"],
+                ["Поддержка КЗВ", d.rear_cam ? "есть" : "нет"],
+                ["Радарная часть",     radarAntennaLabel(d) || (d.type === "комбо 3 в 1" ? "н/д" : null)],
+                ["LNA-усилитель",      radarAntenna(d) || hasLNA(d) ? (hasLNA(d) ? "есть" : "нет") : null],
                 ["Элемент питания",   d.specs?.power_element],
                 ["Тип питания",       d.specs?.power_type],
                 ["G-сенсор",          d.specs?.gsensor != null ? (d.specs.gsensor ? "есть" : "нет") : null],
@@ -5908,9 +6666,9 @@ function _renderResults(top) {
               }).join("")}
             </div>
           </div>
-          ${d.url ? `<a class="btn-site" href="${d.url}" target="_blank" rel="noopener">
+          ${d.url ? `<a class="btn-site" href="${manufacturerSearchUrl(d)}" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            На сайт производителя
+            Найти на сайте производителя
           </a>` : ''}
           <a class="btn-rutube" href="https://rutube.ru/search/?query=${encodeURIComponent(d.name + ' обзор')}" target="_blank" rel="noopener">
             <svg class="btn-rutube-logo" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -5983,6 +6741,7 @@ function _renderResults(top) {
   }
 
   show("s-results");
+  refreshFavoriteUI();
   window.scrollTo(0, 0);
 
   // Send data back to Telegram if in WebApp context
@@ -6014,6 +6773,7 @@ function goHome() {
 // ════════════════════════════════════════════════════════
 
 document.getElementById("btn-start").addEventListener("click", startQuiz);
+renderFavoritePanel();
 
 if (window.Telegram?.WebApp) {
   Telegram.WebApp.ready();
